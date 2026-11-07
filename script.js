@@ -160,10 +160,10 @@ const starterQuestions=[
  ['Which describes my energy best?',['Quiet & observant 🌙','Talkative & bubbly 🫧','Chaotic & funny ⚡','Calm & thoughtful 🌷'],1],
  ['What would I choose for a free evening?',['Read or watch something 📚','Call a friend ☎️','Try a new hobby 🎨','Go out for a treat 🧋'],0]
 ];
-function creatorView(){
+async function creatorView(){
  const params=new URLSearchParams(location.search);
  const encoded=params.get('quiz');
- if(encoded){try{const quiz=decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');const result=params.get('result');if(result){renderChallengeLanding(quiz,result)}else{playSharedQuiz(quiz)}return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
+ if(encoded){try{const quiz=await decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');const result=params.get('result');if(result){renderChallengeLanding(quiz,result)}else{playSharedQuiz(quiz)}return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
  openModal();renderBuilder();
 }
 const relationPrompts={
@@ -185,17 +185,38 @@ function renderBuilder(){
  const holder=document.getElementById('builder-questions');
  holder.innerHTML=questions.map((q,i)=>'<fieldset class="builder-question"><legend><span>Q'+(i+1)+'</span> '+escapeHTML(q[0])+'</legend><label class="field-label">Question</label><input class="q-text" maxlength="100" required value="'+escapeHTML(q[0])+'"><div class="answer-grid">'+q[1].map((a,j)=>'<label class="answer-edit"><span>Option '+String.fromCharCode(65+j)+'</span><img class="builder-option-photo" src="'+optionImage(a)+'" alt="'+escapeHTML(a)+'" loading="eager" decoding="async"><input class="q-option" maxlength="55" required value="'+escapeHTML(a)+'"><span class="correct-choice"><input type="radio" name="correct-'+i+'" value="'+j+'" '+(j===q[2]?'checked':'')+'><small>Correct answer</small></span></label>').join('')+'</div></fieldset>').join('');
  holder.querySelectorAll('.answer-edit').forEach(card=>{const field=card.querySelector('.q-option'),photo=card.querySelector('.builder-option-photo');photo.onerror=()=>{photo.onerror=null;photo.src='https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=720&q=88'};field.addEventListener('input',()=>{photo.src=optionImage(field.value);photo.alt=field.value})});
- document.getElementById('builder-form').addEventListener('submit',e=>{
+ document.getElementById('builder-form').addEventListener('submit',async e=>{
   e.preventDefault();const name=document.getElementById('creator-name').value.trim();
   const questions=[...holder.querySelectorAll('.builder-question')].map((el,i)=>({text:el.querySelector('.q-text').value.trim(),options:[...el.querySelectorAll('.q-option')].map(x=>x.value.trim()),correct:Number(el.querySelector('input[type=radio]:checked')?.value??0)}));
   if(!name||questions.some(q=>!q.text||q.options.some(a=>!a)))return;
-  const quiz={name,questions,relation,version:1};const token=encodeQuiz(quiz);const url=new URL(location.href);url.search='';url.searchParams.set('quiz',token);url.hash='';
+  const quiz={name,questions,relation,version:1};const token=await encodeQuiz(quiz);const url=new URL(location.href);url.search='';url.searchParams.set('quiz',token);url.hash='';
   if(url.href.length>7500){alert('Your quiz link is too long. Please shorten a few answers.');return}
   renderCreated(url.href,name);chime();
  });
 }
-function encodeQuiz(obj){const bytes=new TextEncoder().encode(JSON.stringify(obj));let binary='';bytes.forEach(b=>binary+=String.fromCharCode(b));return btoa(binary).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
-function decodeQuiz(token){const b64=token.replace(/-/g,'+').replace(/_/g,'/');const binary=atob(b64);const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));const obj=JSON.parse(new TextDecoder().decode(bytes));if(!obj.name||!Array.isArray(obj.questions)||obj.questions.length!==10)throw Error('invalid');obj.questions.forEach(q=>{if(typeof q.text!=='string'||!Array.isArray(q.options)||q.options.length!==4||!Number.isInteger(q.correct)||q.correct<0||q.correct>3)throw Error('invalid')});return obj}
+async function encodeQuiz(obj){
+ const bytes=new TextEncoder().encode(JSON.stringify(obj));
+ if('CompressionStream' in window){
+  try{const stream=new Blob([bytes]).stream().pipeThrough(new CompressionStream('gzip'));const zipped=new Uint8Array(await new Response(stream).arrayBuffer());let binary='';zipped.forEach(b=>binary+=String.fromCharCode(b));return 'z'+btoa(binary).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'')}catch(e){}
+ }
+ let binary='';bytes.forEach(b=>binary+=String.fromCharCode(b));return 'j'+btoa(binary).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'')
+}
+async function decodeQuiz(token){
+ const mode=token[0]==='z'||token[0]==='j'?token[0]:'legacy';
+ if(mode!=='legacy')token=token.slice(1);
+ const b64=token.replace(/-/g,'+').replace(/_/g,'/');
+ const binary=atob(b64);const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+ let decoded=bytes;
+ if(mode==='z'){
+  if(!('DecompressionStream' in window))throw Error('compressed links need a modern browser');
+  const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+  decoded=new Uint8Array(await new Response(stream).arrayBuffer());
+ }
+ const obj=JSON.parse(new TextDecoder().decode(decoded));
+ if(!obj.name||!Array.isArray(obj.questions)||obj.questions.length!==10)throw Error('invalid');
+ obj.questions.forEach(q=>{if(typeof q.text!=='string'||!Array.isArray(q.options)||q.options.length!==4||!Number.isInteger(q.correct)||q.correct<0||q.correct>3)throw Error('invalid')});
+ return obj
+}
 function renderCreated(url,name){
  content.innerHTML='<div class="created-state"><div class="created-emoji">🎉💌</div><span class="builder-kicker">YOUR QUIZ IS READY</span><h2 id="modal-title">Looking good, '+escapeHTML(name)+'!</h2><p>Your personal quiz link is ready. Send it to your friends and see who knows you best.</p><div class="share-link-box"><input id="quiz-url" readonly value="'+escapeHTML(url)+'" aria-label="Your quiz link"><button id="copy-quiz" class="modal-button">Copy link</button></div><button id="native-share" class="modal-button secondary-button wide-button">Share with friends ↗</button><div class="created-note">♡ Anyone with this link can play. Keep it among people you trust.</div><button id="edit-quiz" class="text-action">← Edit my questions</button></div>';
  document.getElementById('copy-quiz').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);document.getElementById('copy-quiz').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('quiz-url').select();alert('Copy the selected link.')}});
