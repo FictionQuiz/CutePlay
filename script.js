@@ -50,44 +50,42 @@ const optionPhotoMap=[
 function optionImage(label){
  const text=String(label).normalize('NFKD').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
  const photos=[
- [/pizza|pepperoni|margherita/,'photo-1513104890138-7c749659a591'],
+ [/pizza|pepperoni|margherita|cheese slice/,'photo-1513104890138-7c749659a591'],
  [/pasta|spaghetti|lasagna|mac and cheese|noodles/,'photo-1551183053-bf91a1d81141'],
  [/burger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],
- [/sushi|sashimi|ramen/,'photo-1579871494447-42269a4b2f6c'],
+ [/sushi|sashimi/,'photo-1579871494447-42269a4b2f6c'],
+ [/ramen/,'photo-1569718212165-3a8278d5f624'],
  [/taco|burrito|nacho/,'photo-1551504734-5ee1c4a1479b'],
  [/chocolate|cocoa|brownie/,'photo-1511381939415-e44015466834'],
  [/cupcake|cake|dessert|cookie|donut|doughnut/,'photo-1486427944299-d1955d23e34d'],
  [/ice cream|gelato/,'photo-1501446529957-6226bd447c46'],
- [/snack|treat|candy|sweet|homemade|food|meal/,'photo-1547592180-85f173990554'],
- [/movie|film|cinema|popcorn|watch something/,'photo-1517604931442-7e0c8ed2963c'],
- [/adventure|trip|journey|outing|road trip/,'photo-1500530855697-b586d89ba3ee'],
- [/cozy|home|blanket|relax|weekend/,'photo-1449247709967-d4461a6a6103'],
- [/shopping|shop|store/,'photo-1516035069371-29a1b244cc32'],
+ [/strawberr|fruit|salad|vegetable/,'photo-1490645935967-10de6ba17061'],
+ [/coffee|tea|cafe|bubble tea|boba|warm drink/,'photo-1495474472287-4d71bcdd2085'],
+ [/shopping|shop|store/,'photo-1441986300917-64674bd600d8'],
  [/instagram|camera|photograph|photo/,'photo-1516035069371-29a1b244cc32'],
- [/youtube|video/,'photo-1492619375914-88005aa9e8fb'],
- [/message|reply|chat|text|phone|call/,'photo-1516321318423-f06f85e504b3'],
- [/music|playlist|song|concert|dance/,'photo-1511379938547-c1f69419868d'],
- [/wait|waiting|clock|time|late/,'photo-1506377711776-dbdc2f3m8b9a'],
- [/mess|clean|tidy|organize/,'photo-1584622650111-993a426fbf0a'],
- [/magic|magical|kingdom|castle|fairy|fantasy|cartoon town/,'photo-1518709268805-4e9042af9f23'],
- [/superhero|hero/,'photo-1635863138275-d9b33299680b'],
- [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
- [/gift|present|surprise|thoughtful/,'photo-1513201099705-a9746e1e201f'],
- [/meme|funny|laugh|joke|story|inside joke/,'photo-1527224857830-43a7acc85260'],
- [/friend|group|team|party|people|together/,'photo-1529156069898-49953e39b3ac'],
- [/cat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
- [/dog|puppy|animal/,'photo-1552053831-71594a27632d'],
- [/book|read|reading|novel|library/,'photo-1512820790803-83ca734da794'],
- [/beach|sea|ocean|island|coast/,'photo-1507525428034-b723cf961d3e'],
+ [/youtube|video|stream/,'photo-1492619375914-88005aa9e8fb'],
+ [/message|reply|chat|text|phone|call|voice note|group chat/,'photo-1516321318423-f06f85e504b3'],
+ [/music|playlist|song|concert|dance|dj/,'photo-1511379938547-c1f69419868d'],
+ [/movie|film|cinema|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
  [/snow|mountain|ski|winter|snowy|frost/,'photo-1464822759023-fed622ff2c3b'],
- [/city|city lights|street|shopping|cafe/,'photo-1519608487953-e999c86e7455'],
+ [/beach|sea|ocean|island|coast|seaside/,'photo-1507525428034-b723cf961d3e'],
+ [/city|city lights|street|outing|go out/,'photo-1519608487953-e999c86e7455'],
  [/garden|flower|rose|blossom|countryside/,'photo-1490750967868-88aa4486c946'],
- [/quiet|calm|thoughtful|peaceful|night|moon/,'photo-1470252649378-9c29740c9fa8'],
- [/talkative|bubbly|chaotic|energetic/,'photo-1529156069898-49953e39b3ac'],
- [/hobby|art|paint|drawing|creative|craft/,'photo-1513364776144-60967b0f800f'],
+ [/cat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
+ [/dog|puppy/,'photo-1552053831-71594a27632d'],
+ [/book|read|reading|novel|library/,'photo-1512820790803-83ca734da794'],
+ [/gift|present|surprise|handwritten note|letter/,'photo-1513201099705-a9746e1e201f'],
+ [/meme|funny|laugh|joke|inside joke/,'photo-1527224857830-43a7acc85260'],
+ [/friend|group|team|party|people|together/,'photo-1529156069898-49953e39b3ac'],
+ [/adventure|trip|journey|road trip|travel/,'photo-1500530855697-b586d89ba3ee'],
+ [/magic|magical|kingdom|castle|fairy|fantasy/,'photo-1518709268805-4e9042af9f23'],
+ [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
  [/sport|football|basketball/,'photo-1461896836934-ffe607ba8211'],
- [/notebook|writing|story|journal|letter|handwritten/,'photo-1455390582262-044cdead277a'],
- [/coffee|tea|cafe|bubble tea|boba/,'photo-1495474472287-4d71bcdd2085']
+ [/notebook|writing|journal|story|craft|drawing|paint/,'photo-1455390582262-044cdead277a'],
+ [/home|cozy|blanket|relax|weekend|reading nook/,'photo-1449247709967-d4461a6a6103'],
+ [/wait|waiting|clock|time|late/,'photo-1508057198894-247b23fe5ade'],
+ [/clean|tidy|organize|messy space/,'photo-1584622650111-993a426fbf0a'],
+ [/default/,'photo-1513364776144-60967b0f800f']
  ];
  const match=photos.find(([pattern])=>pattern.test(text));
  const id=match?match[1]:'photo-1513364776144-60967b0f800f';
@@ -182,16 +180,30 @@ function creatorView(){
  if(encoded){try{const quiz=decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');const result=params.get('result');if(result){renderChallengeLanding(quiz,result)}else{playSharedQuiz(quiz)}return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
  openModal();renderBuilder();
 }
+const relationPrompts={
+ bestie:["What is my ultimate comfort food?","What would my perfect day with you look like?","Which app do I probably open first?","What is my biggest pet peeve?","Which fictional world would I visit?","What kind of gift would make me happiest?","What makes me laugh instantly?","Choose my dream destination.","Which describes my energy best?","What would I choose for a free evening?"],
+ sister:["What snack do I always reach for?","What would I pick for our perfect sister day?","Which app do I open first?","What little thing annoys me most?","Which fictional world would I visit with you?","What kind of surprise would I love?","What always makes us laugh together?","Where would I choose for a sister trip?","What is my usual mood at home?","How would I spend a free evening?"],
+ brother:["What food would I pick first?","What would I choose for our ideal day out?","Which app do I use the most?","What gets on my nerves quickly?","Which fictional world would I explore?","What gift would I actually use?","What kind of joke makes me laugh?","Which place would I visit first?","How would you describe my energy?","What would I do on a free evening?"],
+ mom:["What is my favourite comfort meal?","What would make my perfect family day?","Which app do I check most?","What small thing bothers me?","Which place would I love to visit?","What thoughtful gift would I treasure?","What always makes me smile?","What is my dream family outing?","Which word describes my usual mood?","How do I like to relax?"],
+ dad:["What food would I choose for a treat?","What would be my ideal day off?","Which app do I use most?","What is my biggest pet peeve?","Which destination would I choose?","What practical gift would I like?","What kind of humour makes me laugh?","Where would I go for a day trip?","How would you describe my vibe?","What do I enjoy doing after a busy day?"],
+ cousin:["What is my go-to snack?","What would our perfect hangout be?","Which app do I open first?","What annoys me the most?","Which fictional world would I visit?","What surprise would I enjoy?","What makes our family laugh?","Where would I plan a cousin trip?","What is my usual energy?","What would I choose for a free evening?"],
+ family:["What is my favourite comfort food?","What would I choose for a perfect family day?","Which app do I use most?","What is my biggest pet peeve?","Which place would I love to explore?","What kind of gift makes me happiest?","What always makes me laugh?","What would be my dream family trip?","Which word describes my personality?","How do I like to spend a quiet evening?"],
+ special:["What is my ultimate comfort food?","What would my ideal day together look like?","Which app do I probably open first?","What is my biggest pet peeve?","Which fictional world would I visit?","What kind of thoughtful surprise would I love?","What makes me laugh instantly?","Choose my dream destination.","Which describes my energy best?","What would I choose for a relaxed evening?"]
+};
+const relationNames={bestie:"Bestie",sister:"Sister",brother:"Brother",mom:"Mom",dad:"Dad",cousin:"Cousin",family:"Family",special:"Someone Special"};
 function renderBuilder(){
- content.innerHTML='<div class="builder-heading"><span class="builder-kicker">YOUR FRIENDSHIP CHALLENGE ✨</span><h2 id="modal-title">Create your bestie quiz 💌</h2><p>Set your own answers, then send your quiz link to friends. They will try to guess your choices!</p></div><form id="builder-form" class="builder-form"><label class="field-label" for="creator-name">Your nickname</label><input id="creator-name" maxlength="22" required placeholder="e.g. Cupcake"><div class="builder-progress"><b>10 questions</b><span>Make it yours</span></div><div id="builder-questions"></div><button class="modal-button builder-submit" type="submit">Create my quiz link ✨</button><p class="tiny-privacy">No account needed. Your quiz is packed into a shareable link.</p></form>';
+ const params=new URLSearchParams(location.search),relation=params.get('type')||'bestie';
+ const prompts=relationPrompts[relation]||relationPrompts.bestie;
+ const questions=starterQuestions.map((q,i)=>[prompts[i],q[1],q[2]]);
+ content.innerHTML='<div class="builder-heading"><span class="builder-kicker">'+escapeHTML((relationNames[relation]||'Bestie').toUpperCase())+' CHALLENGE ✨</span><h2 id="modal-title">Create your '+escapeHTML((relationNames[relation]||'bestie').toLowerCase())+' quiz 💌</h2><p>Set your own answers, then share your personal quiz link. See who knows you best!</p></div><form id="builder-form" class="builder-form"><label class="field-label" for="creator-name">Your nickname</label><input id="creator-name" maxlength="22" required placeholder="e.g. Cupcake"><div class="builder-progress"><b>10 questions</b><span>Make it yours</span></div><div id="builder-questions"></div><button class="modal-button builder-submit" type="submit">Create my quiz link ✨</button><p class="tiny-privacy">No account needed. Your quiz is packed into a shareable link.</p></form>';
  const holder=document.getElementById('builder-questions');
- holder.innerHTML=starterQuestions.map((q,i)=>'<fieldset class="builder-question"><legend><span>Q'+(i+1)+'</span> '+escapeHTML(q[0])+'</legend><label class="field-label">Question</label><input class="q-text" maxlength="100" required value="'+escapeHTML(q[0])+'"><div class="answer-grid">'+q[1].map((a,j)=>'<label class="answer-edit"><span>Option '+String.fromCharCode(65+j)+'</span><img class="builder-option-photo" src="'+optionImage(a)+'" alt="'+escapeHTML(a)+'" loading="eager" decoding="async"><input class="q-option" maxlength="55" required value="'+escapeHTML(a)+'"><span class="correct-choice"><input type="radio" name="correct-'+i+'" value="'+j+'" '+(j===q[2]?'checked':'')+'><small>Correct answer</small></span></label>').join('')+'</div></fieldset>').join('');
+ holder.innerHTML=questions.map((q,i)=>'<fieldset class="builder-question"><legend><span>Q'+(i+1)+'</span> '+escapeHTML(q[0])+'</legend><label class="field-label">Question</label><input class="q-text" maxlength="100" required value="'+escapeHTML(q[0])+'"><div class="answer-grid">'+q[1].map((a,j)=>'<label class="answer-edit"><span>Option '+String.fromCharCode(65+j)+'</span><img class="builder-option-photo" src="'+optionImage(a)+'" alt="'+escapeHTML(a)+'" loading="eager" decoding="async"><input class="q-option" maxlength="55" required value="'+escapeHTML(a)+'"><span class="correct-choice"><input type="radio" name="correct-'+i+'" value="'+j+'" '+(j===q[2]?'checked':'')+'><small>Correct answer</small></span></label>').join('')+'</div></fieldset>').join('');
  holder.querySelectorAll('.answer-edit').forEach(card=>{const field=card.querySelector('.q-option'),photo=card.querySelector('.builder-option-photo');photo.onerror=()=>{photo.onerror=null;photo.src='https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=720&q=88'};field.addEventListener('input',()=>{photo.src=optionImage(field.value);photo.alt=field.value})});
  document.getElementById('builder-form').addEventListener('submit',e=>{
   e.preventDefault();const name=document.getElementById('creator-name').value.trim();
   const questions=[...holder.querySelectorAll('.builder-question')].map((el,i)=>({text:el.querySelector('.q-text').value.trim(),options:[...el.querySelectorAll('.q-option')].map(x=>x.value.trim()),correct:Number(el.querySelector('input[type=radio]:checked')?.value??0)}));
   if(!name||questions.some(q=>!q.text||q.options.some(a=>!a)))return;
-  const quiz={name,questions,version:1};const token=encodeQuiz(quiz);const url=new URL(location.href);url.search='';url.searchParams.set('quiz',token);url.hash='';
+  const quiz={name,questions,relation,version:1};const token=encodeQuiz(quiz);const url=new URL(location.href);url.search='';url.searchParams.set('quiz',token);url.hash='';
   if(url.href.length>7500){alert('Your quiz link is too long. Please shorten a few answers.');return}
   renderCreated(url.href,name);chime();
  });
