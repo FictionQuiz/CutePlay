@@ -1,3 +1,35 @@
+
+/* Match each answer to a relevant real photo so picture choices work across quizzes. */
+const optionPhotoMap=[
+ [/pizza|pepperoni|cheese slice/i,'photo-1513104890138-7c749659a591'],
+ [/pasta|spaghetti|mac ?and cheese|noodles/i,'photo-1551183053-bf91a1d81141'],
+ [/chocolate|cocoa|brownie/i,'photo-1511381939415-e44015466834'],
+ [/homemade|home ?cooked|soup|meal|food|snack|treat/i,'photo-1547592180-85f173990554'],
+ [/snow|mountain|ski|winter|ice|frost/i,'photo-1464822759023-fed622ff2c3b'],
+ [/beach|sea|ocean|island|coast/i,'photo-1507525428034-b723cf961d3e'],
+ [/city|city lights|street|shopping|cafe|café/i,'photo-1519608487953-e999c86e7455'],
+ [/garden|flower|floral|rose|blossom/i,'photo-1490750967868-88aa4486c946'],
+ [/cat|kitten/i,'photo-1514888286974-6c03e2ca1dba'],
+ [/dog|puppy/i,'photo-1552053831-71594a27632d'],
+ [/book|read|reading|novel|library/i,'photo-1512820790803-83ca734da794'],
+ [/coffee|tea|café|cafe|warm drink/i,'photo-1495474472287-4d71bcdd2085'],
+ [/cupcake|cake|dessert|cookie|sweet/i,'photo-1486427944299-d1955d23e34d'],
+ [/music|playlist|song|concert|dance/i,'photo-1511379938547-c1f69419868d'],
+ [/movie|film|cinema|popcorn/i,'photo-1489599849927-2ee91 city?'],
+ [/travel|adventure|trip|journey|map/i,'photo-1500530855697-b586d89ba3ee'],
+ [/sunset|sunrise|sky|star|moon|night/i,'photo-1470252649378-9c29740c9fa8'],
+ [/rainbow|color|art|paint|creative|craft/i,'photo-1513364776144-60967b0f800f'],
+ [/friend|group|team|party|people|together/i,'photo-1529156069898-49953e39b3ac'],
+ [/home|cozy|blanket|cuddle|relax/i,'photo-1449247709967-d4461a6a6103'],
+ [/sport|game|football|basketball/i,'photo-1461896836934- voices'],
+ [/default/i,'photo-1470252649378-9c29740c9fa8']
+];
+function optionImage(label){
+ const text=String(label).replace(/[🍕🍝🍫🥣🍿🌈🧸🛍️📸▶️💬🎧⏰🙉🧦😶🏰🦸🍄🚀💌🎟️🎁🍬😂🤫🎭🐣🏝️❄️🌃🌻🌙🫧⚡🌷]/gu,'');
+ const match=optionPhotoMap.find(([pattern])=>pattern.test(text));
+ const id=match?match[1]:'photo-1470252649378-9c29740c9fa8';
+ return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=640&q=82';
+}
 const modal=document.getElementById('game-modal');
 const content=document.getElementById('game-content');
 const closeButton=document.getElementById('modal-close');
@@ -48,7 +80,7 @@ function showResult(name,emoji,title,description){
 function startQuiz(title,intro,questions,resultLabel){
  let index=0,score=0;
  function render(){
-  content.innerHTML='<h2 id="modal-title">'+title+'</h2><p>'+intro+'</p><div class="progress"><span style="width:'+(index/questions.length*100)+'%"></span></div><p><b>QUESTION '+(index+1)+' OF '+questions.length+'</b></p><h3>'+questions[index][0]+'</h3><div class="question-options">'+questions[index][1].map((o,i)=>'<button class="option-button" data-choice="'+i+'">'+o+'</button>').join('')+'</div>';
+  content.innerHTML='<h2 id="modal-title">'+title+'</h2><p>'+intro+'</p><div class="progress"><span style="width:'+(index/questions.length*100)+'%"></span></div><p><b>QUESTION '+(index+1)+' OF '+questions.length+'</b></p><h3>'+questions[index][0]+'</h3><div class="question-options">'+questions[index][1].map((o,i)=>'<button class="option-button image-option" data-choice="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="lazy"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
   content.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',()=>{tone(560+Number(b.dataset.choice)*80);score+=Number(b.dataset.choice);index++;if(index<questions.length)render();else finish()}));
  }
  function finish(){
@@ -119,7 +151,7 @@ function playSharedQuiz(quiz){
  openModal();let index=0,answers=[];
  function render(){
   const q=quiz.questions[index];
-  content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A QUIZ FROM '+escapeHTML(quiz.name.toUpperCase())+' 💗</span><h2 id="modal-title">How well do you know them?</h2><div class="progress"><span style="width:'+((index)/quiz.questions.length*100)+'%"></span></div><p class="question-count">QUESTION '+(index+1)+' OF '+quiz.questions.length+'</p><h3>'+escapeHTML(q.text)+'</h3><div class="question-options">'+q.options.map((o,i)=>'<button class="option-button" data-answer="'+i+'">'+escapeHTML(o)+'</button>').join('')+'</div><p class="tiny-privacy">Choose your best guess — you can’t change it later.</p></div>';
+  content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A QUIZ FROM '+escapeHTML(quiz.name.toUpperCase())+' 💗</span><h2 id="modal-title">How well do you know them?</h2><div class="progress"><span style="width:'+((index)/quiz.questions.length*100)+'%"></span></div><p class="question-count">QUESTION '+(index+1)+' OF '+quiz.questions.length+'</p><h3>'+escapeHTML(q.text)+'</h3><div class="question-options">'+q.options.map((o,i)=>'<button class="option-button image-option" data-answer="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="lazy"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div><p class="tiny-privacy">Choose your best guess — you can’t change it later.</p></div>';
   content.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{answers.push(Number(btn.dataset.answer));tone(590);index++;if(index<quiz.questions.length)render();else showSharedScore()}));
  }
  function showSharedScore(){
