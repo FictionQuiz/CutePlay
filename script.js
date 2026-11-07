@@ -220,11 +220,38 @@ function playSharedQuiz(quiz){
   const score=answers.reduce((sum,a,i)=>sum+(a===quiz.questions[i].correct?1:0),0),total=quiz.questions.length,percent=Math.round(score/total*100);
   const level=percent===100?['🏆','BESTIE LEGEND','You know them inside out!']:percent>=80?['💗','ULTIMATE BESTIE','You two are seriously in sync.']:percent>=60?['🫶','CLOSE FRIEND ENERGY','You know a lot about them!']:percent>=40?['🌷','GETTING CLOSER','A few more chats and you’ve got this.']:['🧸','FRIENDSHIP IN PROGRESS','Time for more fun conversations!'];
   const resultUrl=new URL(location.href);resultUrl.searchParams.set('result',score+'-'+percent);history.replaceState({},'',resultUrl.href);
-  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR BESTIE QUIZ RESULT</span><h2 id="modal-title">'+percent+'%</h2><div class="score-fraction">'+score+' correct out of '+total+'</div><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">You played '+escapeHTML(quiz.name)+'’s quiz.</p><div class="result-actions"><button id="share-score" class="modal-button">Challenge another friend ↗</button><button id="make-own" class="modal-button secondary-button">Create my own quiz ♡</button></div><p class="tiny-privacy">Your challenge link carries this score preview. Friends can tap through and take the same quiz.</p></div>';
+  window.__cutePlayPendingScore={quiz:quiz.name,score,total,percent};
+  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR BESTIE QUIZ RESULT</span><h2 id="modal-title">'+percent+'%</h2><div class="score-fraction">'+score+' correct out of '+total+'</div><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">You played '+escapeHTML(quiz.name)+'’s quiz.</p><div id="score-save-area" class="score-save-area"><label for="leader-nickname">Add a nickname to the scoreboard</label><div><input id="leader-nickname" maxlength="22" placeholder="Your nickname"><button id="save-leader-score" class="modal-button">Save score</button></div></div><div class="result-actions"><button id="share-score" class="modal-button">Challenge another friend ↗</button><button id="make-own" class="modal-button secondary-button">Create my own quiz ♡</button></div><p class="tiny-privacy">Scoreboard currently saves on this device only. A shared all-player board needs Firebase.</p></div>';
   document.getElementById('share-score').addEventListener('click',()=>shareText('I scored '+score+'/'+total+' ('+percent+'%) on '+quiz.name+'’s CutePlay Bestie Quiz! My title: '+level[1]+'. Can you beat me? '+resultUrl.href));document.getElementById('make-own').addEventListener('click',()=>{history.replaceState({},'',location.pathname+'?create=1');renderBuilder()});chime();launchConfetti();
  }
  render();
 }
+
+// CutePlay scorebook (local preview until a shared database is connected).
+const SCORE_KEY='cuteplay-scorebook-v1';
+function readScores(){try{return JSON.parse(localStorage.getItem(SCORE_KEY)||'[]')}catch(e){return[]}}
+function saveScoreEntry(name,quiz,score,total,percent){
+ const rows=readScores();rows.push({name:name.slice(0,22),quiz:quiz.slice(0,45),score,total,percent,at:Date.now()});
+ rows.sort((a,b)=>b.percent-a.percent||b.score-a.score||a.at-b.at);
+ localStorage.setItem(SCORE_KEY,JSON.stringify(rows.slice(0,100)));
+}
+function renderLeaderboard(){
+ const host=document.getElementById('leaderboard-list');if(!host)return;
+ const rows=readScores().sort((a,b)=>b.percent-a.percent||b.score-a.score||a.at-b.at).slice(0,10);
+ host.innerHTML=rows.length?rows.map((r,i)=>'<div class="leader-row"><span class="leader-rank">'+(['🥇','🥈','🥉'][i]||('#'+(i+1)))+'</span><span class="leader-avatar">'+(['🐰','🐻','🐱','🐼','🦊'][i%5])+'</span><span class="leader-details"><b>'+escapeHTML(r.name)+'</b><small>'+escapeHTML(r.quiz)+'</small></span><strong>'+r.percent+'%</strong></div>').join(''):'<div class="leader-empty"><span>🐰</span><b>Your score story starts here!</b><small>Play a custom quiz and save your result to appear on this board.</small></div>';
+}
+document.getElementById('save-leader-score')?.addEventListener('click',()=>{
+ const name=document.getElementById('leader-nickname')?.value.trim();
+ const data=window.__cutePlayPendingScore;
+ if(!name||!data){document.getElementById('leader-nickname')?.focus();return}
+ saveScoreEntry(name,data.quiz,data.score,data.total,data.percent);window.__cutePlayPendingScore=null;
+ document.getElementById('score-save-area').innerHTML='<p class="saved-score-note">Saved on this device! ✨</p>';renderLeaderboard();tone(780);
+});
+document.getElementById('clear-local-scores')?.addEventListener('click',()=>{
+ if(confirm('Clear the scores saved in this browser?')){localStorage.removeItem(SCORE_KEY);renderLeaderboard()}
+});
+renderLeaderboard();
+
 function launchConfetti(){const layer=document.createElement('div');layer.className='confetti-layer';layer.setAttribute('aria-hidden','true');for(let i=0;i<28;i++){const bit=document.createElement('i');bit.textContent=['✦','♥','•','✧'][i%4];bit.style.left=(Math.random()*100)+'%';bit.style.animationDelay=(Math.random()*.65)+'s';layer.appendChild(bit)}document.body.appendChild(layer);setTimeout(()=>layer.remove(),2400)}
 document.getElementById('create-quiz-card')?.addEventListener('click',creatorView);
 if(new URLSearchParams(location.search).has('quiz')||new URLSearchParams(location.search).has('create'))creatorView();
