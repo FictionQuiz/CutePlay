@@ -15,13 +15,13 @@ const optionPhotoMap=[
  [/coffee|tea|café|cafe|warm drink/i,'photo-1495474472287-4d71bcdd2085'],
  [/cupcake|cake|dessert|cookie|sweet/i,'photo-1486427944299-d1955d23e34d'],
  [/music|playlist|song|concert|dance/i,'photo-1511379938547-c1f69419868d'],
- [/movie|film|cinema|popcorn/i,'photo-1489599849927-2ee91 city?'],
+ [/movie|film|cinema|popcorn/i,'photo-1489599849927-2ee91c...'],
  [/travel|adventure|trip|journey|map/i,'photo-1500530855697-b586d89ba3ee'],
  [/sunset|sunrise|sky|star|moon|night/i,'photo-1470252649378-9c29740c9fa8'],
  [/rainbow|color|art|paint|creative|craft/i,'photo-1513364776144-60967b0f800f'],
  [/friend|group|team|party|people|together/i,'photo-1529156069898-49953e39b3ac'],
  [/home|cozy|blanket|cuddle|relax/i,'photo-1449247709967-d4461a6a6103'],
- [/sport|game|football|basketball/i,'photo-1461896836934- voices'],
+ [/sport|game|football|basketball/i,'photo-1461896836934-ffe607ba8211'],
  [/default/i,'photo-1470252649378-9c29740c9fa8']
 ];
 function optionImage(label){
