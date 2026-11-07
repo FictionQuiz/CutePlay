@@ -49,42 +49,48 @@ const optionPhotoMap=[
 ];
 function optionImage(label){
  const text=String(label).normalize('NFKD').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
- const exact=[
-  [/\bpizza|pepperoni|margherita/,'photo-1513104890138-7c749659a591'],
-  [/\bpasta|spaghetti|lasagna|mac and cheese|noodles/,'photo-1551183053-bf91a1d81141'],
-  [/\bburger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],
-  [/\bsushi|sashimi|ramen/,'photo-1579871494447-42269a4b2f6c'],
-  [/\btaco|burrito|nacho/,'photo-1551504734-5ee1c4a1479b'],
-  [/\bchocolate|cocoa|brownie/,'photo-1511381939415-e44015466834'],
-  [/\bcupcake|cake|dessert|cookie|donut|doughnut/,'photo-1486427944299-d1955d23e34d'],
-  [/\bice cream|gelato/,'photo-1501446529957-6226bd447c46'],
-  [/\bsnow|mountain|ski|winter|snowy|frost/,'photo-1464822759023-fed622ff2c3b'],
-  [/\bbeach|sea|ocean|island|coast/,'photo-1507525428034-b723cf961d3e'],
-  [/\bcat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
-  [/\bdog|puppy/,'photo-1552053831-71594a27632d'],
-  [/\bbook|reading|novel|library/,'photo-1512820790803-83ca734da794'],
-  [/\bcoffee|tea|cafe/,'photo-1495474472287-4d71bcdd2085'],
-  [/\bmovie|film|cinema|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
-  [/\bspace|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
-  [/\bgift|present/,'photo-1513201099705-a9746e1e201f'],
-  [/\bflower|garden|rose|blossom/,'photo-1490750967868-88aa4486c946'],
-  [/\bfriend|group|team|party|people/,'photo-1529156069898-49953e39b3ac'],
-  [/\bmessage|chat|reply|typing/,'photo-1516321318423-f06f85e504b3'],
-  [/\binstagram|camera|photograph/,'photo-1516035069371-29a1b244cc32'],
-  [/\byoutube|video/,'photo-1492619375914-88005aa9e8fb'],
-  [/\bmusic|playlist|song|concert|dance/,'photo-1511379938547-c1f69419868d'],
-  [/\btravel|adventure|trip|journey|road trip/,'photo-1500530855697-b586d89ba3ee'],
-  [/\bhome|cozy|blanket|relax/,'photo-1449247709967-d4461a6a6103'],
-  [/\bnotebook|writing|story|journal|letter/,'photo-1455390582262-044cdead277a'],
-  [/\bsport|football|basketball/,'photo-1461896836934-ffe607ba8211'],
-  [/\bmagic|fantasy|castle|fairy/,'photo-1518709268805-4e9042af9f23'],
-  [/\bfood|snack|meal|soup|treat/,'photo-1547592180-85f173990554'],
-  [/\bart|paint|drawing|craft|creative/,'photo-1513364776144-60967b0f800f'],
-  [/\bsky|sunset|sunrise|star|moon|night/,'photo-1470252649378-9c29740c9fa8']
+ const photos=[
+ [/pizza|pepperoni|margherita/,'photo-1513104890138-7c749659a591'],
+ [/pasta|spaghetti|lasagna|mac and cheese|noodles/,'photo-1551183053-bf91a1d81141'],
+ [/burger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],
+ [/sushi|sashimi|ramen/,'photo-1579871494447-42269a4b2f6c'],
+ [/taco|burrito|nacho/,'photo-1551504734-5ee1c4a1479b'],
+ [/chocolate|cocoa|brownie/,'photo-1511381939415-e44015466834'],
+ [/cupcake|cake|dessert|cookie|donut|doughnut/,'photo-1486427944299-d1955d23e34d'],
+ [/ice cream|gelato/,'photo-1501446529957-6226bd447c46'],
+ [/snack|treat|candy|sweet|homemade|food|meal/,'photo-1547592180-85f173990554'],
+ [/movie|film|cinema|popcorn|watch something/,'photo-1517604931442-7e0c8ed2963c'],
+ [/adventure|trip|journey|outing|road trip/,'photo-1500530855697-b586d89ba3ee'],
+ [/cozy|home|blanket|relax|weekend/,'photo-1449247709967-d4461a6a6103'],
+ [/shopping|shop|store/,'photo-1516035069371-29a1b244cc32'],
+ [/instagram|camera|photograph|photo/,'photo-1516035069371-29a1b244cc32'],
+ [/youtube|video/,'photo-1492619375914-88005aa9e8fb'],
+ [/message|reply|chat|text|phone|call/,'photo-1516321318423-f06f85e504b3'],
+ [/music|playlist|song|concert|dance/,'photo-1511379938547-c1f69419868d'],
+ [/wait|waiting|clock|time|late/,'photo-1506377711776-dbdc2f3m8b9a'],
+ [/mess|clean|tidy|organize/,'photo-1584622650111-993a426fbf0a'],
+ [/magic|magical|kingdom|castle|fairy|fantasy|cartoon town/,'photo-1518709268805-4e9042af9f23'],
+ [/superhero|hero/,'photo-1635863138275-d9b33299680b'],
+ [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
+ [/gift|present|surprise|thoughtful/,'photo-1513201099705-a9746e1e201f'],
+ [/meme|funny|laugh|joke|story|inside joke/,'photo-1527224857830-43a7acc85260'],
+ [/friend|group|team|party|people|together/,'photo-1529156069898-49953e39b3ac'],
+ [/cat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
+ [/dog|puppy|animal/,'photo-1552053831-71594a27632d'],
+ [/book|read|reading|novel|library/,'photo-1512820790803-83ca734da794'],
+ [/beach|sea|ocean|island|coast/,'photo-1507525428034-b723cf961d3e'],
+ [/snow|mountain|ski|winter|snowy|frost/,'photo-1464822759023-fed622ff2c3b'],
+ [/city|city lights|street|shopping|cafe/,'photo-1519608487953-e999c86e7455'],
+ [/garden|flower|rose|blossom|countryside/,'photo-1490750967868-88aa4486c946'],
+ [/quiet|calm|thoughtful|peaceful|night|moon/,'photo-1470252649378-9c29740c9fa8'],
+ [/talkative|bubbly|chaotic|energetic/,'photo-1529156069898-49953e39b3ac'],
+ [/hobby|art|paint|drawing|creative|craft/,'photo-1513364776144-60967b0f800f'],
+ [/sport|football|basketball/,'photo-1461896836934-ffe607ba8211'],
+ [/notebook|writing|story|journal|letter|handwritten/,'photo-1455390582262-044cdead277a'],
+ [/coffee|tea|cafe|bubble tea|boba/,'photo-1495474472287-4d71bcdd2085']
  ];
- const match=exact.find(([pattern])=>pattern.test(text));
- const fallback=optionPhotoMap.find(([pattern])=>pattern.test(text));
- const id=(match&&match[1])||(fallback&&fallback[1])||'photo-1513364776144-60967b0f800f';
+ const match=photos.find(([pattern])=>pattern.test(text));
+ const id=match?match[1]:'photo-1513364776144-60967b0f800f';
  return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=88';
 }
 const modal=document.getElementById('game-modal');
@@ -180,7 +186,7 @@ function renderBuilder(){
  content.innerHTML='<div class="builder-heading"><span class="builder-kicker">YOUR FRIENDSHIP CHALLENGE ✨</span><h2 id="modal-title">Create your bestie quiz 💌</h2><p>Set your own answers, then send your quiz link to friends. They will try to guess your choices!</p></div><form id="builder-form" class="builder-form"><label class="field-label" for="creator-name">Your nickname</label><input id="creator-name" maxlength="22" required placeholder="e.g. Cupcake"><div class="builder-progress"><b>10 questions</b><span>Make it yours</span></div><div id="builder-questions"></div><button class="modal-button builder-submit" type="submit">Create my quiz link ✨</button><p class="tiny-privacy">No account needed. Your quiz is packed into a shareable link.</p></form>';
  const holder=document.getElementById('builder-questions');
  holder.innerHTML=starterQuestions.map((q,i)=>'<fieldset class="builder-question"><legend><span>Q'+(i+1)+'</span> '+escapeHTML(q[0])+'</legend><label class="field-label">Question</label><input class="q-text" maxlength="100" required value="'+escapeHTML(q[0])+'"><div class="answer-grid">'+q[1].map((a,j)=>'<label class="answer-edit"><span>Option '+String.fromCharCode(65+j)+'</span><img class="builder-option-photo" src="'+optionImage(a)+'" alt="'+escapeHTML(a)+'" loading="eager" decoding="async"><input class="q-option" maxlength="55" required value="'+escapeHTML(a)+'"><span class="correct-choice"><input type="radio" name="correct-'+i+'" value="'+j+'" '+(j===q[2]?'checked':'')+'><small>Correct answer</small></span></label>').join('')+'</div></fieldset>').join('');
- holder.querySelectorAll('.answer-edit').forEach(card=>{const field=card.querySelector('.q-option'),photo=card.querySelector('.builder-option-photo');field.addEventListener('input',()=>{photo.src=optionImage(field.value);photo.alt=field.value})});
+ holder.querySelectorAll('.answer-edit').forEach(card=>{const field=card.querySelector('.q-option'),photo=card.querySelector('.builder-option-photo');photo.onerror=()=>{photo.onerror=null;photo.src='https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=720&q=88'};field.addEventListener('input',()=>{photo.src=optionImage(field.value);photo.alt=field.value})});
  document.getElementById('builder-form').addEventListener('submit',e=>{
   e.preventDefault();const name=document.getElementById('creator-name').value.trim();
   const questions=[...holder.querySelectorAll('.builder-question')].map((el,i)=>({text:el.querySelector('.q-text').value.trim(),options:[...el.querySelectorAll('.q-option')].map(x=>x.value.trim()),correct:Number(el.querySelector('input[type=radio]:checked')?.value??0)}));
