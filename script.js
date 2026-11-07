@@ -52,9 +52,10 @@ function startQuiz(title,intro,questions,resultLabel){
   content.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',()=>{tone(560+Number(b.dataset.choice)*80);score+=Number(b.dataset.choice);index++;if(index<questions.length)render();else finish()}));
  }
  function finish(){
-  const percent=Math.round((score/(questions.length*3))*100),emoji=percent<35?'🌷':percent<70?'🦋':'🌟',titleText=percent<35?'Soft & Sweet':percent<70?'Bright & Balanced':'Big Main-Character Energy';
-  content.innerHTML='<h2 id="modal-title">Your result is in!</h2><div class="result-box"><div class="result-emoji">'+emoji+'</div><p>'+resultLabel.toUpperCase()+'</p><strong>'+percent+'%</strong><h3>'+titleText+'</h3><p>This is a playful quiz result, not a real-life score or assessment. Keep being you!</p></div><div class="share-row"><button class="modal-button" id="share-result">Share result ↗</button><button class="modal-button secondary-button" id="restart">Try again</button></div>';
-  document.getElementById('share-result').addEventListener('click',()=>shareText('My CutePlay quiz result: '+titleText+'!'));
+  const mood=score<questions.length?'🌷':score<questions.length*2?'🦋':'🌟';
+  const titleText=score<questions.length?'Soft & Sweet':score<questions.length*2?'Bright & Balanced':'Big Main-Character Energy';
+  content.innerHTML='<h2 id="modal-title">Your result is in!</h2><div class="result-box"><div class="result-emoji">'+mood+'</div><p>'+resultLabel.toUpperCase()+'</p><h3>'+titleText+'</h3><p>This is a playful vibe reveal, not a scored test or a real-life assessment. Keep being you!</p></div><div class="share-row"><button class="modal-button" id="share-result">Share result ↗</button><button class="modal-button secondary-button" id="restart">Try again</button></div>';
+  document.getElementById('share-result').addEventListener('click',()=>shareText('My CutePlay quiz vibe: '+titleText+'!'));
   document.getElementById('restart').addEventListener('click',()=>{index=0;score=0;render()});chime();
  }
  render();
