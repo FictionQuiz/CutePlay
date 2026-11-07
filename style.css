@@ -32,3 +32,97 @@
 .bingo-square.marked{background:#fce5ef;border-color:#e88eb1;color:#b6537f;box-shadow:inset 0 0 0 2px #f6c6d9}
 .game-form select{width:100%;padding:13px;border:1px solid #f0dce7;border-radius:12px;background:white;color:#68566e;font:700 12px 'Nunito',sans-serif}
 @media(max-width:600px){.bingo-square{min-height:76px;font-size:9px;padding:7px}}
+
+/* CutePlay visual refresh: animated, dreamy and playful */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap');
+:root{--ink:#493650;--pink:#ff78ad;--pink-dark:#e85f98}
+body{overflow-x:hidden;background:radial-gradient(ellipse at 8% 12%,#fff0f7 0,transparent 28%),radial-gradient(ellipse at 91% 38%,#f0efff 0,transparent 27%),#fffafd}
+h1,h2,h3,.brand,.button,.header-cta{font-family:'Fredoka','Nunito',sans-serif;letter-spacing:normal}
+.top-note{background:linear-gradient(90deg,#ffe5f0,#f1eaff,#e8f7ff,#ffe5f0);background-size:250% 100%;animation:noteFlow 12s linear infinite}
+.site-header{position:relative;z-index:5}
+.brand{font-size:29px;text-shadow:0 3px 0 #ffe2ed}
+.brand-mark{display:inline-block;animation:heartBeat 2.3s ease-in-out infinite}
+.header-cta{box-shadow:0 7px 0 #f8d6e4,0 12px 24px #edb4cb55;transition:.2s}
+.header-cta:hover,.button-primary:hover,.custom-quiz-button:hover{transform:translateY(-3px)}
+.hero{min-height:530px;position:relative}
+.hero-copy{position:relative;z-index:2}
+.hero h1{font-size:clamp(54px,6.7vw,82px);line-height:1.02;text-shadow:0 4px 0 #fff}
+.hero h1 span{display:inline-block;background:linear-gradient(90deg,#ed75a5,#b18be7,#77bce2);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero-copy>p{font-size:16px}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:8px 13px;border:1px solid #f6dce8;border-radius:30px;background:#ffffffb8;box-shadow:0 5px 18px #dfb8cf18}
+.hero-art{isolation:isolate}
+.pink-blob{width:360px;height:340px;background:linear-gradient(145deg,#ffe1ed,#f6e6ff 70%,#e3f4ff);box-shadow:inset -18px -18px 45px #e7c5df66,0 25px 55px #e9c3d855;animation:blobBreathe 7s ease-in-out infinite}
+.mascot{animation:mascotFloat 3.6s ease-in-out infinite;transform-origin:50% 80%}
+.mascot-ear{transform-origin:bottom center}
+.mascot-ear.left{animation:earWiggle 4s ease-in-out infinite}
+.mascot-ear.right{animation:earWiggle 4s ease-in-out infinite reverse}
+.mascot-face{box-shadow:inset 0 -7px #f9e6dc,0 13px 30px #dba9bd33}
+.mascot-body{box-shadow:0 12px 20px #d89bb533}
+.eye{animation:blink 5s infinite}
+.floating-heart{animation:heartFloat 3.5s ease-in-out infinite}
+.heart-two{animation-delay:1.1s}
+.cloud-one{animation:cloudDrift 8s ease-in-out infinite alternate}
+.cloud-two{animation:cloudDrift 10s ease-in-out infinite alternate-reverse}
+.sun-doodle{animation:slowSpin 12s linear infinite}
+.art-caption{animation:captionBob 3s ease-in-out infinite}
+.cute-ambient{position:absolute;inset:0 0 auto;height:900px;overflow:hidden;pointer-events:none;z-index:0}
+.cute-ambient span{position:absolute;color:#ef9fbd;opacity:.42;font-size:24px;animation:ambientDrift 12s ease-in-out infinite}
+.cute-ambient span:nth-child(1){top:190px;left:5%;font-size:27px}
+.cute-ambient span:nth-child(2){top:410px;left:47%;font-size:20px;animation-delay:2s}
+.cute-ambient span:nth-child(3){top:280px;right:7%;font-size:30px;animation-delay:4s}
+.cute-ambient span:nth-child(4){top:590px;right:17%;font-size:34px;animation-delay:1s;color:#b9a9e9}
+.cute-ambient span:nth-child(5){top:730px;left:12%;animation-delay:3s}
+.cute-ambient span:nth-child(6){top:500px;left:75%;animation-delay:5s;color:#e8bd75}
+.playful-ticker{overflow:hidden;background:linear-gradient(90deg,#fff0f6,#f3efff,#edf8ff);border-top:1px solid #f5e5ef;border-bottom:1px solid #f5e5ef;padding:13px 0}
+.ticker-track{display:flex;width:max-content;gap:55px;animation:tickerMove 30s linear infinite}
+.ticker-track span{font:700 11px 'Fredoka',sans-serif;letter-spacing:.16em;color:#b47f9b;white-space:nowrap}
+.games-section{padding-top:68px}
+.section-heading h2,.how-section h2,.about-section h2{font-family:'Fredoka',sans-serif;font-size:40px}
+.game-grid{gap:20px}
+.game-card{position:relative;isolation:isolate;overflow:hidden;min-height:260px;border:1px solid #fff;box-shadow:0 9px 24px #94758f0c;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.game-card:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.42;background:radial-gradient(circle at 100% 0,#fff 0 15%,transparent 16%),radial-gradient(circle at 0 100%,#fff 0 11%,transparent 12%);pointer-events:none}
+.game-card:after{content:"✦";position:absolute;right:18px;bottom:16px;font-size:18px;color:#fff;opacity:.85;transform:rotate(-15deg);transition:.3s}
+.game-card:hover{transform:translateY(-9px) rotate(-.5deg);box-shadow:0 20px 38px #9c789b24}
+.game-card:hover:after{transform:rotate(35deg) scale(1.6)}
+.game-icon{width:54px;height:54px;border-radius:19px;font-size:28px;box-shadow:0 6px 15px #9e7e9915;animation:iconBob 4s ease-in-out infinite}
+.game-card:nth-child(2n) .game-icon{animation-delay:.8s}
+.game-card:nth-child(3n) .game-icon{animation-delay:1.4s}
+.game-card h3{font-size:20px}
+.tag{border:1px solid #ffffffa8;box-shadow:0 3px 10px #a47d9410}
+.play-link{display:inline-flex;align-items:center;gap:7px;font-size:13px}
+.play-link span{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#ffffffb8;transition:.2s}
+.play-link:hover span{transform:translateX(4px);background:white}
+.custom-quiz-banner{position:relative;overflow:hidden;border:1px solid #fff;box-shadow:0 16px 40px #a17b9c16}
+.custom-quiz-banner:after{content:"✦  ♡  ✧";position:absolute;right:22px;top:9px;color:#dfa0bd;letter-spacing:12px;opacity:.5;font-size:18px;pointer-events:none}
+.custom-quiz-icon{animation:heartBeat 3s infinite}
+.how-section{position:relative;overflow:hidden;background:linear-gradient(110deg,#f8f0ff,#fff1f7 55%,#eef8ff)}
+.how-sticker{animation:stickerWiggle 5s ease-in-out infinite}
+.steps b{box-shadow:0 5px 0 #f1ddec;transition:.2s}
+.steps div:hover b{transform:translateY(-4px) rotate(10deg)}
+footer{background:linear-gradient(110deg,#fff0f6,#f4efff,#edf8ff)}
+.game-modal{border:1px solid #fff;box-shadow:0 28px 90px #49384f55}
+.modal-sparkle{animation:slowSpin 15s linear infinite}
+.option-button{transition:transform .2s,background .2s,border-color .2s,box-shadow .2s}
+.option-button:active,.bingo-square:active{transform:scale(.97)}
+.bingo-square{font-size:11px;transition:.2s;box-shadow:0 4px 10px #a88ba00d}
+.bingo-square:hover{transform:translateY(-2px);border-color:#e99abb}
+.modal-button{box-shadow:0 6px 0 #e7b0c6,0 12px 20px #edb8cd33;transition:.2s}
+.modal-button:hover{transform:translateY(-2px);filter:saturate(1.08)}
+.modal-button:active{transform:translateY(2px);box-shadow:0 2px 0 #e7b0c6}
+@keyframes noteFlow{to{background-position:250% 0}}
+@keyframes heartBeat{0%,100%{transform:scale(1)}12%{transform:scale(1.13)}22%{transform:scale(1)}}
+@keyframes mascotFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-13px) rotate(1deg)}}
+@keyframes earWiggle{0%,86%,100%{rotate:0deg}90%{rotate:-9deg}94%{rotate:5deg}}
+@keyframes blink{0%,45%,48%,100%{transform:scaleY(1)}46.5%{transform:scaleY(.12)}}
+@keyframes heartFloat{0%,100%{translate:0 0;rotate:0deg}50%{translate:0 -13px;rotate:8deg}}
+@keyframes cloudDrift{from{translate:-8px 0}to{translate:18px 8px}}
+@keyframes slowSpin{to{rotate:360deg}}
+@keyframes blobBreathe{0%,100%{border-radius:48% 52% 42% 58%/53% 42% 58% 47%;scale:1}50%{border-radius:55% 45% 52% 48%/45% 56% 44% 55%;scale:1.025}}
+@keyframes captionBob{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes ambientDrift{0%,100%{translate:0 0;rotate:0deg}50%{translate:12px -18px;rotate:15deg}}
+@keyframes tickerMove{to{transform:translateX(-50%)}}
+@keyframes iconBob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(4deg)}}
+@keyframes stickerWiggle{0%,90%,100%{transform:rotate(-8deg)}94%{transform:rotate(5deg)}97%{transform:rotate(-3deg)}}
+@media(max-width:850px){.hero{min-height:480px}.games-section{padding-top:52px}}
+@media(max-width:600px){.hero h1{font-size:55px}.hero-art{transform:scale(.86);margin-top:0}.games-section{padding-top:48px}.section-heading h2,.how-section h2,.about-section h2{font-size:32px}.game-card{min-height:246px;padding:16px 14px}.game-card h3{font-size:18px}.game-icon{width:47px;height:47px}.ticker-track{gap:35px}.playful-ticker{padding:11px 0}.cute-ambient{height:780px}.custom-quiz-banner:after{display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
