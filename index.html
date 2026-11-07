@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff4f8">
+  <meta name="description" content="CutePlay is a happy little corner for friendship games, personality quizzes and shareable results. Play, laugh and share!">
+  <title>CutePlay — Play, Laugh & Share</title>
+  <style>
+    :root{--ink:#493c59;--muted:#897d91;--pink:#ff8fba;--lav:#b8a5ff;--blue:#a9dafa;--cream:#fff8e9;--paper:#fff;--line:#f3e7f0;--shadow:0 12px 35px #7c527014}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);font-family:Nunito,"Trebuchet MS",system-ui,sans-serif;background:radial-gradient(circle at 8% 8%,#ffe4f0 0,transparent 24%),radial-gradient(circle at 95% 22%,#e9e2ff 0,transparent 25%),#fffafd;min-height:100vh}
+    button,input{font:inherit}button{cursor:pointer;border:0}.wrap{width:min(1120px,92%);margin:auto}
+    header{padding:20px 0}.nav{display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px;font-weight:1000;font-size:1.5rem;letter-spacing:-1px}.brand-mark{display:grid;place-items:center;width:43px;height:43px;border-radius:15px;background:linear-gradient(135deg,#ffb0ce,#c5b5ff);box-shadow:0 7px 18px #d99cbd55;font-size:1.35rem}.nav a{color:var(--muted);text-decoration:none;font-weight:800;margin-left:22px}.nav a:hover{color:#d85f98}
+    .hero{position:relative;text-align:center;padding:66px 12px 52px;overflow:hidden}.eyebrow{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;background:#fff;border:1px solid var(--line);border-radius:30px;color:#c45d92;font-size:.83rem;font-weight:900;box-shadow:var(--shadow)}h1{font-size:clamp(2.6rem,7vw,5.1rem);line-height:1.02;letter-spacing:-3px;margin:22px 0 15px}.gradient{background:linear-gradient(90deg,#f278aa,#a28be9,#65b8dc);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:590px;margin:0 auto;color:var(--muted);font-size:1.08rem;line-height:1.7}.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:27px}.btn{padding:13px 21px;border-radius:16px;font-weight:900;transition:.2s;box-shadow:0 7px 16px #d98eb52a}.btn:hover{transform:translateY(-3px)}.primary{background:linear-gradient(110deg,#ff91bc,#b7a2ff);color:white}.soft{background:white;color:#8b6e9d;border:1px solid var(--line)}
+    .float{position:absolute;font-size:2rem;opacity:.72;animation:bob 3s ease-in-out infinite}.f1{left:9%;top:25%}.f2{right:10%;top:20%;animation-delay:.8s}.f3{right:17%;bottom:12%;animation-delay:1.4s}@keyframes bob{50%{transform:translateY(-12px) rotate(8deg)}}
+    section{padding:28px 0 48px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px;margin-bottom:20px}.section-head h2{font-size:1.8rem;letter-spacing:-1px;margin:0}.section-head p{color:var(--muted);margin:6px 0 0}.games{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}.game{background:#ffffffd9;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);transition:.22s;position:relative;overflow:hidden}.game:hover{transform:translateY(-5px);box-shadow:0 18px 35px #7c52701c}.game-icon{width:57px;height:57px;border-radius:19px;display:grid;place-items:center;font-size:1.8rem;margin-bottom:14px}.pink{background:#ffe5f0}.purple{background:#eee8ff}.blue{background:#e4f5ff}.yellow{background:#fff2d5}.mint{background:#e1f8ee}.peach{background:#ffe9df}.game h3{margin:0 0 7px;font-size:1.12rem}.game p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.5;min-height:43px}.game button{margin-top:16px;width:100%;padding:11px;border-radius:13px;background:#fff0f6;color:#c45d92;font-weight:900}.game:nth-child(2n) button{background:#f1edff;color:#8670c5}
+    .note{background:linear-gradient(110deg,#fff0f6,#f1edff,#edf8ff);border:1px solid white;border-radius:25px;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:18px}.note h2{margin:0 0 7px}.note p{margin:0;color:var(--muted);line-height:1.6}.note .btn{white-space:nowrap}
+    footer{padding:28px 0 35px;text-align:center;color:var(--muted);font-size:.9rem}footer strong{color:#a875a0}
+    .modal{position:fixed;inset:0;background:#40324f77;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal.show{display:flex}.panel{width:min(470px,100%);background:#fffafd;border-radius:26px;padding:26px;box-shadow:0 25px 80px #33204455;position:relative;animation:pop .25s ease}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}.close{position:absolute;right:17px;top:14px;background:#f5edf5;border-radius:50%;width:34px;height:34px;color:#77677f;font-size:1.2rem}.panel h2{margin:5px 35px 8px 0}.panel p{color:var(--muted);line-height:1.55}.panel input{width:100%;padding:13px 14px;border:1px solid #eadce9;border-radius:13px;outline:none;margin:7px 0 12px;background:white;color:var(--ink)}.panel input:focus{border-color:#d69bc4;box-shadow:0 0 0 3px #ffe5f2}.panel .btn{width:100%;margin-top:7px}.result{display:none;text-align:center;padding:15px 5px}.result .big{font-size:3.3rem}.result h3{font-size:1.5rem;margin:7px}.result strong{color:#bd679d}.tiny{font-size:.8rem;color:#a094a7}
+    @media(max-width:760px){.games{grid-template-columns:repeat(2,1fr)}.hero{padding:52px 8px 42px}.f1{left:2%}.f2{right:3%}.nav a{margin-left:10px;font-size:.88rem}.note{align-items:flex-start;flex-direction:column}}
+    @media(max-width:480px){.games{grid-template-columns:1fr}.game p{min-height:0}.section-head{align-items:flex-start;flex-direction:column}.nav a:first-child{display:none}h1{letter-spacing:-2px}.hero p{font-size:1rem}}
+  </style>
+</head>
+<body>
+<header><div class="wrap nav"><div class="brand"><span class="brand-mark">🎀</span> CutePlay</div><nav><a href="#games">Explore games</a><a href="#about">About</a></nav></div></header>
+<main>
+  <div class="wrap hero">
+    <span class="float f1">✦</span><span class="float f2">💗</span><span class="float f3">☁️</span>
+    <div class="eyebrow">🌷 YOUR LITTLE HAPPY PLACE</div>
+    <h1>Play a little.<br><span class="gradient">Smile a lot.</span></h1>
+    <p>Discover fun personality games, silly name challenges and friendship quizzes. Pick a game, share the laughs and make a happy little memory.</p>
+    <div class="hero-actions"><button class="btn primary" onclick="document.querySelector('#games').scrollIntoView({behavior:'smooth'})">Explore games ✨</button><button class="btn soft" onclick="openGame('friend')">Try a friendship game 💞</button></div>
+  </div>
+  <section class="wrap" id="games">
+    <div class="section-head"><div><h2>Pick your happy game ☁️</h2><p>Little quizzes, big smiles. Which one will you try?</p></div></div>
+    <div class="games">
+      <article class="game"><div class="game-icon pink">💌</div><h3>Friendship Meter</h3><p>Enter two names and reveal your playful friendship score.</p><button onclick="openGame('friend')">Play now →</button></article>
+      <article class="game"><div class="game-icon purple">🔮</div><h3>Name Vibe Check</h3><p>Find the fun personality vibe hidden in your name.</p><button onclick="openGame('vibe')">Play now →</button></article>
+      <article class="game"><div class="game-icon blue">🌈</div><h3>Bestie Energy</h3><p>See what kind of best-friend duo your names make.</p><button onclick="openGame('bestie')">Play now →</button></article>
+      <article class="game"><div class="game-icon yellow">🎭</div><h3>Which Mood Are You?</h3><p>Answer one tiny question and get your mood of the day.</p><button onclick="openGame('mood')">Play now →</button></article>
+      <article class="game"><div class="game-icon mint">🧁</div><h3>Sweet or Sassy?</h3><p>A quick, lighthearted quiz to reveal your playful side.</p><button onclick="openGame('sweet')">Play now →</button></article>
+      <article class="game"><div class="game-icon peach">⭐</div><h3>Lucky Name</h3><p>Get a cheerful, just-for-fun lucky message for your name.</p><button onclick="openGame('lucky')">Play now →</button></article>
+    </div>
+  </section>
+  <section class="wrap" id="about"><div class="note"><div><h2>A tiny corner made for fun 💕</h2><p>CutePlay is all about friendly games and feel-good results. Every score is just for entertainment — the real magic is having fun together.</p></div><button class="btn primary" onclick="openGame('vibe')">Find my vibe ✨</button></div></section>
+</main>
+<footer><div class="wrap">Made with <strong>♡</strong> for curious minds · <strong>CutePlay</strong> © 2026</div></footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="gameTitle" onclick="if(event.target===this)closeGame()">
+  <div class="panel"><button class="close" aria-label="Close" onclick="closeGame()">×</button><div id="gameForm"><div class="eyebrow">✨ CUTEPLAY MINI GAME</div><h2 id="gameTitle">Let's play!</h2><p id="gameDesc">A little fun is waiting for you.</p><div id="fields"></div><button class="btn primary" id="playBtn" onclick="playGame()">Reveal my result 💗</button></div><div class="result" id="result"><div class="big" id="resultIcon">💖</div><h3 id="resultTitle">Lovely!</h3><p id="resultText"></p><button class="btn primary" onclick="shareResult()">Share result ↗</button><button class="btn soft" onclick="resetGame()">Play again</button><div class="tiny">Just for fun — not a real compatibility or personality assessment.</div></div></div>
+</div>
+<script>
+const games={
+ friend:{title:"Friendship Meter 💌",desc:"Add two first names to reveal your fun friendship score.",fields:[["Your name","name1"],["Friend's name","name2"]]},
+ vibe:{title:"Name Vibe Check 🔮",desc:"What's your first name? Let's find your playful vibe.",fields:[["Your first name","name1"]]},
+ bestie:{title:"Bestie Energy 🌈",desc:"Enter two names and discover your duo energy.",fields:[["Your name","name1"],["Bestie's name","name2"]]},
+ mood:{title:"Which Mood Are You? 🎭",desc:"Choose what sounds most like you today.",choices:["Cozy and calm ☁️","Ready for adventure 🦋","Creative and dreamy 🎨","Funny and energetic ⚡"]},
+ sweet:{title:"Sweet or Sassy? 🧁",desc:"Pick the option that feels most like you.",choices:["I make people feel welcome 💗","I love a clever comeback 😎","A little of both ✨","I go with the flow 🌷"]},
+ lucky:{title:"Lucky Name ⭐",desc:"Enter your first name for a cheerful little message.",fields:[["Your first name","name1"]]}
+};
+let current="vibe",lastResult="";
+function openGame(key){current=key;const g=games[key];document.getElementById("gameTitle").textContent=g.title;document.getElementById("gameDesc").textContent=g.desc;const fields=document.getElementById("fields");fields.innerHTML="";
+if(g.fields)g.fields.forEach(([label,id])=>{const l=document.createElement("label");l.textContent=label;const i=document.createElement("input");i.id=id;i.maxLength=24;i.placeholder="Type here...";i.autocomplete="given-name";fields.append(l,i)});
+if(g.choices)g.choices.forEach((choice,i)=>{const l=document.createElement("label");l.style.display="block";l.style.padding="11px";l.style.margin="7px 0";l.style.border="1px solid #f0e3ef";l.style.borderRadius="12px";const r=document.createElement("input");r.type="radio";r.name="choice";r.value=i;r.style.width="auto";r.style.marginRight="9px";l.append(r,document.createTextNode(choice));fields.append(l)});
+document.getElementById("gameForm").style.display="block";document.getElementById("result").style.display="none";document.getElementById("modal").classList.add("show");}
+function closeGame(){document.getElementById("modal").classList.remove("show")}
+function hash(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return Math.abs(h)}
+function playGame(){const g=games[current];let names=[];
+if(g.fields){for(const [,id] of g.fields){const v=document.getElementById(id).value.trim();if(!v){document.getElementById(id).focus();return}names.push(v)}}
+else{const c=document.querySelector('input[name="choice"]:checked');if(!c){alert("Choose an answer first!");return}names=[c.value]}
+const n=hash((names.join("|")+current).toLowerCase());let title="",text="",icon="💗";
+if(current==="friend"||current==="bestie"){const score=55+n%46;title=score>=90?"Bestie Magic!":score>=75?"A Lovely Duo!":"Friendship in Bloom!";text=names[0]+" + "+names[1]+" get a just-for-fun friendship score of "+score+"%. Keep making happy memories together!";icon=score>=90?"👯‍♀️":"💞"}
+else if(current==="vibe"){const vibes=["The Sunshine Soul ☀️","The Dreamy Creator 🌙","The Kind-Hearted Star 🌟","The Curious Explorer 🦋","The Cozy Daydreamer ☁️","The Spark of Fun 🎉"];title=vibes[n%vibes.length];text=names[0]+", your name gets a bright and playful vibe today. Keep being wonderfully you!";icon="🔮"}
+else if(current==="mood"){const moods=["Cozy Cloud ☁️","Adventure Butterfly 🦋","Creative Rainbow 🎨","Happy Spark ⚡"];title=moods[Number(names[0])];text="That's your mood pick for today. Make a little space for something you enjoy!";icon="🌈"}
+else if(current==="sweet"){const moods=["Sweet Soul 🍓","Sassy Star 😎","Perfect Mix ✨","Free Spirit 🌷"];title=moods[Number(names[0])];text="Your answer says you bring your own special energy. There is no wrong result!";icon="🧁"}
+else{const messages=["A little surprise is on its way ✨","Today is perfect for trying something new 🌷","Your kindness can brighten someone's day 💗","Keep following your curiosity ⭐","Small steps can lead to lovely things 🦋"];title="Your lucky note";text=names[0]+": "+messages[n%messages.length];icon="🍀"}
+lastResult=title+" — "+text;document.getElementById("gameForm").style.display="none";document.getElementById("result").style.display="block";document.getElementById("resultIcon").textContent=icon;document.getElementById("resultTitle").textContent=title;document.getElementById("resultText").textContent=text;}
+function resetGame(){openGame(current)}
+async function shareResult(){const text="My CutePlay result: "+lastResult+" 💕 Try CutePlay!";if(navigator.share){try{await navigator.share({title:"My CutePlay result",text})}catch(e){}}else if(navigator.clipboard){try{await navigator.clipboard.writeText(text);alert("Result copied! Share it with a friend 💗")}catch(e){alert(text)}}else{alert(text)}}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeGame()});
+</script>
+</body>
+</html>
