@@ -1,6 +1,6 @@
 
 /* Match each answer to a relevant real photo so picture choices work across quizzes. */
-const const optionPhotoMap=[
+const optionPhotoMap=[
  [/pizza|pepperoni|margherita|cheese slice/i,'photo-1513104890138-7c749659a591'],
  [/pasta|spaghetti|mac ?and cheese|lasagna|noodles/i,'photo-1551183053-bf91a1d81141'],
  [/burger|hamburger|fries|french fries/i,'photo-1568901346375-23c9450c58cd'],
