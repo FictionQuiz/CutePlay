@@ -48,6 +48,19 @@ const optionPhotoMap=[
  [/default/i,'photo-1513364776144-60967b0f800f']
 ];
 function optionImage(label){
+ const raw=String(label).toLowerCase();
+ const priority=[
+  [/movie|cinema|film|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
+  [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
+  [/superhero/,'photo-1518709268805-4e9042af9f23'],
+  [/handwritten|letter|note/,'photo-1455390582262-044cdead277a'],
+  [/instagram|camera|photograph/,'photo-1516035069371-29a1b244cc32'],
+  [/youtube|video/,'photo-1492619375914-88005aa9e8fb'],
+  [/message|chat|reply|typing/,'photo-1516321318423-f06f85e504b3'],
+  [/gift|present/,'photo-1513201099705-a9746e1e201f']
+ ];
+ const special=priority.find(([pattern])=>pattern.test(raw));
+ if(special)return 'https://images.unsplash.com/'+special[1]+'?auto=format&fit=crop&w=640&q=85';
  const text=String(label).replace(/[🍕🍝🍫🥣🍿🌈🧸🛍️📸▶️💬🎧⏰🙉🧦😶🏰🦸🍄🚀💌🎟️🎁🍬😂🤫🎭🐣🏝️❄️🌃🌻🌙🫧⚡🌷]/gu,'');
  const match=optionPhotoMap.find(([pattern])=>pattern.test(text));
  const id=match?match[1]:'photo-1470252649378-9c29740c9fa8';
