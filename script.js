@@ -48,23 +48,44 @@ const optionPhotoMap=[
  [/default/i,'photo-1513364776144-60967b0f800f']
 ];
 function optionImage(label){
- const raw=String(label).toLowerCase();
- const priority=[
-  [/movie|cinema|film|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
-  [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
-  [/superhero/,'photo-1518709268805-4e9042af9f23'],
-  [/handwritten|letter|note/,'photo-1455390582262-044cdead277a'],
-  [/instagram|camera|photograph/,'photo-1516035069371-29a1b244cc32'],
-  [/youtube|video/,'photo-1492619375914-88005aa9e8fb'],
-  [/message|chat|reply|typing/,'photo-1516321318423-f06f85e504b3'],
-  [/gift|present/,'photo-1513201099705-a9746e1e201f']
+ const text=String(label).normalize('NFKD').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+ const exact=[
+  [/\bpizza|pepperoni|margherita/,'photo-1513104890138-7c749659a591'],
+  [/\bpasta|spaghetti|lasagna|mac and cheese|noodles/,'photo-1551183053-bf91a1d81141'],
+  [/\bburger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],
+  [/\bsushi|sashimi|ramen/,'photo-1579871494447-42269a4b2f6c'],
+  [/\btaco|burrito|nacho/,'photo-1551504734-5ee1c4a1479b'],
+  [/\bchocolate|cocoa|brownie/,'photo-1511381939415-e44015466834'],
+  [/\bcupcake|cake|dessert|cookie|donut|doughnut/,'photo-1486427944299-d1955d23e34d'],
+  [/\bice cream|gelato/,'photo-1501446529957-6226bd447c46'],
+  [/\bsnow|mountain|ski|winter|snowy|frost/,'photo-1464822759023-fed622ff2c3b'],
+  [/\bbeach|sea|ocean|island|coast/,'photo-1507525428034-b723cf961d3e'],
+  [/\bcat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
+  [/\bdog|puppy/,'photo-1552053831-71594a27632d'],
+  [/\bbook|reading|novel|library/,'photo-1512820790803-83ca734da794'],
+  [/\bcoffee|tea|cafe/,'photo-1495474472287-4d71bcdd2085'],
+  [/\bmovie|film|cinema|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
+  [/\bspace|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
+  [/\bgift|present/,'photo-1513201099705-a9746e1e201f'],
+  [/\bflower|garden|rose|blossom/,'photo-1490750967868-88aa4486c946'],
+  [/\bfriend|group|team|party|people/,'photo-1529156069898-49953e39b3ac'],
+  [/\bmessage|chat|reply|typing/,'photo-1516321318423-f06f85e504b3'],
+  [/\binstagram|camera|photograph/,'photo-1516035069371-29a1b244cc32'],
+  [/\byoutube|video/,'photo-1492619375914-88005aa9e8fb'],
+  [/\bmusic|playlist|song|concert|dance/,'photo-1511379938547-c1f69419868d'],
+  [/\btravel|adventure|trip|journey|road trip/,'photo-1500530855697-b586d89ba3ee'],
+  [/\bhome|cozy|blanket|relax/,'photo-1449247709967-d4461a6a6103'],
+  [/\bnotebook|writing|story|journal|letter/,'photo-1455390582262-044cdead277a'],
+  [/\bsport|football|basketball/,'photo-1461896836934-ffe607ba8211'],
+  [/\bmagic|fantasy|castle|fairy/,'photo-1518709268805-4e9042af9f23'],
+  [/\bfood|snack|meal|soup|treat/,'photo-1547592180-85f173990554'],
+  [/\bart|paint|drawing|craft|creative/,'photo-1513364776144-60967b0f800f'],
+  [/\bsky|sunset|sunrise|star|moon|night/,'photo-1470252649378-9c29740c9fa8']
  ];
- const special=priority.find(([pattern])=>pattern.test(raw));
- if(special)return 'https://images.unsplash.com/'+special[1]+'?auto=format&fit=crop&w=640&q=85';
- const text=String(label).replace(/[🍕🍝🍫🥣🍿🌈🧸🛍️📸▶️💬🎧⏰🙉🧦😶🏰🦸🍄🚀💌🎟️🎁🍬😂🤫🎭🐣🏝️❄️🌃🌻🌙🫧⚡🌷]/gu,'');
- const match=optionPhotoMap.find(([pattern])=>pattern.test(text));
- const id=match?match[1]:'photo-1470252649378-9c29740c9fa8';
- return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=640&q=85';
+ const match=exact.find(([pattern])=>pattern.test(text));
+ const fallback=optionPhotoMap.find(([pattern])=>pattern.test(text));
+ const id=(match&&match[1])||(fallback&&fallback[1])||'photo-1513364776144-60967b0f800f';
+ return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=88';
 }
 const modal=document.getElementById('game-modal');
 const content=document.getElementById('game-content');
@@ -116,7 +137,7 @@ function showResult(name,emoji,title,description){
 function startQuiz(title,intro,questions,resultLabel){
  let index=0,score=0;
  function render(){
-  content.innerHTML='<h2 id="modal-title">'+title+'</h2><p>'+intro+'</p><div class="progress"><span style="width:'+(index/questions.length*100)+'%"></span></div><p><b>QUESTION '+(index+1)+' OF '+questions.length+'</b></p><h3>'+questions[index][0]+'</h3><div class="question-options">'+questions[index][1].map((o,i)=>'<button class="option-button image-option" data-choice="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="lazy"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
+  content.innerHTML='<h2 id="modal-title">'+title+'</h2><p>'+intro+'</p><div class="progress"><span style="width:'+(index/questions.length*100)+'%"></span></div><p><b>QUESTION '+(index+1)+' OF '+questions.length+'</b></p><h3>'+questions[index][0]+'</h3><div class="question-options">'+questions[index][1].map((o,i)=>'<button class="option-button image-option" data-choice="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="eager" decoding="async"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div>';
   content.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',()=>{tone(560+Number(b.dataset.choice)*80);score+=Number(b.dataset.choice);index++;if(index<questions.length)render();else finish()}));
  }
  function finish(){
@@ -187,7 +208,7 @@ function playSharedQuiz(quiz){
  openModal();let index=0,answers=[];
  function render(){
   const q=quiz.questions[index];
-  content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A QUIZ FROM '+escapeHTML(quiz.name.toUpperCase())+' 💗</span><h2 id="modal-title">How well do you know them?</h2><div class="progress"><span style="width:'+((index)/quiz.questions.length*100)+'%"></span></div><p class="question-count">QUESTION '+(index+1)+' OF '+quiz.questions.length+'</p><h3>'+escapeHTML(q.text)+'</h3><div class="question-options">'+q.options.map((o,i)=>'<button class="option-button image-option" data-answer="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="lazy"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div><p class="tiny-privacy">Choose your best guess — you can’t change it later.</p></div>';
+  content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A QUIZ FROM '+escapeHTML(quiz.name.toUpperCase())+' 💗</span><h2 id="modal-title">How well do you know them?</h2><div class="progress"><span style="width:'+((index)/quiz.questions.length*100)+'%"></span></div><p class="question-count">QUESTION '+(index+1)+' OF '+quiz.questions.length+'</p><h3>'+escapeHTML(q.text)+'</h3><div class="question-options">'+q.options.map((o,i)=>'<button class="option-button image-option" data-answer="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="eager" decoding="async"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div><p class="tiny-privacy">Choose your best guess — you can’t change it later.</p></div>';
   content.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{answers.push(Number(btn.dataset.answer));tone(590);index++;if(index<quiz.questions.length)render();else showSharedScore()}));
  }
  function showSharedScore(){
