@@ -223,3 +223,9 @@ footer{background:linear-gradient(110deg,#fff0f6,#f4efff,#edf8ff)}
 @keyframes bingoFade{from{opacity:0}to{opacity:1}}
 @keyframes bingoPulse{to{transform:scale(1.04)}}
 @media(max-width:600px){.bingo-square{min-height:88px;font-size:10px}.bingo-win-pop{padding:12px}}
+
+/* Make creator answer photos unmistakably visible */
+#builder-questions .answer-edit .builder-option-photo{width:100%;height:104px;min-height:104px;display:block;object-fit:cover;object-position:center;border-radius:11px;margin:8px 0 6px;border:1px solid #f2dce8;background:linear-gradient(135deg,#ffe8f1,#eee7ff)}
+#builder-questions .answer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#builder-questions .answer-edit{display:block;padding:9px;}
+@media(max-width:420px){#builder-questions .answer-edit .builder-option-photo{height:88px;min-height:88px}}
