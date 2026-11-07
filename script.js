@@ -125,3 +125,52 @@ function playSharedQuiz(quiz){
 function launchConfetti(){const layer=document.createElement('div');layer.className='confetti-layer';layer.setAttribute('aria-hidden','true');for(let i=0;i<28;i++){const bit=document.createElement('i');bit.textContent=['✦','♥','•','✧'][i%4];bit.style.left=(Math.random()*100)+'%';bit.style.animationDelay=(Math.random()*.65)+'s';layer.appendChild(bit)}document.body.appendChild(layer);setTimeout(()=>layer.remove(),2400)}
 document.getElementById('create-quiz-card')?.addEventListener('click',creatorView);
 if(new URLSearchParams(location.search).has('quiz'))creatorView();
+
+/* Extra original, playable games based on the requested friendship-game themes. */
+Object.assign(games,{
+team(){startQuiz('Would you join my team? 🛟','Choose your move in these silly imaginary situations.',[
+['Our road-trip map has no plan. You…',['Make a snack map','Pick a scenic route','Become the DJ','Ask everyone to vote']],
+['The team mascot is missing. You…',['Design a new one','Start a friendly search','Make a poster','Keep everyone laughing']],
+['Plan a mini adventure in one hour. You…',['Choose a cozy café','Find a creative activity','Plan a park picnic','Let the group vote']]
+],'Your team-player style')},
+dream(){startQuiz('What kind of dreamer are you? ☁️','Choose what sounds most fun in these creative daydreams.',[
+['Your notebook has a blank page. You draw…',['A fantasy world','A future invention','A travel map','A comic strip']],
+['Pick a magical everyday item.',['A bookmark that tells stories','A glowing paintbrush','A map to hidden gardens','A camera for happy moments']],
+['Your perfect creative afternoon is…',['Writing a story','Making something','Planning a trip','Taking photos']],
+['Choose a sky.',['Cotton-candy sunset','Starry midnight','Bright blue morning','Lavender twilight']],
+['A new idea pops into your head. You…',['Write it down','Sketch it','Tell a friend','Try it out']]
+],'Your dreamer type')},
+bond(){startQuiz('Friendship Bond Meter 💞','A lighthearted friendship-style quiz — not a real measure of a relationship.',[
+['A friend has a big day. You…',['Send an encouraging note','Ask how it went','Share a funny distraction','Offer help']],
+['Your group chat is quiet. You…',['Share a cheerful meme','Ask how everyone is','Send a fun question','Let everyone recharge']],
+['Choose a friendship tradition.',['A yearly photo','A shared playlist','A regular game night','A silly awards night']],
+['A friend learns something new. You…',['Celebrate their progress','Ask them to teach you','Make a congrats card','Practise together']]
+],'Your friendship style')},
+future(){startQuiz('Friendship in 2035 🔮','Imagine a kind, fun future with your favourite people.',[
+['Your future group hangout is…',['A creative studio','A garden picnic','A game-night lounge','A travel adventure']],
+['Your group keeps in touch with…',['A shared photo journal','Voice notes and stories','Online game nights','A yearly reunion']],
+['Pick a future tradition.',['A friendship time capsule','A silly awards show','A shared recipe book','A group playlist update']],
+['Your group motto would be…',['Keep growing together','Make room for laughter','Small moments matter','Stay curious']]
+],'Your future friendship vibe')}
+});
+games.message=function(){
+content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A LITTLE NOTE FOR A FRIEND ✨</span><h2 id="modal-title">Friendship Secret Message 💬</h2><p>Choose a mood and add a nickname to make a cheerful message.</p></div><form id="message-form" class="game-form"><label for="message-name">Friend’s nickname</label><input id="message-name" maxlength="24" required placeholder="e.g. Sunny"><label for="message-mood">Message mood</label><select id="message-mood"><option value="bright">Bright & cheerful</option><option value="funny">Silly & funny</option><option value="support">Encouraging</option><option value="thank">Thank-you note</option></select><button class="modal-button">Make my message ✨</button></form><div id="message-result"></div>';
+document.getElementById('message-form').addEventListener('submit',e=>{e.preventDefault();const name=escapeHTML(document.getElementById('message-name').value.trim());const mood=document.getElementById('message-mood').value;const lines={bright:'You make ordinary days feel brighter. Keep being wonderfully you! 🌈',funny:'Official announcement: your daily dose of silliness has arrived. Please accept one imaginary trophy. 🏆',support:'Your effort matters. One step at a time — you’ve got this! 🌷',thank:'Thanks for the laughs, kindness and all the little moments. They mean a lot! 💗'};const msg='Hey '+name+'! '+lines[mood];document.getElementById('message-result').innerHTML='<div class="result-box"><div class="result-emoji">💌</div><h3>Your little message</h3><p>'+msg+'</p></div><button class="modal-button wide-button" id="copy-message">Copy message ↗</button>';document.getElementById('copy-message').addEventListener('click',()=>shareText(msg));tone(700)});
+};
+games.bingo=function(){
+const squares=['We laugh at the same things','We share snacks','We have an inside joke','We cheer each other on','We send funny memes','We like a similar show','We can talk for ages','We enjoy quiet time','We make days more fun'];
+content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">FRIENDSHIP BINGO ✨</span><h2 id="modal-title">Best Friend Bingo 🎯</h2><p>Tap the squares that feel true. Complete a row, column or diagonal!</p></div><div class="bingo-grid">'+squares.map((s,i)=>'<button class="bingo-square" type="button" data-square="'+i+'">'+s+'</button>').join('')+'</div><p id="bingo-status" class="tiny-privacy">0 squares marked</p><button class="modal-button wide-button" id="bingo-reset">Reset board</button>';
+const marked=new Set(),lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+content.querySelectorAll('[data-square]').forEach(b=>b.addEventListener('click',()=>{const n=Number(b.dataset.square);if(marked.has(n)){marked.delete(n);b.classList.remove('marked')}else{marked.add(n);b.classList.add('marked');tone(620)}document.getElementById('bingo-status').textContent=lines.some(line=>line.every(x=>marked.has(x)))?'BINGO! You completed a line. ✨':marked.size+' squares marked'}));
+document.getElementById('bingo-reset').addEventListener('click',()=>{marked.clear();content.querySelectorAll('.bingo-square').forEach(b=>b.classList.remove('marked'));document.getElementById('bingo-status').textContent='0 squares marked'});
+};
+games.recipe=function(){
+content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">MIX YOUR FRIENDSHIP ✨</span><h2 id="modal-title">Friendship Recipe 🍓</h2><p>Choose ingredients to create your imaginary friendship recipe.</p></div><form id="recipe-form" class="game-form"><label for="recipe-base">Base ingredient</label><select id="recipe-base"><option>Two cups of laughter</option><option>A bowl of kindness</option><option>A spoonful of creativity</option><option>A handful of adventures</option></select><label for="recipe-spice">Special spice</label><select id="recipe-spice"><option>Extra silly jokes</option><option>Never-ending support</option><option>Shared playlists</option><option>Surprise snacks</option></select><label for="recipe-top">Final topping</label><select id="recipe-top"><option>Rainbow sprinkles</option><option>Golden memories</option><option>Chocolate chips</option><option>Happy little notes</option></select><button class="modal-button">Mix our recipe ✨</button></form><div id="recipe-result"></div>';
+document.getElementById('recipe-form').addEventListener('submit',e=>{e.preventDefault();const vals=['recipe-base','recipe-spice','recipe-top'].map(id=>document.getElementById(id).value);document.getElementById('recipe-result').innerHTML='<div class="result-box"><div class="result-emoji">🧁</div><h3>The Friendship Special</h3><p>'+vals.map(escapeHTML).join(' + ')+'</p><p>Mix with kindness and a pinch of fun. Best served with a smile!</p></div><button class="modal-button wide-button" id="share-recipe">Share our recipe ↗</button>';document.getElementById('share-recipe').addEventListener('click',()=>shareText('Our CutePlay Friendship Recipe: '+vals.join(' + ')));chime()});
+};
+games.playlist=function(){
+const moods=[['giggles','😂','Giggles & chaos'],['cozy','☁️','Cozy afternoon'],['adventure','🌈','Big adventure'],['encourage','🌷','You’ve got this']];
+const tracks={giggles:['The Snack Debate','Laugh Loop','Oops, One More Meme'],cozy:['Cloudy Day Café','Blanket Fort Dreams','Tea & Tiny Talks'],adventure:['Map of Maybe','Sunshine Detour','The Long Way Home'],encourage:['One Step Brighter','Keep Your Spark','Small Wins Parade']};
+content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">YOUR SHARED SOUNDTRACK 🎧</span><h2 id="modal-title">Our Friendship Playlist</h2><p>Pick a mood to get original, made-up track names.</p></div><div class="question-options">'+moods.map(x=>'<button class="option-button" data-mood="'+x[0]+'">'+x[1]+' '+x[2]+'</button>').join('')+'</div><div id="playlist-result"></div>';
+content.querySelectorAll('[data-mood]').forEach(b=>b.addEventListener('click',()=>{const list=tracks[b.dataset.mood];document.getElementById('playlist-result').innerHTML='<div class="result-box"><div class="result-emoji">🎶</div><h3>Your playlist mood</h3><p>'+list.map((t,i)=>(i+1)+'. '+t).join('<br>')+'</p><p class="tiny-privacy">Original track names — no music is played.</p></div><button class="modal-button wide-button" id="share-playlist">Share playlist theme ↗</button>';document.getElementById('share-playlist').addEventListener('click',()=>shareText('Our CutePlay playlist theme: '+list.join(', ')));tone(700)}));
+};
