@@ -49,48 +49,32 @@ const optionPhotoMap=[
 ];
 function optionImage(label){
  const text=String(label).normalize('NFKD').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
- const photos=[
- [/pizza|pepperoni|margherita|cheese slice/,'photo-1513104890138-7c749659a591'],
- [/pasta|spaghetti|lasagna|mac and cheese|noodles/,'photo-1551183053-bf91a1d81141'],
- [/burger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],
- [/sushi|sashimi/,'photo-1579871494447-42269a4b2f6c'],
- [/ramen/,'photo-1569718212165-3a8278d5f624'],
- [/taco|burrito|nacho/,'photo-1551504734-5ee1c4a1479b'],
- [/chocolate|cocoa|brownie/,'photo-1511381939415-e44015466834'],
- [/cupcake|cake|dessert|cookie|donut|doughnut/,'photo-1486427944299-d1955d23e34d'],
- [/ice cream|gelato/,'photo-1501446529957-6226bd447c46'],
- [/strawberr|fruit|salad|vegetable/,'photo-1490645935967-10de6ba17061'],
- [/homemade|home cooked|soup|meal|food|snack|treat/,'photo-1547592180-85f173990554'],
- [/coffee|tea|cafe|bubble tea|boba|warm drink/,'photo-1495474472287-4d71bcdd2085'],
- [/shopping|shop|store/,'photo-1441986300917-64674bd600d8'],
- [/instagram|camera|photograph|photo/,'photo-1516035069371-29a1b244cc32'],
- [/youtube|video|stream/,'photo-1492619375914-88005aa9e8fb'],
- [/message|reply|chat|text|phone|call|voice note|group chat/,'photo-1516321318423-f06f85e504b3'],
- [/music|playlist|song|concert|dance|dj/,'photo-1511379938547-c1f69419868d'],
- [/movie|film|cinema|popcorn/,'photo-1517604931442-7e0c8ed2963c'],
- [/snow|mountain|ski|winter|snowy|frost/,'photo-1464822759023-fed622ff2c3b'],
- [/beach|sea|ocean|island|coast|seaside/,'photo-1507525428034-b723cf961d3e'],
- [/city|city lights|street|outing|go out/,'photo-1519608487953-e999c86e7455'],
- [/garden|flower|rose|blossom|countryside/,'photo-1490750967868-88aa4486c946'],
- [/cat|kitten/,'photo-1514888286974-6c03e2ca1dba'],
- [/dog|puppy/,'photo-1552053831-71594a27632d'],
- [/pet|animal/,'photo-1533738363-b7f9aef128ce'],
- [/book|read|reading|novel|library/,'photo-1512820790803-83ca734da794'],
- [/gift|present|surprise|handwritten note|letter/,'photo-1513201099705-a9746e1e201f'],
- [/meme|funny|laugh|joke|inside joke/,'photo-1527224857830-43a7acc85260'],
- [/friend|group|team|party|people|together/,'photo-1529156069898-49953e39b3ac'],
- [/adventure|trip|journey|road trip|travel/,'photo-1500530855697-b586d89ba3ee'],
- [/magic|magical|kingdom|castle|fairy|fantasy/,'photo-1518709268805-4e9042af9f23'],
- [/space|rocket|planet|galaxy|astronaut/,'photo-1446776811953-b23d57bd21aa'],
- [/sport|football|basketball/,'photo-1461896836934-ffe607ba8211'],
- [/notebook|writing|journal|story|craft|drawing|paint/,'photo-1455390582262-044cdead277a'],
- [/home|cozy|blanket|relax|weekend|reading nook/,'photo-1449247709967-d4461a6a6103'],
- [/wait|waiting|clock|time|late/,'photo-1508057198894-247b23fe5ade'],
- [/clean|tidy|organize|messy space/,'photo-1584622650111-993a426fbf0a'],
- [/default/,'photo-1513364776144-60967b0f800f']
+ const exact=[
+ [/^pizza$/,'photo-1513104890138-7c749659a591'],[/^pasta$/,'photo-1551183053-bf91a1d81141'],[/^chocolate$/,'photo-1511381939415-e44015466834'],[/^something homemade$/,'photo-1547592180-85f173990554'],
+ [/^movie night snacks?$/,'photo-1517604931442-7e0c8ed2963c'],[/^a big adventure$/,'photo-1500530855697-b586d89ba3ee'],[/^a cozy day at home$/,'photo-1449247709967-d4461a6a6103'],[/^shopping with friends$/,'photo-1441986300917-64674bd600d8'],
+ [/^being kept waiting$/,'photo-1508057198894-247b23fe5ade'],[/^loud chewing$/,'photo-1547592180-85f173990554'],[/^messy spaces$/,'photo-1584622650111-993a426fbf0a'],[/^one word replies$/,'photo-1516321318423-f06f85e504b3'],
+ [/^a magical kingdom$/,'photo-1518709268805-4e9042af9f23'],[/^a superhero city$/,'photo-1635863138275-d9b33299680b'],[/^a cozy cartoon town$/,'photo-1518709268805-4e9042af9f23'],[/^a space adventure$/,'photo-1446776811953-b23d57bd21aa'],
+ [/^a handwritten note$/,'photo-1513201099705-a9746e1e201f'],[/^a surprise outing$/,'photo-1516450360452-9312f5e86fc7'],[/^a thoughtful little thing$/,'photo-1513201099705-a9746e1e201f'],[/^my favorite treats$/,'photo-1486427944299-d1955d23e34d'],
+ [/^silly memes$/,'photo-1527224857830-43a7acc85260'],[/^inside jokes$/,'photo-1529156069898-49953e39b3ac'],[/^funny stories$/,'photo-1529156069898-49953e39b3ac'],[/^cute animals$/,'photo-1533738363-b7f9aef128ce'],
+ [/^beach island$/,'photo-1507525428034-b723cf961d3e'],[/^snowy mountains$/,'photo-1464822759023-fed622ff2c3b'],[/^big city lights$/,'photo-1519608487953-e999c86e7455'],[/^quiet countryside$/,'photo-1470252649378-9c29740c9fa8'],
+ [/^quiet observant$/,'photo-1470252649378-9c29740c9fa8'],[/^talkative bubbly$/,'photo-1530103862676-de8c9debad1d'],[/^chaotic funny$/,'photo-1527224857830-43a7acc85260'],[/^calm thoughtful$/,'photo-1490750967868-88aa4486c946'],
+ [/^read or watch something$/,'photo-1512820790803-83ca734da794'],[/^call a friend$/,'photo-1516321318423-f06f85e504b3'],[/^try a new hobby$/,'photo-1455390582262-044cdead277a'],[/^go out for a treat$/,'photo-1495474472287-4d71bcdd2085']
  ];
- const match=photos.find(([pattern])=>pattern.test(text));
- const id=match?match[1]:'photo-1513364776144-60967b0f800f';
+ const match=exact.find(([pattern])=>pattern.test(text));
+ const id=match?match[1]:(()=>{
+  const groups=[
+   [/sushi|sashimi/,'photo-1579871494447-42269a4b2f6c'],[/burger|hamburger|fries/,'photo-1568901346375-23c9450c58cd'],[/ramen/,'photo-1569718212165-3a8278d5f624'],[/taco|burrito/,'photo-1551504734-5ee1c4a1479b'],
+   [/cake|cupcake|cookie|dessert/,'photo-1486427944299-d1955d23e34d'],[/ice cream/,'photo-1501446529957-6226bd447c46'],[/coffee|tea|cafe|boba/,'photo-1495474472287-4d71bcdd2085'],
+   [/instagram|camera|photo/,'photo-1516035069371-29a1b244cc32'],[/youtube|video/,'photo-1492619375914-88005aa9e8fb'],[/music|playlist|song/,'photo-1511379938547-c1f69419868d'],
+   [/snow|mountain/,'photo-1464822759023-fed622ff2c3b'],[/beach|sea|ocean/,'photo-1507525428034-b723cf961d3e'],[/city|street/,'photo-1519608487953-e999c86e7455'],
+   [/flower|garden|countryside/,'photo-1490750967868-88aa4486c946'],[/cat|kitten/,'photo-1514888286974-6c03e2ca1dba'],[/dog|puppy/,'photo-1552053831-71594a27632d'],
+   [/book|read|novel/,'photo-1512820790803-83ca734da794'],[/gift|present|letter|note/,'photo-1513201099705-a9746e1e201f'],[/meme|funny|laugh|joke/,'photo-1527224857830-43a7acc85260'],
+   [/friend|group|people/,'photo-1529156069898-49953e39b3ac'],[/adventure|trip|travel/,'photo-1500530855697-b586d89ba3ee'],[/space|rocket|planet|galaxy/,'photo-1446776811953-b23d57bd21aa'],
+   [/magic|kingdom|castle|fantasy/,'photo-1518709268805-4e9042af9f23'],[/write|journal|hobby|draw|paint/,'photo-1455390582262-044cdead277a'],[/home|cozy|relax/,'photo-1449247709967-d4461a6a6103'],
+   [/wait|clock|time/,'photo-1508057198894-247b23fe5ade'],[/mess|clean|tidy/,'photo-1584622650111-993a426fbf0a'],[/reply|message|chat|phone|call/,'photo-1516321318423-f06f85e504b3']
+  ];
+  return groups.find(([re])=>re.test(text))?.[1]||'photo-1513364776144-60967b0f800f';
+ })();
  return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=720&q=88';
 }
 const modal=document.getElementById('game-modal');
