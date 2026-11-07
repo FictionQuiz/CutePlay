@@ -1,34 +1,45 @@
 
 /* Match each answer to a relevant real photo so picture choices work across quizzes. */
-const optionPhotoMap=[
- [/pizza|pepperoni|cheese slice/i,'photo-1513104890138-7c749659a591'],
- [/pasta|spaghetti|mac ?and cheese|noodles/i,'photo-1551183053-bf91a1d81141'],
+const const optionPhotoMap=[
+ [/pizza|pepperoni|margherita|cheese slice/i,'photo-1513104890138-7c749659a591'],
+ [/pasta|spaghetti|mac ?and cheese|lasagna|noodles/i,'photo-1551183053-bf91a1d81141'],
+ [/burger|hamburger|fries|french fries/i,'photo-1568901346375-23c9450c58cd'],
+ [/sushi|sashimi|ramen/i,'photo-1579871494447-42269a4b2f6c'],
+ [/taco|burrito|nacho/i,'photo-155150目-6b6a3a3a9b'],
  [/chocolate|cocoa|brownie/i,'photo-1511381939415-e44015466834'],
+ [/cupcake|cake|dessert|cookie|sweet|bakery|donut|doughnut/i,'photo-1486427944299-d1955d23e34d'],
+ [/ice cream|gelato/i,'photo-1501446529957-6226bd447c46'],
+ [/strawberr|fruit|salad|vegetable/i,'photo-1490645935967-10de6ba17061'],
  [/homemade|home ?cooked|soup|meal|food|snack|treat/i,'photo-1547592180-85f173990554'],
- [/snow|mountain|ski|winter|ice|frost/i,'photo-1464822759023-fed622ff2c3b'],
- [/beach|sea|ocean|island|coast/i,'photo-1507525428034-b723cf961d3e'],
+ [/snow|mountain|ski|winter|ice|frost|snowy/i,'photo-1464822759023-fed622ff2c3b'],
+ [/beach|sea|ocean|island|coast|seaside/i,'photo-1507525428034-b723cf961d3e'],
  [/city|city lights|street|shopping|cafe|café/i,'photo-1519608487953-e999c86e7455'],
- [/garden|flower|floral|rose|blossom/i,'photo-1490750967868-88aa4486c946'],
+ [/garden|flower|floral|rose|blossom|sunny garden/i,'photo-1490750967868-88aa4486c946'],
  [/cat|kitten/i,'photo-1514888286974-6c03e2ca1dba'],
  [/dog|puppy/i,'photo-1552053831-71594a27632d'],
- [/book|read|reading|novel|library/i,'photo-1512820790803-83ca734da794'],
- [/coffee|tea|café|cafe|warm drink/i,'photo-1495474472287-4d71bcdd2085'],
- [/cupcake|cake|dessert|cookie|sweet/i,'photo-1486427944299-d1955d23e34d'],
- [/music|playlist|song|concert|dance/i,'photo-1511379938547-c1f69419868d'],
+ [/book|read|reading|novel|library|bookmark/i,'photo-1512820790803-83ca734da794'],
+ [/coffee|tea|café|cafe|warm drink|cocoa/i,'photo-1495474472287-4d71bcdd2085'],
+ [/music|playlist|song|concert|dance|dj/i,'photo-1511379938547-c1f69419868d'],
  [/movie|film|cinema|popcorn/i,'photo-1517604931442-7e0c8ed2963c'],
- [/travel|adventure|trip|journey|map/i,'photo-1500530855697-b586d89ba3ee'],
- [/sunset|sunrise|sky|star|moon|night/i,'photo-1470252649378-9c29740c9fa8'],
- [/rainbow|color|art|paint|creative|craft/i,'photo-1513364776144-60967b0f800f'],
- [/friend|group|team|party|people|together/i,'photo-1529156069898-49953e39b3ac'],
- [/home|cozy|blanket|cuddle|relax/i,'photo-1449247709967-d4461a6a6103'],
+ [/travel|adventure|trip|journey|map|scenic route|road trip/i,'photo-1500530855697-b586d89ba3ee'],
+ [/sunset|sunrise|sky|star|moon|night|twilight/i,'photo-1470252649378-9c29740c9fa8'],
+ [/rainbow|color|art|paint|creative|craft|paintbrush|comic|drawing/i,'photo-1513364776144-60967b0f800f'],
+ [/friend|group|team|party|people|together|voice note|group chat/i,'photo-1529156069898-49953e39b3ac'],
+ [/home|cozy|blanket|cuddle|relax|movie day|reading nook/i,'photo-1449247709967-d4461a6a6103'],
  [/sport|game|football|basketball/i,'photo-1461896836934-ffe607ba8211'],
+ [/camera|photo|photograph/i,'photo-1516035069371-29a1b244cc32'],
+ [/notebook|writing|story|journal|letter/i,'photo-1455390582262-044cdead277a'],
+ [/picnic|park|outdoor/i,'photo-1500530855697-b586d89ba3ee'],
+ [/future|invention|technology|robot/i,'photo-1518770660439-4636190af475'],
+ [/sparkle|magic|fantasy|castle|fairy/i,'photo-1518709268805-4e9042af9f23'],
+ [/snack|popcorn/i,'photo-1578849278619-e73505e9610f'],
  [/default/i,'photo-1470252649378-9c29740c9fa8']
 ];
 function optionImage(label){
  const text=String(label).replace(/[🍕🍝🍫🥣🍿🌈🧸🛍️📸▶️💬🎧⏰🙉🧦😶🏰🦸🍄🚀💌🎟️🎁🍬😂🤫🎭🐣🏝️❄️🌃🌻🌙🫧⚡🌷]/gu,'');
  const match=optionPhotoMap.find(([pattern])=>pattern.test(text));
  const id=match?match[1]:'photo-1470252649378-9c29740c9fa8';
- return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=640&q=82';
+ return 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=640&q=85';
 }
 const modal=document.getElementById('game-modal');
 const content=document.getElementById('game-content');
