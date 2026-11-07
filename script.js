@@ -83,7 +83,7 @@ const starterQuestions=[
 function creatorView(){
  const params=new URLSearchParams(location.search);
  const encoded=params.get('quiz');
- if(encoded){try{const quiz=decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');playSharedQuiz(quiz);return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
+ if(encoded){try{const quiz=decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');const result=params.get('result');if(result){renderChallengeLanding(quiz,result)}else{playSharedQuiz(quiz)}return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
  openModal();renderBuilder();
 }
 function renderBuilder(){
@@ -107,6 +107,13 @@ function renderCreated(url,name){
  document.getElementById('native-share').addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'Can you guess my answers?',text:'I made a CutePlay bestie quiz! See how well you know me 💗',url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);alert('Quiz link copied!')}catch(e){}}});
  document.getElementById('edit-quiz').addEventListener('click',renderBuilder);
 }
+function renderChallengeLanding(quiz,result){
+ const parts=result.split('-'),score=Number(parts[0]),percent=Number(parts[1]);
+ if(!Number.isFinite(score)||!Number.isFinite(percent)||score<0||score>quiz.questions.length||percent<0||percent>100){playSharedQuiz(quiz);return}
+ openModal();
+ content.innerHTML='<div class="challenge-landing"><div class="created-emoji">🏁💗</div><span class="builder-kicker">A FRIEND LEFT YOU A CHALLENGE</span><h2 id="modal-title">'+escapeHTML(quiz.name)+' scored '+percent+'%!</h2><p>Think you know them even better? Take the same 10-question challenge and see your own score.</p><div class="challenge-score-pill">'+score+' / '+quiz.questions.length+' correct</div><button id="take-challenge" class="modal-button wide-button">Take the bestie challenge ✨</button><p class="tiny-privacy">Your score is a friendly challenge, not a competition you have to win.</p></div>';
+ document.getElementById('take-challenge').addEventListener('click',()=>{const url=new URL(location.href);url.searchParams.delete('result');history.replaceState({},'',url);playSharedQuiz(quiz)});
+}
 function playSharedQuiz(quiz){
  openModal();let index=0,answers=[];
  function render(){
@@ -115,16 +122,17 @@ function playSharedQuiz(quiz){
   content.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{answers.push(Number(btn.dataset.answer));tone(590);index++;if(index<quiz.questions.length)render();else showSharedScore()}));
  }
  function showSharedScore(){
-  const score=answers.reduce((sum,a,i)=>sum+(a===quiz.questions[i].correct?1:0),0),percent=Math.round(score/quiz.questions.length*100);
+  const score=answers.reduce((sum,a,i)=>sum+(a===quiz.questions[i].correct?1:0),0),total=quiz.questions.length,percent=Math.round(score/total*100);
   const level=percent===100?['🏆','BESTIE LEGEND','You know them inside out!']:percent>=80?['💗','ULTIMATE BESTIE','You two are seriously in sync.']:percent>=60?['🫶','CLOSE FRIEND ENERGY','You know a lot about them!']:percent>=40?['🌷','GETTING CLOSER','A few more chats and you’ve got this.']:['🧸','FRIENDSHIP IN PROGRESS','Time for more fun conversations!'];
-  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR FRIENDSHIP SCORE</span><h2 id="modal-title">'+score+' / '+quiz.questions.length+'</h2><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">You played '+escapeHTML(quiz.name)+'’s quiz.</p><button id="share-score" class="modal-button wide-button">Share my score ↗</button><button id="make-own" class="text-action">Create your own quiz ♡</button></div>';
-  document.getElementById('share-score').addEventListener('click',()=>shareText('I scored '+score+'/10 on '+quiz.name+'’s CutePlay Bestie Quiz! My title: '+level[1]+'. Can you beat my score? '+location.href));document.getElementById('make-own').addEventListener('click',()=>{history.replaceState({},'',location.pathname);renderBuilder()});chime();launchConfetti();
+  const resultUrl=new URL(location.href);resultUrl.searchParams.set('result',score+'-'+percent);
+  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR BESTIE QUIZ RESULT</span><h2 id="modal-title">'+percent+'%</h2><div class="score-fraction">'+score+' correct out of '+total+'</div><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">You played '+escapeHTML(quiz.name)+'’s quiz.</p><div class="result-actions"><button id="share-score" class="modal-button">Challenge another friend ↗</button><button id="make-own" class="modal-button secondary-button">Create my own quiz ♡</button></div><p class="tiny-privacy">Your challenge link carries this score preview. Friends can tap through and take the same quiz.</p></div>';
+  document.getElementById('share-score').addEventListener('click',()=>shareText('I scored '+score+'/'+total+' ('+percent+'%) on '+quiz.name+'’s CutePlay Bestie Quiz! My title: '+level[1]+'. Can you beat me? '+resultUrl.href));document.getElementById('make-own').addEventListener('click',()=>{history.replaceState({},'',location.pathname+'?create=1');renderBuilder()});chime();launchConfetti();
  }
  render();
 }
 function launchConfetti(){const layer=document.createElement('div');layer.className='confetti-layer';layer.setAttribute('aria-hidden','true');for(let i=0;i<28;i++){const bit=document.createElement('i');bit.textContent=['✦','♥','•','✧'][i%4];bit.style.left=(Math.random()*100)+'%';bit.style.animationDelay=(Math.random()*.65)+'s';layer.appendChild(bit)}document.body.appendChild(layer);setTimeout(()=>layer.remove(),2400)}
 document.getElementById('create-quiz-card')?.addEventListener('click',creatorView);
-if(new URLSearchParams(location.search).has('quiz'))creatorView();
+if(new URLSearchParams(location.search).has('quiz')||new URLSearchParams(location.search).has('create'))creatorView();
 
 /* Extra original, playable games based on the requested friendship-game themes. */
 Object.assign(games,{
