@@ -235,3 +235,72 @@ footer{background:linear-gradient(110deg,#fff0f6,#f4efff,#edf8ff)}
 /* CutePlay local scoreboard and character accents */
 .leaderboard-section{max-width:1000px;margin:0 auto;padding:65px 25px 75px}.leaderboard-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.leaderboard-heading h2{font-size:34px;letter-spacing:-1px;margin:7px 0;color:#49384f}.leaderboard-heading p,.leaderboard-note{font-size:13px;color:#928397;line-height:1.7}.leader-mascots{display:flex;align-items:end;gap:8px}.leader-mascots span{width:58px;height:58px;border-radius:20px;background:#fff0f6;display:grid;place-items:center;font-size:32px;box-shadow:0 8px 22px #e9d5e244;animation:mascotBob 2.8s ease-in-out infinite}.leader-mascots span:nth-child(2){background:#f2efff;animation-delay:.3s}.leader-mascots span:nth-child(3){background:#eaf6ff;animation-delay:.6s}@keyframes mascotBob{50%{transform:translateY(-7px) rotate(4deg)}}.leaderboard-card{background:white;border:1px solid #f1e3ec;border-radius:24px;padding:20px 22px;box-shadow:0 15px 40px #76556b10}.leaderboard-topline{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid #f5eaf0;color:#614e67}.leaderboard-topline span{font-size:9px;letter-spacing:.14em;color:#bd8ba5;font-weight:1000}.leader-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid #f8eff4}.leader-rank{width:32px;text-align:center;font-size:19px;font-weight:900;color:#a98b9e}.leader-avatar{width:38px;height:38px;border-radius:14px;background:#fff0f6;display:grid;place-items:center;font-size:22px}.leader-details{display:flex;flex:1;min-width:0;flex-direction:column;text-align:left}.leader-details b{font-size:13px;color:#57455f}.leader-details small{font-size:10px;color:#aa9aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.leader-row>strong{color:#dd719a;font-size:16px}.leader-empty{display:flex;flex-direction:column;align-items:center;gap:8px;padding:30px 10px;color:#8e7c91}.leader-empty span{font-size:38px}.leader-empty b{font-size:14px}.leader-empty small{font-size:11px;text-align:center}.clear-scores{border:0;background:none;color:#b58ba2;font:800 10px 'Nunito';padding:13px 0 0;cursor:pointer}.leaderboard-note{text-align:center;margin:12px auto 0}.score-save-area{background:#fff6fa;border:1px solid #f5e1eb;border-radius:15px;padding:13px;margin:14px 0;text-align:left}.score-save-area label{display:block;font-size:11px;font-weight:900;color:#876c83;margin-bottom:8px}.score-save-area>div{display:flex;gap:8px}.score-save-area input{min-width:0;flex:1;border:1px solid #efdae6;border-radius:10px;padding:10px;font:700 12px 'Nunito';color:#59475e}.score-save-area .modal-button{margin:0;padding:10px 14px}.saved-score-note{color:#ba6e91;font-weight:900}.leaderboard-section .leader-mascots span:first-child{border-radius:50% 50% 45% 45%}
 @media(max-width:600px){.leaderboard-section{padding:48px 18px 55px}.leaderboard-heading h2{font-size:27px}.leader-mascots span{width:43px;height:43px;font-size:24px;border-radius:15px}.leaderboard-card{padding:15px}.score-save-area>div{flex-direction:column}.score-save-area .modal-button{width:100%}}
+
+
+/* CutePlay signature theme — one pastel family, with a distinct mood for each area */
+:root{
+  --cp-cream:#fffaf1;--cp-blush:#ffe8f1;--cp-lilac:#eee8ff;
+  --cp-sky:#e7f5ff;--cp-peach:#ffeddf;--cp-mint:#e8f7ee;
+  --cp-gold:#e7bf72;--cp-lavender:#a994d9;
+}
+body{
+  background:
+    radial-gradient(ellipse at 7% 8%,rgba(255,222,237,.55),transparent 29%),
+    radial-gradient(ellipse at 92% 27%,rgba(225,220,255,.48),transparent 28%),
+    radial-gradient(ellipse at 10% 76%,rgba(222,242,255,.42),transparent 24%),
+    #fffdfb;
+}
+.top-note{background:linear-gradient(90deg,#ffeaf2,#f1eaff,#eaf7ff);color:#98718c}
+.site-header{position:relative;z-index:5}
+.brand{font-family:'Fredoka','Nunito',sans-serif}
+.brand-mark{display:inline-block;animation:cpHeart 3s ease-in-out infinite}
+.header-cta{background:linear-gradient(120deg,#fff,#fff5fa);border-color:#f2dce9}
+.hero{position:relative}
+.hero:before{content:"";position:absolute;inset:10px 0;border-radius:42px;background:linear-gradient(125deg,rgba(255,240,247,.56),rgba(246,241,255,.35) 55%,rgba(235,248,255,.45));z-index:-1}
+.hero h1{font-family:'Fredoka','Nunito',sans-serif}
+.pink-blob{background:linear-gradient(145deg,#ffe1ed,#f0e6ff 72%,#e6f5ff);box-shadow:inset 0 0 0 1px #fff9;animation:blobBreathe 9s ease-in-out infinite}
+.mascot-face{box-shadow:inset 0 -7px #f9e6dc,0 12px 28px #c68fa522}
+.art-caption{border:1px solid #f8e7ef}
+.games-section{position:relative}
+.section-heading h2,.leaderboard-heading h2,.how-section h2,.about-section h2{font-family:'Fredoka','Nunito',sans-serif}
+.game-card{border-radius:25px;border-color:#fff;box-shadow:0 12px 30px rgba(119,91,125,.09)}
+.card-pink{background:linear-gradient(145deg,#fff0f6,#ffe6ef)}
+.card-lilac{background:linear-gradient(145deg,#f5f1ff,#ebe5ff)}
+.card-blue{background:linear-gradient(145deg,#eff9ff,#e3f2ff)}
+.card-yellow{background:linear-gradient(145deg,#fff9e9,#ffefd9)}
+.game-card:nth-child(4n+1){border-bottom:3px solid #f5c6d9}
+.game-card:nth-child(4n+2){border-bottom:3px solid #d7c9f5}
+.game-card:nth-child(4n+3){border-bottom:3px solid #c7e5f7}
+.game-card:nth-child(4n){border-bottom:3px solid #f1dba9}
+.game-icon{border:1px solid #fff;box-shadow:0 7px 16px #a88ba01a}
+.custom-quiz-banner{background:linear-gradient(110deg,#fff0f6 0%,#f4efff 52%,#edf8ff 100%);border-radius:27px}
+.leaderboard-section{position:relative}
+.leaderboard-card{background:linear-gradient(150deg,#fff 0%,#fffafd 65%,#f8f5ff 100%);border-radius:27px}
+.leaderboard-topline{background:linear-gradient(90deg,#fff3f8,#f5f0ff);margin:-20px -22px 8px;padding:17px 22px;border-radius:23px 23px 0 0}
+.leader-row:nth-child(1) .leader-avatar{background:#fff0c9}
+.leader-row:nth-child(2) .leader-avatar{background:#f0eaff}
+.leader-row:nth-child(3) .leader-avatar{background:#e8f5ff}
+.how-section{background:linear-gradient(110deg,#f6f0ff,#fff0f6 52%,#eef8ff)}
+.how-sticker{color:#b18cce;background:linear-gradient(145deg,#fff,#fff8fc);border:1px solid #fff}
+.about-section{position:relative}
+.about-section:before{content:"✿  ✦  ♡";display:block;color:#e5a9c3;letter-spacing:12px;font-size:17px;margin-bottom:13px}
+footer{background:linear-gradient(110deg,#fff0f6,#f2edff 55%,#edf7ff);border-top:1px solid #f5e6ef}
+.game-modal{background:linear-gradient(155deg,#fffdfb,#fff5fa 58%,#f4f0ff);border:1px solid #f4e2ed}
+.option-button{border-color:#efdfeb;background:linear-gradient(120deg,#fff,#fffafd)}
+.option-button:hover{background:linear-gradient(120deg,#fff2f7,#f5f0ff)}
+.relation-card{border:1px solid #fff;box-shadow:0 9px 24px #a88ba01a}
+.rel-pink{background:linear-gradient(145deg,#fff0f6,#ffe5ef)}
+.rel-lilac{background:linear-gradient(145deg,#f6f1ff,#ebe5ff)}
+.rel-blue{background:linear-gradient(145deg,#eff9ff,#e3f2ff)}
+.rel-peach{background:linear-gradient(145deg,#fff4ec,#ffe9d9)}
+.rel-yellow{background:linear-gradient(145deg,#fffbea,#fff1cf)}
+.rel-mint{background:linear-gradient(145deg,#f0fbf4,#e1f4e8)}
+.create-panel{background:linear-gradient(135deg,#fff0f6,#f4efff 52%,#edf8ff);border-color:#fff;box-shadow:0 22px 60px #9e769120}
+.create-step{background:linear-gradient(145deg,#fff,#fffafd);border-color:#f5e7ef}
+@keyframes cpHeart{0%,100%{transform:scale(1)}50%{transform:scale(1.13)}}
+@media(max-width:600px){
+ .hero:before{inset:4px 8px;border-radius:30px}
+ .leaderboard-topline{margin:-15px -15px 8px;padding:15px}
+ .game-card{border-radius:20px}
+}
+@media(prefers-reduced-motion:reduce){.brand-mark,.pink-blob{animation:none!important}}
