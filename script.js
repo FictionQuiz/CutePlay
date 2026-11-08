@@ -137,7 +137,7 @@ document.querySelectorAll('[data-game]').forEach(btn=>btn.addEventListener('clic
 
 function showResult(name,emoji,title,description){
  const target=document.getElementById('game-result');
- target.innerHTML='<div class="result-box"><div class="result-emoji">'+emoji+'</div><p>THE OFFICIAL (NOT REALLY) RESULT FOR '+escapeHTML(name.toUpperCase())+'</p><h3>'+title+'</h3><p>'+description+'</p></div><div class="share-row"><button class="modal-button" id="share-result">Share result ↗</button><button class="modal-button secondary-button" id="again">Play again</button></div>';
+ target.innerHTML='<div class="block-result-card"><div class="block-result-sparkles" aria-hidden="true"><i>✦</i><i>♡</i><i>✧</i><i>♥</i></div><div class="block-result-sticker">'+emoji+'</div><span class="block-result-kicker">YOUR CUTEPLAY VERDICT</span><h3>'+title+'</h3><p class="block-result-name">A little result for <b>'+escapeHTML(name)+'</b></p><p class="block-result-copy">'+description+'</p><div class="block-result-stamp">JUST FOR FUN ♡</div></div><div class="share-row block-result-actions"><button class="modal-button" id="share-result">Share result ↗</button><button class="modal-button secondary-button" id="again">Try another name</button></div>';
  document.getElementById('share-result').addEventListener('click',()=>shareText('My CutePlay result: '+title+' — '+description));
  document.getElementById('again').addEventListener('click',()=>games.block());
  chime();
