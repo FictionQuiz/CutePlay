@@ -382,3 +382,54 @@ footer{padding-top:42px}
 .dark-theme .option-button{background:#44334a;border-color:#624d68;color:#fff}
 @media(max-width:760px){.header-actions{gap:6px}.theme-toggle{padding:9px 10px;font-size:11px}.game-filters{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:2px 0 8px}.game-filter{white-space:nowrap}.site-header{gap:10px}.desktop-nav{gap:10px}}
 @media(prefers-reduced-motion:reduce){.game-filter{transition:none}}
+
+
+/* CutePlay royal kawaii redesign — cohesive site-wide theme */
+:root{--ink:#49206f;--muted:#80649b;--pink:#ff70c2;--pink-dark:#e94da9;--paper:#fff5ff;--line:#efd7fa;--shadow:0 18px 50px rgba(76,25,115,.14)}
+body{background:radial-gradient(ellipse at 12% 12%,#f6c9ff 0,transparent 28%),radial-gradient(ellipse at 90% 22%,#d8c4ff 0,transparent 30%),linear-gradient(180deg,#f9eaff,#fff3fb 58%,#f5eaff);color:#49206f}
+.top-note{background:linear-gradient(90deg,#512080,#7b36a2,#512080);color:#ffe5fb;letter-spacing:.12em}
+.site-header{max-width:none;padding:0 max(4vw,22px);background:rgba(255,248,255,.82);backdrop-filter:blur(16px);border-bottom:1px solid #efd8fa;position:sticky;top:0;z-index:20}
+.brand{color:#55217d;text-shadow:0 2px 0 #fff}.brand>span:last-of-type{color:#f05ab5}.brand-mark{color:#e95ab8}
+.desktop-nav a{color:#6f4b87}.desktop-nav a:hover{color:#e84ca8}
+.header-cta,.theme-toggle,.sound-toggle{border:1px solid #e9c9f2;background:linear-gradient(135deg,#fff,#fceaff);color:#7a369c;box-shadow:0 5px 16px #9b56bb22;border-radius:24px;font-weight:1000}
+.hero{max-width:1320px;min-height:590px;margin:26px auto 64px;padding:55px 6%;border:1px solid #efd0fa;border-radius:42px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 75% 20%,#b77bdf 0,transparent 35%),radial-gradient(ellipse at 90% 90%,#f58bd0 0,transparent 38%),linear-gradient(125deg,#3b155f 0%,#63258f 47%,#9a4eae 100%);box-shadow:0 25px 70px #6d329833}
+.hero:before{content:"✦     ♡       ✧       ★       ♡      ✦";position:absolute;inset:22px 3%;color:#ffe2ff8a;font-size:clamp(18px,3vw,34px);letter-spacing:2.1em;pointer-events:none}
+.hero-copy{position:relative;z-index:2}.hero .eyebrow{color:#ffd5f2}.hero h1{color:#fff5ff;text-shadow:0 4px 0 #4b1c70,0 8px 25px #220a3c88;letter-spacing:-2px}.hero h1 span{color:#ffb3e6}.hero-copy>p{color:#f7def8;font-size:17px;line-height:1.8}
+.hero .button-primary{background:linear-gradient(120deg,#ff83c9,#e9a4ff);color:#54216f;border:2px solid #ffe3fb;box-shadow:0 8px 0 #632b89,0 14px 30px #250d4788}.hero .text-link{color:#fff0ff}.tiny-proof{color:#f9dcfa}
+.hero-art{min-height:430px;border-radius:48% 52% 45% 55%;background:radial-gradient(circle at 50% 43%,#ffe6ff 0 20%,#e9b5f5 21% 35%,#a85ec8 36% 60%,transparent 61%);filter:drop-shadow(0 20px 28px #210a3b66)}
+.hero-art:after{content:"♡  ✦  ☾  ✧  ♡";position:absolute;inset:8% 0 auto;text-align:center;color:#ffe6ff;font-size:28px;letter-spacing:1.1em;animation:kawaiiFloat 5s ease-in-out infinite}
+.mascot-face{background:linear-gradient(145deg,#fff8ff,#f9dff7);border:5px solid #fff0ff;box-shadow:0 12px 35px #45105f55}
+.mascot-ear{background:#f8d5f5;border:5px solid #fff0ff}
+.mascot-body{background:linear-gradient(145deg,#fff4ff,#e8c2f3);border:4px solid #fff0ff}
+.art-caption{background:#fff0ff;color:#742b91;border:1px solid #fff;box-shadow:0 8px 25px #3c155b55}
+.floating-heart{color:#ffb8e8;text-shadow:0 0 18px #ff9bdb}
+.playful-ticker{background:linear-gradient(90deg,#542079,#8c3eaa,#542079);color:#ffe9ff;border-block:1px solid #d89ce8}
+.section{max-width:1240px}.section-heading h2,.leaderboard-heading h2,.how-section h2,.about-section h2{color:#552079}
+.eyebrow{color:#b14c9d}
+.game-filter{background:#fff8ff;border-color:#e9c9f2;color:#77468f;box-shadow:0 5px 14px #8c4aa511}
+.game-filter:hover,.game-filter.active{background:linear-gradient(120deg,#ef70bd,#9860d5);box-shadow:0 8px 20px #9e55c855}
+.game-card{border:1px solid #ead0f4;border-radius:27px;box-shadow:0 13px 28px #6c37851c}
+.game-card h3{color:#542077}.game-card .play-link{color:#7a369c;border:1px solid #fff;background:#ffffffc9}
+.card-pink{background:linear-gradient(145deg,#ffe1f1,#ffc5e5)}
+.card-lilac{background:linear-gradient(145deg,#f0ddff,#dfc7ff)}
+.card-blue{background:linear-gradient(145deg,#e0eaff,#c9ddff)}
+.card-yellow{background:linear-gradient(145deg,#fff0cf,#ffe0a7)}
+.custom-quiz-banner,.leaderboard-card{border:1px solid #e8c9f3;border-radius:30px;box-shadow:0 18px 42px #6d38851c}
+.custom-quiz-banner{background:linear-gradient(110deg,#fff0fa,#f0e2ff)}
+.custom-quiz-button{background:linear-gradient(120deg,#ed70bd,#9760d5);color:white;border:0;border-radius:25px;box-shadow:0 7px 0 #6c358f}
+.leaderboard-section{background:radial-gradient(ellipse at 50% 0%,#ead2ff 0,transparent 62%)}
+.leaderboard-topline{background:linear-gradient(100deg,#57217d,#8d45ae);color:#fff}
+.how-inner{background:linear-gradient(120deg,#f5e5ff,#ffe5f4);border:1px solid #ead0f4;box-shadow:0 15px 35px #733a8a18}
+.how-sticker,.steps b{background:#fff;color:#9b43b4;box-shadow:0 5px 15px #8744a322}
+footer{background:linear-gradient(110deg,#421963,#633087 55%,#48206a);color:#fff0ff}
+footer p,footer small,.footer-links a{color:#f3d9fa}.footer-brand{color:white}
+.modal-backdrop{background:#210d35b8}.game-modal{border:2px solid #f2c8f2;border-radius:30px}
+@keyframes kawaiiFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.dark-theme{--ink:#fff0ff;--muted:#d8b9e6;--paper:#21102f;background:radial-gradient(ellipse at 10% 5%,#57266b 0,transparent 35%),radial-gradient(ellipse at 90% 30%,#3e285f 0,transparent 35%),#21102f;color:#fff0ff}
+.dark-theme .site-header{background:#261333ed;border-color:#573267}.dark-theme .brand,.dark-theme .desktop-nav a{color:#f8e5ff}
+.dark-theme .hero{background:radial-gradient(ellipse at 75% 20%,#78469a 0,transparent 35%),linear-gradient(125deg,#251039,#48205e 55%,#69357c)}
+.dark-theme .game-card{border-color:#674575}.dark-theme .card-pink{background:linear-gradient(145deg,#543047,#42253c)}.dark-theme .card-lilac{background:linear-gradient(145deg,#49345e,#352647)}.dark-theme .card-blue{background:linear-gradient(145deg,#30465b,#26374b)}.dark-theme .card-yellow{background:linear-gradient(145deg,#59452d,#413322)}
+.dark-theme .custom-quiz-banner,.dark-theme .leaderboard-card,.dark-theme .how-inner{background:linear-gradient(120deg,#392346,#30203f);border-color:#62416f}.dark-theme .game-card h3,.dark-theme .section-heading h2,.dark-theme .leaderboard-heading h2,.dark-theme .how-section h2,.dark-theme .about-section h2{color:#ffeaff}
+.dark-theme .game-card p,.dark-theme .section-heading p,.dark-theme .leaderboard-heading p,.dark-theme .about-section p,.dark-theme .how-section p{color:#ddc6e8}
+.dark-theme footer{background:linear-gradient(110deg,#180b25,#2c1640 55%,#1d102d)}
+@media(max-width:760px){.site-header{position:relative;padding:12px 16px;flex-wrap:wrap;height:auto}.hero{margin:16px 12px 42px;padding:34px 22px;border-radius:28px;min-height:0;gap:12px}.hero-art{min-height:290px}.hero h1{font-size:clamp(38px,11vw,56px)}.hero-copy>p{font-size:15px}.header-actions{flex-wrap:wrap}.desktop-nav{order:3;width:100%;overflow-x:auto;white-space:nowrap;padding:8px 0}.desktop-nav a{font-size:12px}.hero:before{letter-spacing:.5em}.hero-art:after{letter-spacing:.5em}}
