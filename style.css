@@ -643,3 +643,32 @@ body{background:radial-gradient(ellipse at 15% 0%,#51266b66,transparent 34%),#13
 .arcade-main .leaderboard-section,.arcade-main .how-section,.arcade-main .about-section{max-width:none}
 @media(max-width:1150px){.arcade-sidebar{width:190px}.arcade-main{margin-left:215px}.category-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.arcade-main .game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.arcade-sidebar{position:relative;top:auto;left:auto;width:auto;margin:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.sidebar-title,.sidebar-vip,.sidebar-foot{grid-column:1/-1}.side-category{margin:0}.arcade-main{margin-left:0;padding:0 12px}.arcade-main .hero{grid-template-columns:1fr;margin:12px 0 25px}.arcade-main .hero-art{min-height:220px}.category-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.arcade-main .game-grid{grid-template-columns:1fr}.category-view-all{font-size:10px;padding:8px 11px}}
+
+
+/* Motion visibility + animated Block game result card */
+.cute-ambient{z-index:0!important}
+.top-note,.site-header,.arcade-sidebar,.arcade-main,footer{position:relative;z-index:1}
+.hero-art{isolation:isolate}
+.hero-art img{animation:heroIllustrationFloat 5s ease-in-out infinite;transform-origin:50% 85%}
+@keyframes heroIllustrationFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-9px) rotate(1deg)}}
+.block-result-card{position:relative;overflow:hidden;margin:20px 0;padding:25px 20px 21px;border:1px solid #f5d6e5;border-radius:24px;background:radial-gradient(circle at 10% 0%,#fff 0 13%,transparent 14%),linear-gradient(145deg,#fff1f7 0%,#f7f0ff 58%,#fff8ed 100%);box-shadow:0 14px 32px #c995b51c;animation:blockResultPop .55s cubic-bezier(.2,.85,.25,1) both}
+.block-result-card:before,.block-result-card:after{content:"";position:absolute;width:90px;height:90px;border:1px solid #edbad1;border-radius:50%;opacity:.35;pointer-events:none}
+.block-result-card:before{right:-36px;top:-38px}.block-result-card:after{left:-42px;bottom:-48px}
+.block-result-sparkles i{position:absolute;font-style:normal;color:#dc8db2;animation:blockSparkle 2.6s ease-in-out infinite}
+.block-result-sparkles i:nth-child(1){left:12%;top:17%;font-size:19px}
+.block-result-sparkles i:nth-child(2){right:13%;top:22%;font-size:24px;animation-delay:.5s}
+.block-result-sparkles i:nth-child(3){left:19%;bottom:17%;font-size:17px;animation-delay:1s}
+.block-result-sparkles i:nth-child(4){right:18%;bottom:15%;font-size:16px;animation-delay:1.4s}
+.block-result-sticker{position:relative;display:grid;place-items:center;width:82px;height:82px;margin:0 auto 12px;border:3px solid #fff;border-radius:28px;background:linear-gradient(145deg,#fff,#ffe3ef);box-shadow:0 8px 18px #d99ab533;font-size:43px;animation:blockStickerBob 2.8s ease-in-out infinite}
+.block-result-kicker{display:block;color:#b67b9c;font-size:9px;font-weight:1000;letter-spacing:.18em}
+.block-result-card h3{margin:8px 0;color:#62465e;font-size:25px;line-height:1.2}
+.block-result-name,.block-result-copy{margin:7px auto;color:#8c778d;font-size:12px;line-height:1.7;max-width:320px}
+.block-result-name b{color:#c25f91}
+.block-result-stamp{display:inline-block;margin-top:12px;padding:7px 13px;border:1px dashed #e7a9c5;border-radius:30px;color:#c5799f;font-size:9px;font-weight:1000;letter-spacing:.12em;transform:rotate(-3deg)}
+.block-result-actions{margin-bottom:3px}
+.block-result-actions .modal-button{transition:transform .2s,box-shadow .2s}
+.block-result-actions .modal-button:hover{transform:translateY(-3px);box-shadow:0 8px 17px #d99ab544}
+@keyframes blockResultPop{from{opacity:0;transform:translateY(15px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes blockStickerBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+@keyframes blockSparkle{0%,100%{opacity:.35;transform:scale(.8) rotate(0)}50%{opacity:1;transform:scale(1.25) rotate(18deg)}}
+@media(prefers-reduced-motion:reduce){.hero-art img,.block-result-card,.block-result-sticker,.block-result-sparkles i{animation:none!important}}
