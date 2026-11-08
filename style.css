@@ -565,3 +565,57 @@ footer>p,footer small,.footer-links a{color:#ddc7e8}
 @media(max-width:900px){.site-header{padding-inline:20px}.desktop-nav{gap:12px}.desktop-nav a{font-size:11px}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{margin-inline:14px}}
 @media(max-width:650px){.site-header{height:auto;min-height:70px;gap:9px;padding:12px 16px}.desktop-nav{order:3;width:100%;padding:8px 0}.header-actions{margin-left:auto}.header-actions .sound-toggle{display:none}.hero{margin:12px 10px 35px;padding:28px 20px;border-radius:24px;min-height:0}.hero h1{font-size:clamp(39px,11vw,54px);letter-spacing:-2.5px}.hero-art{min-height:270px}.games-section{padding:48px 16px 62px}.game-grid{grid-template-columns:1fr;gap:14px}.game-card{min-height:320px}.game-card:before{height:160px}.game-card .card-top{margin-top:112px}.custom-quiz-banner{flex-wrap:wrap;padding:23px}.custom-quiz-button{width:100%}.how-inner{padding:24px 18px}.leaderboard-section{padding:45px 16px}}
 @media(prefers-reduced-motion:reduce){.game-card,.game-card:before{transition:none}}
+
+
+/* Royal kawaii arcade redesign */
+:root{--ink:#fff0ff;--muted:#d4bddf;--paper:#160a24}
+body{background:radial-gradient(ellipse at 15% 0%,#51266b66,transparent 34%),#13091f;color:#f8eaff}
+.top-note{background:linear-gradient(90deg,#160922,#512367,#160922);color:#f7dfff;border-bottom:1px solid #714286}
+.site-header{max-width:none;height:82px;padding:0 clamp(18px,4vw,64px);background:#1b0d2aee;border-bottom:1px solid #59336d;box-shadow:0 8px 30px #08020f88}
+.brand,.desktop-nav a{color:#fff0ff}.brand>span:last-of-type,.brand-mark{color:#ff91d3}
+.desktop-nav{padding:10px 18px;border:1px solid #68417d;border-radius:40px;background:#2a143b;gap:clamp(12px,1.8vw,27px)}
+.desktop-nav a{font-size:12px}.desktop-nav a:hover{color:#ff9cda}
+.header-cta,.theme-toggle,.sound-toggle{background:#321849;border:1px solid #8b5aa0;color:#ffe8fa;box-shadow:0 0 18px #c65de322}
+.header-cta{background:linear-gradient(120deg,#ef70c3,#a34bce);color:#260e39;border-color:#ffd0f1}
+.hero{max-width:1440px;min-height:500px;margin:22px auto 42px;padding:clamp(30px,5vw,68px);border:1px solid #8a4ca4;border-radius:30px;background:radial-gradient(ellipse at 78% 22%,#a33f9d66,transparent 34%),radial-gradient(ellipse at 12% 95%,#59327d88,transparent 40%),linear-gradient(120deg,#1b0a2d,#35134c 55%,#57245f);box-shadow:0 24px 75px #07020f99}
+.hero:before{inset:14px;border:1px solid #f5c6f833;border-radius:22px}
+.hero h1{color:#fff4ff;text-shadow:0 3px 25px #f28cdb55}.hero h1 span{color:#ff9ddc}
+.hero-copy>p{color:#e0c9eb}.hero .eyebrow{color:#f5b6e5}.hero .text-link,.tiny-proof{color:#e9d2f2}
+.hero .button-primary{background:linear-gradient(120deg,#ffb4df,#dc91f0);color:#39114f;border:1px solid #ffe0f6;box-shadow:0 8px 25px #f078c744}
+.kawaii-hero-art{background:radial-gradient(ellipse at 50% 55%,#c86cc966,transparent 68%)}.kawaii-hero-art img{filter:drop-shadow(0 22px 30px #07020fbb)}
+.playful-ticker{background:#1b0b2a;border-color:#63377a;color:#f8d8fa}
+.section-heading h2,.leaderboard-heading h2,.how-section h2,.about-section h2{color:#fff0ff}
+.section-heading p,.leaderboard-heading p,.about-section p,.how-section p{color:#cdb5dc}
+.game-filter{background:#28123a;color:#e8d2f5;border:1px solid #68417d;box-shadow:0 4px 18px #08020f66}
+.game-filter.active,.game-filter:hover{background:linear-gradient(120deg,#ed6dbb,#9146c6);border-color:#f3a9dc;color:#260e39}
+.game-grid{gap:22px}
+.game-card{min-height:330px;background:#241133!important;border:1px solid #714484;border-radius:22px;box-shadow:0 14px 32px #08020f77}
+.game-card:before{height:174px;opacity:1;filter:none;background-size:cover;background-position:center}
+.game-card:after{background:#3b1b50;color:#ffd5f2;border:1px solid #a56bb7;box-shadow:0 0 18px #d35cae44}
+.game-card:nth-child(1):before{background-image:radial-gradient(circle at 70% 30%,#ffb4e8 0 7%,transparent 8%),radial-gradient(circle at 25% 65%,#a64dc4 0 18%,transparent 19%),linear-gradient(135deg,#38104f,#a83e91 52%,#f39acb)}
+.game-card:nth-child(2):before{background-image:radial-gradient(circle at 30% 40%,#ffe1a7 0 9%,transparent 10%),radial-gradient(circle at 72% 60%,#ef8ac8 0 16%,transparent 17%),linear-gradient(135deg,#25104b,#7041a3 55%,#d17cbe)}
+.game-card:nth-child(3):before{background-image:radial-gradient(ellipse at 50% 40%,#ffb4dc 0 16%,transparent 17%),radial-gradient(circle at 72% 22%,#f8d78f 0 5%,transparent 6%),linear-gradient(135deg,#172b5c,#6a55ba 55%,#e17dbb)}
+.game-card:nth-child(4):before{background-image:radial-gradient(circle at 50% 44%,#ffdf9b 0 17%,transparent 18%),radial-gradient(circle at 28% 70%,#fa8fbd 0 13%,transparent 14%),linear-gradient(135deg,#5a1b66,#cf5b9d 55%,#f4b4ce)}
+.game-card:nth-child(5):before{background-image:radial-gradient(circle at 68% 35%,#ffd78d 0 12%,transparent 13%),radial-gradient(circle at 28% 68%,#d58bf0 0 18%,transparent 19%),linear-gradient(135deg,#251044,#573a9b 55%,#a55ab5)}
+.game-card:nth-child(6):before{background-image:radial-gradient(ellipse at 55% 50%,#b8d7ff 0 17%,transparent 18%),radial-gradient(circle at 25% 25%,#ffe2a5 0 6%,transparent 7%),linear-gradient(135deg,#152e55,#536db3 55%,#a58be0)}
+.game-card:nth-child(7):before{background-image:radial-gradient(circle at 50% 42%,#ffc2e5 0 18%,transparent 19%),radial-gradient(circle at 20% 25%,#ffe4a6 0 6%,transparent 7%),linear-gradient(135deg,#4a164e,#b44b9b 55%,#e78dbd)}
+.game-card:nth-child(8):before{background-image:radial-gradient(circle at 70% 35%,#ffe3a7 0 12%,transparent 13%),radial-gradient(circle at 32% 60%,#ef9bd0 0 17%,transparent 18%),linear-gradient(135deg,#2b174e,#71429b 55%,#bb70bd)}
+.game-card:nth-child(9):before{background-image:radial-gradient(circle at 50% 50%,#ffdf9c 0 14%,transparent 15%),radial-gradient(circle at 75% 25%,#f49dd8 0 9%,transparent 10%),linear-gradient(135deg,#25164d,#5350a1 55%,#bb76c8)}
+.game-card:nth-child(10):before{background-image:radial-gradient(circle at 55% 45%,#ffb4d8 0 17%,transparent 18%),radial-gradient(circle at 25% 25%,#ffe4a7 0 6%,transparent 7%),linear-gradient(135deg,#54204e,#c15c9c 55%,#f0a7c5)}
+.game-card:nth-child(11):before{background-image:radial-gradient(circle at 52% 45%,#f8d78f 0 15%,transparent 16%),radial-gradient(circle at 24% 65%,#d58af0 0 12%,transparent 13%),linear-gradient(135deg,#201344,#65449a 55%,#bc7bc9)}
+.game-card:nth-child(12):before{background-image:radial-gradient(circle at 65% 40%,#ffc2e3 0 16%,transparent 17%),radial-gradient(circle at 24% 25%,#ffe5a7 0 6%,transparent 7%),linear-gradient(135deg,#3b174c,#8b3d8f 55%,#d779b4)}
+.game-card .card-top{margin-top:126px}.game-card .game-icon{display:none}
+.game-card .tag{background:#321b43;color:#ffd9f3;border-color:#865394}
+.game-card h3{color:#fff0ff}.game-card p{color:#cfb9dc}
+.game-card .play-link{background:linear-gradient(120deg,#f38ac9,#b879e2);color:#2b103e;border:0;font-weight:1000}
+.custom-quiz-banner{background:linear-gradient(110deg,#29113d,#522265 65%,#803b78);border-color:#92549e}
+.custom-quiz-copy h3{color:#fff0ff}.custom-quiz-copy p{color:#e2cbe9}
+.custom-quiz-button{background:linear-gradient(120deg,#ffc0e4,#d6a0f4);color:#351044}
+.leaderboard-section{background:radial-gradient(ellipse at 50% 0%,#54266a66,transparent 60%)}
+.leaderboard-card{background:#241132;border-color:#684078}.leaderboard-topline{background:linear-gradient(100deg,#36154e,#6d337e)}
+.leaderboard-note{color:#c8afd6}.how-inner{background:linear-gradient(120deg,#2b143d,#442052);border-color:#684078}
+.steps span{color:#f1ddfa}footer{background:linear-gradient(110deg,#13091f,#281039 55%,#40184e);border-top:1px solid #69407c}
+.modal-backdrop{background:#08020fc9}.game-modal{background:#28153a;color:#fff0ff;border-color:#a35cb4}
+.dark-theme{background:#13091f;color:#f8eaff}.dark-theme .site-header{background:#1b0d2aee}
+@media(max-width:900px){.site-header{height:auto;min-height:78px;flex-wrap:wrap}.desktop-nav{order:3;width:100%;justify-content:center;overflow-x:auto}.game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.site-header{justify-content:space-between}.desktop-nav{justify-content:flex-start}.hero{margin:12px 10px 32px;padding:28px 20px}.game-grid{grid-template-columns:1fr}.game-card{min-height:310px}.game-card:before{height:165px}.game-card .card-top{margin-top:118px}}
