@@ -1,9 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0f6"/><stop offset=".55" stop-color="#f2edff"/><stop offset="1" stop-color="#eaf7ff"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#a77d9d" flood-opacity=".18"/></filter></defs>
-<rect width="1200" height="630" fill="url(#bg)"/><circle cx="110" cy="100" r="75" fill="#ffd9e8"/><circle cx="1090" cy="530" r="105" fill="#ddd5ff"/>
-<path d="M1020 78c-24-35-76-7-45 28l45 42 45-42c31-35-21-63-45-28z" fill="#ef9fbe"/><path d="M160 470c-18-28-61-6-36 22l36 34 36-34c25-28-18-50-36-22z" fill="#b9a8e8"/>
-<rect x="175" y="70" width="850" height="490" rx="52" fill="#fffafd" stroke="#fff" stroke-width="7" filter="url(#s)"/><rect x="215" y="110" width="770" height="410" rx="35" fill="none" stroke="#f1dce9" stroke-width="3" stroke-dasharray="9 13"/>
-<circle cx="600" cy="210" r="67" fill="#ffe2ed"/><path d="M552 177l-25-37 46 13m75 24 25-37-46 13" fill="#ffe2ed" stroke="#efa4c1" stroke-width="6" stroke-linejoin="round"/><circle cx="577" cy="203" r="7" fill="#6d536c"/><circle cx="623" cy="203" r="7" fill="#6d536c"/><ellipse cx="561" cy="229" rx="12" ry="7" fill="#f2a4bf"/><ellipse cx="639" cy="229" rx="12" ry="7" fill="#f2a4bf"/><path d="M588 230q12 15 24 0" fill="none" stroke="#6d536c" stroke-width="5" stroke-linecap="round"/><path d="M600 135l9-15 9 15 17 4-13 12 3 17-16-8-16 8 3-17-13-12z" fill="#e8bd63"/>
-<text x="600" y="322" text-anchor="middle" fill="#bd7296" font-family="Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="7">THE BESTIE CHALLENGE</text>
-<text x="600" y="395" text-anchor="middle" fill="#514157" font-family="Arial,sans-serif" font-size="61" font-weight="800">How well do you</text><text x="600" y="462" text-anchor="middle" fill="#dc7da5" font-family="Arial,sans-serif" font-size="61" font-weight="800">know me? ♡</text>
-<text x="600" y="510" text-anchor="middle" fill="#9a8298" font-family="Arial,sans-serif" font-size="21" font-weight="600">A cute little quiz made on CutePlay</text></svg>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#fce4f2"/><stop offset=".48" stop-color="#dcd1ff"/><stop offset="1" stop-color="#bdeaff"/></linearGradient>
+ <linearGradient id="pink" x2="1" y2="1"><stop stop-color="#ffacd4"/><stop offset="1" stop-color="#d77bea"/></linearGradient>
+ <linearGradient id="purple" x2="0" y2="1"><stop stop-color="#b98af7"/><stop offset="1" stop-color="#7650c9"/></linearGradient>
+ <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="13" stdDeviation="15" flood-color="#6d4a91" flood-opacity=".2"/></filter>
+ <pattern id="dots" width="36" height="36" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2" fill="#fff" opacity=".5"/></pattern>
+</defs>
+<rect width="1200" height="630" fill="url(#bg)"/><rect width="1200" height="630" fill="url(#dots)"/>
+<circle cx="115" cy="130" r="100" fill="#fff" opacity=".28"/><circle cx="1080" cy="510" r="145" fill="#fff" opacity=".25"/>
+<g fill="#fff" opacity=".9"><path d="M180 75l9 20 21 9-21 9-9 21-9-21-21-9 21-9z"/><path d="M1030 100l7 16 17 7-17 7-7 17-7-17-17-7 17-7z"/><path d="M980 420l6 13 14 6-14 6-6 14-6-14-14-6 14-6z"/></g>
+<g filter="url(#shadow)"><rect x="90" y="65" width="1020" height="500" rx="54" fill="#fffaff" opacity=".94"/><rect x="108" y="83" width="984" height="464" rx="42" fill="none" stroke="#f4c7e4" stroke-width="3" stroke-dasharray="7 12"/></g>
+<!-- kawaii kitty mascot -->
+<g transform="translate(210 170)" filter="url(#shadow)">
+ <path d="M30 70L10 8Q8-1 18 5L80 42M235 70L255 8Q257-1 247 5L185 42" fill="#fff" stroke="#d8b9ee" stroke-width="8" stroke-linejoin="round"/>
+ <ellipse cx="132" cy="112" rx="125" ry="105" fill="#fff" stroke="#e8d5f5" stroke-width="7"/>
+ <path d="M83 105q-15-22-29 0M210 105q-15-22-29 0" fill="none" stroke="#765b82" stroke-width="9" stroke-linecap="round"/>
+ <ellipse cx="70" cy="145" rx="19" ry="11" fill="#ffb4d3"/><ellipse cx="194" cy="145" rx="19" ry="11" fill="#ffb4d3"/>
+ <path d="M121 135q11 12 22 0q-11 20-22 0" fill="#e98caf"/><path d="M132 151q-9 16-21 3m21-3q9 16 21 3" fill="none" stroke="#765b82" stroke-width="5" stroke-linecap="round"/>
+ <path d="M83 18l49-31 49 31-11 37H94z" fill="url(#purple)" stroke="#fff" stroke-width="5"/><path d="M132-25l10 18 20 3-15 14 4 20-19-10-19 10 4-20-15-14 20-3z" fill="#ffd36f"/>
+ <path d="M35 215q-15 55 20 83q-2-45 28-56M230 215q15 55-20 83q2-45-28-56" fill="#fff" stroke="#e8d5f5" stroke-width="6"/>
+</g>
+<!-- floating hearts and star -->
+<g fill="#ff8fbe"><path d="M495 175c-23-33-70-4-43 27l43 43 43-43c27-31-20-60-43-27z"/><path d="M1030 230c-17-24-50-3-31 20l31 31 31-31c19-23-14-44-31-20z"/></g>
+<g transform="translate(860 160)"><circle cx="0" cy="0" r="61" fill="#fff0a9"/><path d="M0-42l12 27 30 4-22 21 5 30L0 25l-25 15 5-30-22-21 30-4z" fill="#ffc95f"/></g>
+<g font-family="Trebuchet MS,Arial,sans-serif" text-anchor="middle">
+ <text x="680" y="175" fill="#a56aa7" font-size="23" font-weight="800" letter-spacing="7">A LITTLE WORLD OF FUN ✦</text>
+ <text x="690" y="280" fill="#6d4a91" font-size="94" font-weight="900" letter-spacing="-4">CutePlay</text>
+ <text x="690" y="340" fill="#d66da9" font-size="31" font-weight="800">Play • Collect • Unlock</text>
+ <rect x="500" y="382" width="380" height="67" rx="34" fill="url(#pink)" filter="url(#shadow)"/>
+ <text x="690" y="425" fill="#fff" font-size="25" font-weight="900">QUIZZES  ♡  GAMES  ♡  FUN</text>
+ <text x="690" y="493" fill="#84658f" font-size="25" font-weight="700">Make a quiz. Share a smile. ✨</text>
+</g>
+<g transform="translate(910 445)" filter="url(#shadow)"><rect x="0" y="0" width="105" height="75" rx="18" fill="#ffb9d8"/><path d="M52 0v75M0 25h105" stroke="#fff" stroke-width="7"/><path d="M52 2c-40-40-61 7 0 23c61-16 40-63 0-23z" fill="#fff0a9" stroke="#e99bc1" stroke-width="4"/></g>
+<g transform="translate(155 440)" filter="url(#shadow)"><rect x="0" y="0" width="125" height="82" rx="24" fill="url(#purple)"/><circle cx="37" cy="41" r="16" fill="#fff"/><path d="M37 29v24M25 41h24" stroke="#c28bf0" stroke-width="7" stroke-linecap="round"/><circle cx="83" cy="31" r="8" fill="#ffd36f"/><circle cx="101" cy="51" r="8" fill="#ffb6d7"/></g>
+</svg>
