@@ -88,6 +88,19 @@ const year=document.getElementById('year');
 if(year) year.textContent=new Date().getFullYear();
 
 let soundOn=localStorage.getItem('cuteplay-sound')!=='off';
+const themeButton=document.getElementById('theme-toggle');
+function applyCuteTheme(mode){
+ document.body.classList.toggle('dark-theme',mode==='dark');
+ if(themeButton){themeButton.textContent=mode==='dark'?'🌙 Night':'☀️ Day';themeButton.setAttribute('aria-label',mode==='dark'?'Switch to day theme':'Switch to night theme');}
+ localStorage.setItem('cuteplay-theme',mode);
+}
+applyCuteTheme(localStorage.getItem('cuteplay-theme')||'light');
+themeButton?.addEventListener('click',()=>applyCuteTheme(document.body.classList.contains('dark-theme')?'light':'dark'));
+document.querySelectorAll('[data-game-filter]').forEach(button=>button.addEventListener('click',()=>{
+ const filter=button.dataset.gameFilter;
+ document.querySelectorAll('[data-game-filter]').forEach(item=>item.classList.toggle('active',item===button));
+ document.querySelectorAll('.game-card[data-kind]').forEach(card=>{card.hidden=filter!=='all'&&card.dataset.kind!==filter;});
+}));
 let audioContext;
 function tone(freq=620,duration=.09,type='sine',volume=.035){
   if(!soundOn)return;
