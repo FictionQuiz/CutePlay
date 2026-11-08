@@ -340,3 +340,45 @@ footer{padding-top:42px}
  .game-card:hover{transform:none}
  .desktop-nav a{padding:7px 9px}
 }
+
+
+/* Kawaii game-hub refresh */
+.theme-toggle{border:1px solid #f1dce9;background:#fff8fc;color:#9d6685;border-radius:24px;padding:10px 13px;font:900 12px Nunito,sans-serif;cursor:pointer;white-space:nowrap}
+.header-actions{display:flex;align-items:center;gap:9px}
+.game-filters{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:0 0 25px}
+.game-filter{border:1px solid #f0dce9;background:#fff;color:#8b718b;border-radius:25px;padding:10px 17px;font:900 12px Nunito,sans-serif;cursor:pointer;transition:.2s}
+.game-filter:hover,.game-filter.active{background:linear-gradient(110deg,#f58db5,#ad9be0);border-color:transparent;color:#fff;box-shadow:0 7px 17px #dba7cc55;transform:translateY(-2px)}
+.game-card[hidden]{display:none!important}
+.game-card{min-height:250px}
+.game-card .play-link{display:inline-flex;align-items:center;gap:8px;border-radius:20px;padding:9px 12px;background:#ffffffa8}
+.hero{margin-top:15px}
+.hero-copy>p{max-width:470px}
+.games-section{scroll-margin-top:20px}
+.dark-theme{--ink:#f6eaf5;--muted:#cbb8d0;--paper:#21182b;color:#f6eaf5;background:radial-gradient(ellipse at 8% 5%,#42263f 0,transparent 32%),radial-gradient(ellipse at 90% 30%,#30254a 0,transparent 35%),#21182b}
+.dark-theme .top-note{background:linear-gradient(90deg,#382337,#302640,#253343);color:#f0cde0}
+.dark-theme .site-header{background:#251b30eF;border-color:#49354f}
+.dark-theme .brand,.dark-theme .hero h1,.dark-theme .section-heading h2,.dark-theme .leaderboard-heading h2,.dark-theme .how-section h2,.dark-theme .about-section h2{color:#f8eaf5}
+.dark-theme .desktop-nav a{color:#e2cfe1}
+.dark-theme .desktop-nav a:hover{background:#49334b;color:#ffb9d4}
+.dark-theme .hero:before{background:linear-gradient(125deg,#38263b99,#302b4699,#26394a99)}
+.dark-theme .hero-copy>p,.dark-theme .section-heading p,.dark-theme .game-card p,.dark-theme .leaderboard-heading p,.dark-theme .about-section p,.dark-theme .how-section p{color:#d0bfd2}
+.dark-theme .game-card{border-color:#58435f;box-shadow:0 12px 30px #100b1744}
+.dark-theme .card-pink{background:linear-gradient(145deg,#503044,#40283a)}
+.dark-theme .card-lilac{background:linear-gradient(145deg,#403451,#332b46)}
+.dark-theme .card-blue{background:linear-gradient(145deg,#2d4351,#293849)}
+.dark-theme .card-yellow{background:linear-gradient(145deg,#50422e,#3e352b)}
+.dark-theme .game-card h3{color:#fff0f7}
+.dark-theme .tag,.dark-theme .game-icon,.dark-theme .game-card .play-link{background:#ffffff18;color:#f5e4f0;border-color:#ffffff20}
+.dark-theme .game-filter,.dark-theme .theme-toggle{background:#382a42;border-color:#5a4363;color:#f1d9eb}
+.dark-theme .game-filter.active{background:linear-gradient(110deg,#b85d88,#8066b8);color:#fff}
+.dark-theme .custom-quiz-banner,.dark-theme .leaderboard-card,.dark-theme .game-modal{background:linear-gradient(145deg,#38283e,#302940);border-color:#57435d;color:#f8eaf5}
+.dark-theme .leaderboard-topline{background:#46334b;color:#fff0f7}
+.dark-theme .how-section{background:linear-gradient(110deg,#30263e,#3b2939,#293746);border-color:#49364e}
+.dark-theme .how-sticker,.dark-theme .steps b{background:#49364f;color:#f6c6dc}
+.dark-theme .about-section:before{color:#e9a8ca}
+.dark-theme footer{background:linear-gradient(110deg,#382638,#302941 55%,#293746);border-color:#49364e}
+.dark-theme footer p,.dark-theme footer small,.dark-theme .footer-links a{color:#d9c5d9}
+.dark-theme .modal-backdrop{background:#100b18bb}
+.dark-theme .option-button{background:#44334a;border-color:#624d68;color:#fff}
+@media(max-width:760px){.header-actions{gap:6px}.theme-toggle{padding:9px 10px;font-size:11px}.game-filters{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding:2px 0 8px}.game-filter{white-space:nowrap}.site-header{gap:10px}.desktop-nav{gap:10px}}
+@media(prefers-reduced-motion:reduce){.game-filter{transition:none}}
