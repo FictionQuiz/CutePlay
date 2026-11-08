@@ -196,11 +196,39 @@ const relationPrompts={
  special:["What is my ultimate comfort food?","What would my ideal day together look like?","Which app do I probably open first?","What is my biggest pet peeve?","Which fictional world would I visit?","What kind of thoughtful surprise would I love?","What makes me laugh instantly?","Choose my dream destination.","Which describes my energy best?","What would I choose for a relaxed evening?"]
 };
 const relationNames={bestie:"Bestie",sister:"Sister",brother:"Brother",mom:"Mom",dad:"Dad",cousin:"Cousin",family:"Family",special:"Someone Special"};
+const quizPackData={
+ memory:[
+ ["Which tiny detail about me do I always notice?",["A new haircut ✂️","A changed phone case 📱","A different perfume 🌸","A new pair of shoes 👟"],0],
+ ["What would I remember from our first hangout?",["The funniest moment 😂","What we ate 🍰","The place we went 📍","What we talked about 💬"],0],
+ ["Which message would I send after a fun day?",["That was so much fun 💗","Send me the photos 📸","Already miss this 😭","Next plan when? ✨"],0],
+ ["What is our most likely shared memory?",["Laughing at something silly 🤭","Getting lost somewhere 🗺️","Sharing snacks 🍿","Taking too many pictures 📷"],0],
+ ["What would I save from a special day?",["A photo album 📔","A tiny souvenir 🎀","A handwritten note 💌","A playlist 🎧"],0],
+ ["What do I usually remember best?",["People's exact words 💬","Small thoughtful gestures 🌷","Funny details 😂","Places and dates 📅"],1],
+ ["Which plan sounds most like us?",["A spontaneous outing 🌈","A cozy catch-up ☕","A photo day 📸","A snack adventure 🍓"],1],
+ ["What would cheer me up fastest?",["A voice note 🎙️","A funny video 📱","A sweet treat 🧁","A little walk 🌿"],0],
+ ["What would I put in our friendship scrapbook?",["Our best pictures 🖼️","Funny quotes 💬","Ticket stubs 🎟️","Little notes 💌"],0],
+ ["How would I describe our best memories?",["Always unexpected ✨","Full of laughter 😂","Simple but special 🌷","A little chaotic 🫧"],2]
+ ],
+ dream:[
+ ["Pick my dream weekend escape.",["A pink seaside villa 🏝️","A snowy cabin ❄️","A castle hotel 🏰","A city penthouse 🌃"],2],
+ ["Which fantasy pet would I choose?",["A tiny dragon 🐉","A fluffy moon cat 🐈","A magical fox 🦊","A cloud bunny 🐇"],1],
+ ["Choose my dream room aesthetic.",["Pastel princess room 🎀","Moonlit lavender room 🌙","Flower garden room 🌷","Cozy book nook 📚"],0],
+ ["Which magical power would I pick?",["Teleport anywhere ✨","Talk to animals 🐾","Control the weather ☁️","Create anything I draw 🎨"],0],
+ ["What would my dream café serve?",["Strawberry matcha 🍓","Cloud-shaped pancakes 🥞","Lavender cupcakes 🧁","Hot chocolate ☕"],0],
+ ["Choose a perfect day out.",["Flower market 🌸","Amusement park 🎡","Bookshop café 📚","Aquarium visit 🐠"],0],
+ ["Which outfit theme would I wear?",["Royal bow and pearls 👑","Soft pastel cardigan 🩷","Fairy-inspired dress 🧚","Comfy oversized hoodie 🧸"],0],
+ ["Pick my dream celebration.",["Garden tea party 🫖","Fairy-light picnic ✨","A themed sleepover 💤","A cute dessert party 🍰"],1],
+ ["Which place would I explore first?",["A hidden flower maze 🌹","A crystal cave 💎","A floating island ☁️","An enchanted library 📖"],3],
+ ["What would my dream day end with?",["Watching stars 🌠","A cozy movie 🍿","A sunset walk 🌅","Dessert with friends 🍨"],0]
+ ]
+};
 function renderBuilder(){
  const params=new URLSearchParams(location.search),relation=params.get('type')||'bestie';
  const prompts=relationPrompts[relation]||relationPrompts.bestie;
- const questions=starterQuestions.map((q,i)=>[prompts[i],q[1],q[2]]);
- content.innerHTML='<div class="builder-heading"><span class="builder-kicker">'+escapeHTML((relationNames[relation]||'Bestie').toUpperCase())+' CHALLENGE ✨</span><h2 id="modal-title">Create your '+escapeHTML((relationNames[relation]||'bestie').toLowerCase())+' quiz 💌</h2><p>Set your own answers, then share your personal quiz link. See who knows you best!</p></div><form id="builder-form" class="builder-form"><label class="field-label" for="creator-name">Your nickname</label><input id="creator-name" maxlength="22" required placeholder="e.g. Cupcake"><div class="builder-progress"><b>10 questions</b><span>Make it yours</span></div><div id="builder-questions"></div><button class="modal-button builder-submit" type="submit">Create my quiz link ✨</button><p class="tiny-privacy">Your quiz is saved and shared with a short link.</p></form>';
+ const pack=params.get('pack')||'classic';
+ const questions=pack==='memory'?quizPackData.memory:pack==='dream'?quizPackData.dream:starterQuestions.map((q,i)=>[prompts[i],q[1],q[2]]);
+ content.innerHTML='<div class="builder-heading"><span class="builder-kicker">'+escapeHTML((relationNames[relation]||'Bestie').toUpperCase())+' CHALLENGE ✨</span><h2 id="modal-title">Create your '+escapeHTML((relationNames[relation]||'bestie').toLowerCase())+' quiz 💌</h2><p>Set your own answers, then share your personal quiz link. See who knows you best!</p></div><form id="builder-form" class="builder-form"><label class="field-label" for="creator-name">Your nickname</label><input id="creator-name" maxlength="22" required placeholder="e.g. Cupcake"><div class="quiz-style-picker"><label for="quiz-style">Choose your quiz vibe</label><select id="quiz-style"><option value="classic" '+(pack==='classic'?'selected':'')+' >💗 Classic bestie quiz</option><option value="memory" '+(pack==='memory'?'selected':'')+' >📸 Our memories</option><option value="dream" '+(pack==='dream'?'selected':'')+' >🏰 Dream world</option></select></div><div class="builder-progress"><b>10 questions</b><span>Make it yours</span></div><div id="builder-questions"></div><button class="modal-button builder-submit" type="submit">Create my quiz link ✨</button><p class="tiny-privacy">Your quiz is saved and shared with a short link.</p></form>';
+ document.getElementById('quiz-style').addEventListener('change',e=>{const next=new URL(location.href);next.searchParams.set('pack',e.target.value);history.replaceState({},'',next);renderBuilder()});
  const holder=document.getElementById('builder-questions');
  holder.innerHTML=questions.map((q,i)=>'<fieldset class="builder-question"><legend><span>Q'+(i+1)+'</span> '+escapeHTML(q[0])+'</legend><label class="field-label">Question</label><input class="q-text" maxlength="100" required value="'+escapeHTML(q[0])+'"><div class="answer-grid">'+q[1].map((a,j)=>'<label class="answer-edit"><span>Option '+String.fromCharCode(65+j)+'</span><img class="builder-option-photo" src="'+optionImage(a)+'" alt="'+escapeHTML(a)+'" loading="eager" decoding="async"><input class="q-option" maxlength="55" required value="'+escapeHTML(a)+'"><span class="correct-choice"><input type="radio" name="correct-'+i+'" value="'+j+'" '+(j===q[2]?'checked':'')+'><small>Correct answer</small></span></label>').join('')+'</div></fieldset>').join('');
  holder.querySelectorAll('.answer-edit').forEach(card=>{const field=card.querySelector('.q-option'),photo=card.querySelector('.builder-option-photo');photo.onerror=()=>{photo.onerror=null;photo.src='https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=720&q=88'};field.addEventListener('input',()=>{photo.src=optionImage(field.value);photo.alt=field.value})});
