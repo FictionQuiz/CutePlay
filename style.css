@@ -696,3 +696,90 @@ body{background:radial-gradient(ellipse at 15% 0%,#51266b66,transparent 34%),#13
 @keyframes cpGreenFlash{50%{box-shadow:0 0 0 5px #65cf7a55}}
 @keyframes cpRedFlash{50%{box-shadow:0 0 0 5px #f06b7655}}
 .owner-score-list{display:grid;gap:10px;margin:20px 0;text-align:left}.owner-score-count{padding:12px;text-align:center;border-radius:14px;background:#fff0f6;color:#c84c83;font-weight:900}
+
+
+/* CutePlay visual refresh — original floating doodles and polished arcade cards */
+:root{
+ --cp-violet:#5940a8;--cp-violet-deep:#33215f;--cp-lilac:#eee8ff;
+ --cp-pink:#ff86bd;--cp-gold:#f4c96b;--cp-blue:#b9dcff;
+ --cp-cream:#fffdfb;--cp-line:rgba(110,83,164,.13);
+ --cp-display:'Fredoka','Nunito',sans-serif;
+}
+body{background:radial-gradient(ellipse at 8% 15%,#f5eaff 0,transparent 28%),radial-gradient(ellipse at 92% 38%,#ffeaf4 0,transparent 26%),#fffafd;color:#39265f}
+.top-note{background:linear-gradient(90deg,#392267,#5b429a 48%,#392267);color:#fff0fa;letter-spacing:.16em}
+.site-header{position:relative;z-index:20;max-width:1240px;background:rgba(255,253,255,.84);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.8);border-radius:0 0 24px 24px;box-shadow:0 12px 35px rgba(67,43,111,.07)}
+.brand{font-family:var(--cp-display);font-size:29px;color:#40276f}
+.brand>span:last-of-type{color:#f27caf}
+.desktop-nav a{transition:color .2s,transform .2s}
+.desktop-nav a:hover{transform:translateY(-2px);color:#8b62d5}
+.header-cta,.button-primary{background:linear-gradient(135deg,#7759c9,#513a9a);color:white;border:0;box-shadow:0 10px 24px rgba(83,58,151,.22)}
+.header-cta:hover,.button-primary:hover{background:linear-gradient(135deg,#8969dc,#6045ad);transform:translateY(-2px)}
+.hero{max-width:1240px;position:relative;isolation:isolate;margin-top:28px;border:1px solid rgba(255,255,255,.88);border-radius:38px;background:linear-gradient(118deg,rgba(255,255,255,.94),rgba(247,240,255,.88) 52%,rgba(255,238,247,.88));box-shadow:0 24px 70px rgba(86,59,137,.10);overflow:hidden}
+.hero:before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,183,220,.30),transparent 70%);right:2%;top:-24%;z-index:-1}
+.hero:after{content:"✧";position:absolute;right:48%;top:13%;font-size:32px;color:#d5b4ff;animation:cpTwinkle 3.5s ease-in-out infinite}
+.hero h1{font-family:var(--cp-display);font-weight:700;letter-spacing:-2px;color:#392365}
+.hero h1 span{color:#dc6da9}
+.hero-copy>p{color:#766887}
+.hero-art{filter:drop-shadow(0 22px 24px rgba(87,59,140,.13))}
+.question-doodles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.doodle{position:absolute;display:grid;place-items:center;color:rgba(150,119,211,.25);font-family:var(--cp-display);font-weight:700;text-shadow:0 3px 12px rgba(176,143,222,.12);animation:cpFloat 7s ease-in-out infinite}
+.doodle-one{top:19%;left:4%;font-size:38px}.doodle-two{top:37%;right:3%;font-size:34px;animation-delay:-2s}
+.doodle-three{top:69%;left:2%;font-size:48px;animation-delay:-4s}.doodle-four{top:82%;right:5%;font-size:34px;animation-delay:-1s}
+.doodle-five{top:54%;right:8%;font-size:24px;animation-delay:-3s}
+.arcade-main,footer{position:relative;z-index:1}
+.section{max-width:1240px}
+.section-heading h2,.leaderboard-heading h2,.how-inner h2,.about-section h2{font-family:var(--cp-display);color:#40276f;letter-spacing:-.7px}
+.section-heading .eyebrow,.eyebrow{color:#9a70c4}
+.category-showcase,.games-section,.standalone-games{padding-left:28px;padding-right:28px}
+.category-tile{border:1px solid rgba(255,255,255,.92);box-shadow:0 12px 30px rgba(79,55,126,.08);transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s,border-color .28s}
+.category-tile:hover{transform:translateY(-7px) rotate(-.5deg);box-shadow:0 20px 42px rgba(79,55,126,.14);border-color:#dfcdfa}
+.tile-art{font-family:var(--cp-display);text-shadow:0 5px 14px rgba(83,54,139,.12)}
+.game-filters button{transition:transform .2s,background .2s,box-shadow .2s}
+.game-filters button:hover{transform:translateY(-2px)}
+.game-card{position:relative;isolation:isolate;border:1px solid rgba(255,255,255,.95);border-radius:28px;box-shadow:0 14px 35px rgba(78,55,123,.09);overflow:hidden;transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s}
+.game-card:before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#8e72d9,#f18ab9,#f4cf79);opacity:.8;z-index:-1}
+.game-card:after{content:"✧";position:absolute;right:19px;top:18px;color:rgba(104,75,161,.23);font-size:22px;transition:transform .35s}
+.game-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(78,55,123,.16)}
+.game-card:hover:after{transform:rotate(35deg) scale(1.35)}
+.game-icon{display:grid;place-items:center;width:68px;height:68px;border-radius:22px;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.95);box-shadow:0 8px 18px rgba(82,56,128,.10);font-size:32px;transition:transform .3s}
+.game-card:hover .game-icon{transform:translateY(-4px) rotate(-7deg) scale(1.06)}
+.game-card h3{font-family:var(--cp-display);font-size:23px;color:#412a70}
+.game-card p{color:#786b8a;line-height:1.7}
+.tag,.standalone-tag{letter-spacing:.12em;font-weight:900}
+.play-link{color:#6649aa;font-weight:900}
+.play-link:hover{color:#d65f9c}
+.card-pink{background:linear-gradient(145deg,#fff0f7,#ffe2ef)}
+.card-lilac{background:linear-gradient(145deg,#f5f0ff,#e9e0ff)}
+.card-blue{background:linear-gradient(145deg,#eff8ff,#dceeff)}
+.card-yellow{background:linear-gradient(145deg,#fff9e9,#ffefc8)}
+.standalone-card{border:1px solid rgba(255,255,255,.95);box-shadow:0 14px 35px rgba(78,55,123,.08);border-radius:28px;transition:transform .28s,box-shadow .28s}
+.standalone-card:hover{transform:translateY(-7px);box-shadow:0 22px 44px rgba(78,55,123,.15)}
+.standalone-art{display:grid;place-items:center;width:76px;height:76px;border-radius:25px;background:rgba(255,255,255,.82);box-shadow:0 8px 20px rgba(78,55,123,.09);font-size:38px}
+.standalone-card h3{font-family:var(--cp-display);color:#412a70}
+.custom-quiz-banner{border:1px solid rgba(255,255,255,.9);background:linear-gradient(110deg,#49317f,#7357b7 58%,#a16da9);box-shadow:0 20px 48px rgba(75,49,128,.22);border-radius:30px}
+.custom-quiz-banner h3,.custom-quiz-banner p{color:#fff}
+.custom-quiz-banner .eyebrow{color:#f8d8ee}
+.custom-quiz-button{background:#fff;color:#6748a5;border-radius:24px;box-shadow:0 8px 20px rgba(29,18,59,.14)}
+.leaderboard-card{border:1px solid #eee5fa;box-shadow:0 18px 45px rgba(78,55,123,.09);border-radius:28px}
+.game-modal{border:1px solid rgba(255,255,255,.95);box-shadow:0 28px 90px rgba(38,23,73,.3);border-radius:30px}
+.modal-backdrop{backdrop-filter:blur(9px)}
+.option-button{border:1px solid #eadcf8;box-shadow:0 6px 16px rgba(80,56,128,.06);transition:transform .2s,border-color .2s,box-shadow .2s}
+.option-button:hover{transform:translateY(-3px);border-color:#bda4e8;box-shadow:0 12px 24px rgba(80,56,128,.12)}
+.answer-correct{border-color:#63c99a!important;background:#e9fff4!important}
+.answer-wrong{border-color:#f08da9!important;background:#fff0f4!important}
+footer{background:#38245f;color:#f8efff}
+footer .brand{color:#fff}footer .footer-links a,footer p,footer small{color:#d8c9eb}
+@keyframes cpFloat{0%,100%{transform:translate3d(0,0,0) rotate(-5deg)}50%{transform:translate3d(0,-17px,0) rotate(7deg)}}
+@keyframes cpTwinkle{0%,100%{opacity:.45;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(22deg)}}
+@media(max-width:760px){
+ .site-header{height:auto;min-height:68px;padding:12px 16px;border-radius:0 0 18px 18px;flex-wrap:wrap;gap:10px}
+ .desktop-nav{order:3;width:100%;overflow-x:auto;gap:18px;padding:8px 0 2px}
+ .header-actions{gap:7px}.header-cta{padding:9px 12px}
+ .hero{margin:16px 14px 48px;padding:30px 22px;border-radius:28px;grid-template-columns:1fr;gap:12px}
+ .hero h1{font-size:clamp(42px,12vw,58px)}
+ .hero-art{max-width:440px;margin:auto}
+ .doodle-one{left:1%;top:24%}.doodle-two{right:1%;top:46%}.doodle-three{left:1%;top:78%}
+ .category-showcase,.games-section,.standalone-games{padding-left:16px;padding-right:16px}
+ .game-card{border-radius:23px}.game-icon{width:58px;height:58px;font-size:28px}
+}
+@media(prefers-reduced-motion:reduce){.doodle,.hero:after,.game-card,.category-tile,.standalone-card{animation:none!important;transition:none!important}}
