@@ -267,13 +267,8 @@ async function decodeQuiz(token){
 async function makeQuizShareImage(name,url){
  const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;
  const ctx=canvas.getContext('2d');
- const draw=()=>{
-  const img=new Image();img.onload=()=>{ctx.drawImage(img,0,0,1200,630);finish()};img.onerror=()=>{const g=ctx.createLinearGradient(0,0,1200,630);g.addColorStop(0,'#fce4f2');g.addColorStop(.5,'#dcd1ff');g.addColorStop(1,'#bdeaff');ctx.fillStyle=g;ctx.fillRect(0,0,1200,630);finish()};
-  img.src='assets/bestie-preview.svg';
- };
  const finish=()=>{ctx.fillStyle='rgba(255,255,255,.90)';ctx.beginPath();ctx.roundRect(55,55,1090,520,42);ctx.fill();ctx.textAlign='center';ctx.fillStyle='#7650a8';ctx.font='800 34px Arial';ctx.fillText('♡ CUTEPLAY BESTIE QUIZ ♡',600,145);ctx.fillStyle='#25203e';ctx.font='900 66px Arial';ctx.fillText(name.slice(0,24),600,255);ctx.fillStyle='#e84f98';ctx.font='800 48px Arial';ctx.fillText('Can you beat my score?',600,345);ctx.fillStyle='#554d70';ctx.font='28px Arial';ctx.fillText('Play my quiz • Find out who knows me best!',600,415);ctx.fillStyle='#2589df';ctx.font='bold 24px Arial';ctx.fillText('Tap the link in the message to play',600,490);};
- draw();
- await new Promise(resolve=>setTimeout(resolve,450));
+ await new Promise(resolve=>{const img=new Image();img.onload=()=>{ctx.drawImage(img,0,0,1200,630);finish();resolve()};img.onerror=()=>{const g=ctx.createLinearGradient(0,0,1200,630);g.addColorStop(0,'#fce4f2');g.addColorStop(.5,'#dcd1ff');g.addColorStop(1,'#bdeaff');ctx.fillStyle=g;ctx.fillRect(0,0,1200,630);finish();resolve()};img.src='assets/bestie-preview.svg'});
  return await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
 }
 function renderCreated(url,name,ownerUrl){
