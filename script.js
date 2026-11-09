@@ -264,11 +264,36 @@ async function decodeQuiz(token){
  obj.questions.forEach(q=>{if(typeof q.text!=='string'||!Array.isArray(q.options)||q.options.length!==4||!Number.isInteger(q.correct)||q.correct<0||q.correct>3)throw Error('invalid')});
  return obj
 }
+async function makeQuizShareImage(name,url){
+ const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;
+ const ctx=canvas.getContext('2d');
+ const draw=()=>{
+  const img=new Image();img.onload=()=>{ctx.drawImage(img,0,0,1200,630);finish()};img.onerror=()=>{const g=ctx.createLinearGradient(0,0,1200,630);g.addColorStop(0,'#fce4f2');g.addColorStop(.5,'#dcd1ff');g.addColorStop(1,'#bdeaff');ctx.fillStyle=g;ctx.fillRect(0,0,1200,630);finish()};
+  img.src='assets/bestie-preview.svg';
+ };
+ const finish=()=>{ctx.fillStyle='rgba(255,255,255,.90)';ctx.beginPath();ctx.roundRect(55,55,1090,520,42);ctx.fill();ctx.textAlign='center';ctx.fillStyle='#7650a8';ctx.font='800 34px Arial';ctx.fillText('♡ CUTEPLAY BESTIE QUIZ ♡',600,145);ctx.fillStyle='#25203e';ctx.font='900 66px Arial';ctx.fillText(name.slice(0,24),600,255);ctx.fillStyle='#e84f98';ctx.font='800 48px Arial';ctx.fillText('Can you beat my score?',600,345);ctx.fillStyle='#554d70';ctx.font='28px Arial';ctx.fillText('Play my quiz • Find out who knows me best!',600,415);ctx.fillStyle='#2589df';ctx.font='bold 24px Arial';ctx.fillText('Tap the link in the message to play',600,490);};
+ draw();
+ await new Promise(resolve=>setTimeout(resolve,450));
+ return await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+}
 function renderCreated(url,name,ownerUrl){
- content.innerHTML='<div class="created-state"><div class="created-emoji">🎉💌</div><span class="builder-kicker">YOUR QUIZ IS READY</span><h2 id="modal-title">Looking good, '+escapeHTML(name)+'!</h2><p>Share the player link with your friends. Keep your private owner link to see everyone’s scores.</p><div class="share-link-box"><input id="quiz-url" readonly value="'+escapeHTML(url)+'" aria-label="Player quiz link"><button id="copy-quiz" class="modal-button">Copy player link</button></div><div class="share-link-box"><input id="owner-url" readonly value="'+escapeHTML(ownerUrl)+'" aria-label="Private owner scoreboard link"><button id="copy-owner" class="modal-button">Copy owner link</button></div><button id="native-share" class="modal-button secondary-button wide-button">Share player link ↗</button><div class="created-note">♡ Don’t share your owner link. Anyone who has it can view this quiz’s scoreboard.</div><button id="edit-quiz" class="text-action">← Edit my questions</button></div>';
+ const quizId=new URL(url).searchParams.get('q');
+ try{localStorage.setItem('cuteplay_owner_'+quizId,ownerUrl)}catch(e){}
+ content.innerHTML='<div class="created-state"><div class="created-emoji">🎀💌</div><span class="builder-kicker">YOUR QUIZ IS READY</span><h2 id="modal-title">Looking good, '+escapeHTML(name)+'!</h2><p>Send this one player link to your friends. Your scoreboard stays in your CutePlay account on this device.</p><div class="share-link-box"><input id="quiz-url" readonly value="'+escapeHTML(url)+'" aria-label="Player quiz link"><button id="copy-quiz" class="modal-button">Copy player link</button></div><button id="owner-board" class="modal-button secondary-button wide-button">🏆 Open my scoreboard</button><button id="native-share" class="modal-button wide-button">🎀 Share quiz with cute image ↗</button><div class="created-note">♡ Share the player link only. Keep your scoreboard access on this device.</div><button id="edit-quiz" class="text-action">← Edit my questions</button></div>';
  document.getElementById('copy-quiz').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);document.getElementById('copy-quiz').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('quiz-url').select();alert('Copy the selected link.')}});
- document.getElementById('copy-owner').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(ownerUrl);document.getElementById('copy-owner').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('owner-url').select();alert('Copy the selected link.')}});
- document.getElementById('native-share').addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'Can you guess my answers?',text:'I made a CutePlay bestie quiz! See how well you know me 💗',url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);alert('Quiz link copied!')}catch(e){}}});
+ document.getElementById('owner-board').addEventListener('click',()=>{location.href=ownerUrl});
+ document.getElementById('native-share').addEventListener('click',async()=>{
+  const message='I made a CutePlay bestie quiz for you! 🎀💗 Play and see how well you know me: '+url;
+  try{
+   const blob=await makeQuizShareImage(name,url);
+   if(blob&&navigator.canShare&&navigator.share){
+    const file=new File([blob],'cuteplay-bestie-quiz.png',{type:'image/png'});
+    if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'CutePlay Bestie Quiz',text:message});return}
+   }
+   if(navigator.share){await navigator.share({title:'CutePlay Bestie Quiz',text:message,url});return}
+   await navigator.clipboard.writeText(message);alert('Quiz message copied! Paste it into your chat.');
+  }catch(e){if(e.name!=='AbortError'){try{await navigator.clipboard.writeText(message);alert('Quiz link copied! Paste it into your chat.')}catch(err){document.getElementById('quiz-url').select();alert('Copy the player link above.')}}}
+ });
  document.getElementById('edit-quiz').addEventListener('click',renderBuilder);
 }
 function renderChallengeLanding(quiz,result){
