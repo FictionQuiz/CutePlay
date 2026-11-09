@@ -94,7 +94,7 @@ function applyCuteTheme(mode){
  if(themeButton){themeButton.textContent=mode==='dark'?'🌙 Night':'☀️ Day';themeButton.setAttribute('aria-label',mode==='dark'?'Switch to day theme':'Switch to night theme');}
  localStorage.setItem('cuteplay-theme',mode);
 }
-if(localStorage.getItem('cuteplay-theme-version')!=='royal3'){localStorage.setItem('cuteplay-theme','dark');localStorage.setItem('cuteplay-theme-version','royal3');}
+if(localStorage.getItem('cuteplay-theme-version')!=='premium4'){localStorage.setItem('cuteplay-theme','light');localStorage.setItem('cuteplay-theme-version','premium4');}
 applyCuteTheme(localStorage.getItem('cuteplay-theme')||'dark');
 themeButton?.addEventListener('click',()=>applyCuteTheme(document.body.classList.contains('dark-theme')?'light':'dark'));
 document.querySelectorAll('[data-game-filter]').forEach(button=>button.addEventListener('click',()=>{
