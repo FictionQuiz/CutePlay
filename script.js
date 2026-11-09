@@ -180,7 +180,7 @@ const starterQuestions=[
 ];
 async function creatorView(){
  const params=new URLSearchParams(location.search),id=params.get('q');
- if(id){try{if(!cuteDb)throw Error('Database unavailable');const snap=await cuteDb.collection('quizzes').doc(id).get();if(!snap.exists)throw Error('Quiz missing');const quiz=snap.data();if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length!==10)throw Error('Invalid quiz');const result=params.get('result');if(result)renderChallengeLanding(quiz,result);else playSharedQuiz(quiz);return}catch(e){console.error(e);content.innerHTML='<h2>This quiz link could not be opened 💗</h2><p>Please ask your friend to create and share a new link.</p>';openModal();return}}
+ if(id){try{if(!cuteDb)throw Error('Database unavailable');const snap=await cuteDb.collection('quizzes').doc(id).get();if(!snap.exists)throw Error('Quiz missing');const quiz=snap.data();if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length!==10)throw Error('Invalid quiz');quiz.id=id;if(params.get('owner')&&params.get('owner')===quiz.ownerToken){renderOwnerScoreboard(quiz);return}const result=params.get('result');if(result)renderChallengeLanding(quiz,result);else playSharedQuiz(quiz);return}catch(e){console.error(e);content.innerHTML='<h2>This quiz link could not be opened 💗</h2><p>Please ask your friend to create and share a new link.</p>';openModal();return}}
  const encoded=params.get('quiz');
  if(encoded){try{const quiz=await decodeQuiz(encoded);if(!quiz||!Array.isArray(quiz.questions)||quiz.questions.length<3)throw Error('bad quiz');const result=params.get('result');if(result)renderChallengeLanding(quiz,result);else playSharedQuiz(quiz);return}catch(e){content.innerHTML='<h2>Oops! This quiz link looks incomplete 💗</h2><p>Ask your friend to create and share a fresh link.</p>';openModal();return}}
  openModal();renderBuilder();
@@ -236,8 +236,8 @@ function renderBuilder(){
   e.preventDefault();const name=document.getElementById('creator-name').value.trim();
   const questions=[...holder.querySelectorAll('.builder-question')].map((el,i)=>({text:el.querySelector('.q-text').value.trim(),options:[...el.querySelectorAll('.q-option')].map(x=>x.value.trim()),correct:Number(el.querySelector('input[type=radio]:checked')?.value??0)}));
   if(!name||questions.some(q=>!q.text||q.options.some(a=>!a)))return;
-  const quiz={name,questions,relation,version:1},btn=document.querySelector('.builder-submit');if(btn){btn.disabled=true;btn.textContent='Creating your quiz…'}
-  try{if(!cuteDb)throw Error('Firebase unavailable');if(!await cuteAuthReady)throw Error('Enable Anonymous sign-in in Firebase Authentication');const doc=await cuteDb.collection('quizzes').add({...quiz,createdAt:firebase.firestore.FieldValue.serverTimestamp()});const url=new URL(location.href);url.search='';url.searchParams.set('q',doc.id);url.hash='';renderCreated(url.href,name);chime()}
+  const ownerToken=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(36).slice(2));const quiz={name,questions,relation,version:1,ownerToken},btn=document.querySelector('.builder-submit');if(btn){btn.disabled=true;btn.textContent='Creating your quiz…'}
+  try{if(!cuteDb)throw Error('Firebase unavailable');if(!await cuteAuthReady)throw Error('Enable Anonymous sign-in in Firebase Authentication');const doc=await cuteDb.collection('quizzes').add({...quiz,createdAt:firebase.firestore.FieldValue.serverTimestamp()});const url=new URL(location.href);url.search='';url.searchParams.set('q',doc.id);url.hash='';const ownerUrl=new URL(url.href);ownerUrl.searchParams.set('owner',ownerToken);renderCreated(url.href,name,ownerUrl.href);chime()}
   catch(err){console.error(err);alert('Quiz save failed. Enable Anonymous sign-in and publish the Firestore rules.');if(btn){btn.disabled=false;btn.textContent='Create my quiz link ✨'}}
  });
 }
@@ -264,9 +264,10 @@ async function decodeQuiz(token){
  obj.questions.forEach(q=>{if(typeof q.text!=='string'||!Array.isArray(q.options)||q.options.length!==4||!Number.isInteger(q.correct)||q.correct<0||q.correct>3)throw Error('invalid')});
  return obj
 }
-function renderCreated(url,name){
- content.innerHTML='<div class="created-state"><div class="created-emoji">🎉💌</div><span class="builder-kicker">YOUR QUIZ IS READY</span><h2 id="modal-title">Looking good, '+escapeHTML(name)+'!</h2><p>Your personal quiz link is ready. Send it to your friends and see who knows you best.</p><div class="share-link-box"><input id="quiz-url" readonly value="'+escapeHTML(url)+'" aria-label="Your quiz link"><button id="copy-quiz" class="modal-button">Copy link</button></div><button id="native-share" class="modal-button secondary-button wide-button">Share with friends ↗</button><div class="created-note">♡ Anyone with this link can play. Keep it among people you trust.</div><button id="edit-quiz" class="text-action">← Edit my questions</button></div>';
+function renderCreated(url,name,ownerUrl){
+ content.innerHTML='<div class="created-state"><div class="created-emoji">🎉💌</div><span class="builder-kicker">YOUR QUIZ IS READY</span><h2 id="modal-title">Looking good, '+escapeHTML(name)+'!</h2><p>Share the player link with your friends. Keep your private owner link to see everyone’s scores.</p><div class="share-link-box"><input id="quiz-url" readonly value="'+escapeHTML(url)+'" aria-label="Player quiz link"><button id="copy-quiz" class="modal-button">Copy player link</button></div><div class="share-link-box"><input id="owner-url" readonly value="'+escapeHTML(ownerUrl)+'" aria-label="Private owner scoreboard link"><button id="copy-owner" class="modal-button">Copy owner link</button></div><button id="native-share" class="modal-button secondary-button wide-button">Share player link ↗</button><div class="created-note">♡ Don’t share your owner link. Anyone who has it can view this quiz’s scoreboard.</div><button id="edit-quiz" class="text-action">← Edit my questions</button></div>';
  document.getElementById('copy-quiz').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);document.getElementById('copy-quiz').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('quiz-url').select();alert('Copy the selected link.')}});
+ document.getElementById('copy-owner').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(ownerUrl);document.getElementById('copy-owner').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('owner-url').select();alert('Copy the selected link.')}});
  document.getElementById('native-share').addEventListener('click',async()=>{if(navigator.share){try{await navigator.share({title:'Can you guess my answers?',text:'I made a CutePlay bestie quiz! See how well you know me 💗',url})}catch(e){}}else{try{await navigator.clipboard.writeText(url);alert('Quiz link copied!')}catch(e){}}});
  document.getElementById('edit-quiz').addEventListener('click',renderBuilder);
 }
@@ -278,21 +279,46 @@ function renderChallengeLanding(quiz,result){
  document.getElementById('take-challenge').addEventListener('click',()=>{const url=new URL(location.href);url.searchParams.delete('result');history.replaceState({},'',url);playSharedQuiz(quiz)});
 }
 function playSharedQuiz(quiz){
- openModal();let index=0,answers=[];
+ openModal();let index=0,answers=[],playerName='';
+ function renderName(){
+  content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">♡ '+escapeHTML(quiz.name.toUpperCase())+'’S BESTIE QUIZ ♡</span><h2 id="modal-title">Before we begin…</h2><p>Enter your name so '+escapeHTML(quiz.name)+' can see your score on the scoreboard.</p><form id="player-name-form" class="game-form"><label for="player-name">Your name</label><input id="player-name" maxlength="22" required autocomplete="nickname" placeholder="Enter your nickname"><button class="modal-button wide-button">Start quiz →</button></form></div>';
+  document.getElementById('player-name-form').addEventListener('submit',e=>{e.preventDefault();playerName=document.getElementById('player-name').value.trim().slice(0,22);if(playerName){index=0;answers=[];render()}})
+ }
+ function answerFeedback(btn,isCorrect){
+  btn.classList.add(isCorrect?'answer-correct':'answer-wrong');
+  content.querySelectorAll('[data-answer]').forEach(b=>b.disabled=true);
+  if(isCorrect){tone(820);setTimeout(()=>tone(1040),110)}else{tone(230);setTimeout(()=>tone(180),100)}
+  setTimeout(()=>{index++;if(index<quiz.questions.length)render();else showSharedScore()},650);
+ }
  function render(){
   const q=quiz.questions[index];
   content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">A QUIZ FROM '+escapeHTML(quiz.name.toUpperCase())+' 💗</span><h2 id="modal-title">How well do you know them?</h2><div class="progress"><span style="width:'+((index)/quiz.questions.length*100)+'%"></span></div><p class="question-count">QUESTION '+(index+1)+' OF '+quiz.questions.length+'</p><h3>'+escapeHTML(q.text)+'</h3><div class="question-options">'+q.options.map((o,i)=>'<button class="option-button image-option" data-answer="'+i+'"><img src="'+optionImage(o)+'" alt="'+escapeHTML(o)+'" loading="eager" decoding="async"><span>'+escapeHTML(o)+'</span></button>').join('')+'</div><p class="tiny-privacy">Choose your best guess — you can’t change it later.</p></div>';
-  content.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{answers.push(Number(btn.dataset.answer));tone(590);index++;if(index<quiz.questions.length)render();else showSharedScore()}));
+  content.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>{const chosen=Number(btn.dataset.answer),correct=chosen===q.correct;answers.push(chosen);answerFeedback(btn,correct)}));
  }
- function showSharedScore(){
+ async function showSharedScore(){
   const score=answers.reduce((sum,a,i)=>sum+(a===quiz.questions[i].correct?1:0),0),total=quiz.questions.length,percent=Math.round(score/total*100);
   const level=percent===100?['🏆','BESTIE LEGEND','You know them inside out!']:percent>=80?['💗','ULTIMATE BESTIE','You two are seriously in sync.']:percent>=60?['🫶','CLOSE FRIEND ENERGY','You know a lot about them!']:percent>=40?['🌷','GETTING CLOSER','A few more chats and you’ve got this.']:['🧸','FRIENDSHIP IN PROGRESS','Time for more fun conversations!'];
   const resultUrl=new URL(location.href);resultUrl.searchParams.set('result',score+'-'+percent);history.replaceState({},'',resultUrl.href);
+  let saved=false;
+  try{if(!cuteDb||!await cuteAuthReady)throw Error('Firebase sign-in unavailable');await cuteDb.collection('scores').add({name:playerName,playerName,quiz:quiz.name,quizId:quiz.id||new URLSearchParams(location.search).get('q')||'',score,total,percent,createdAt:firebase.firestore.FieldValue.serverTimestamp()});saved=true}catch(e){console.error('Could not save quiz score',e)}
   window.__cutePlayPendingScore={quiz:quiz.name,score,total,percent};
-  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR BESTIE QUIZ RESULT</span><h2 id="modal-title">'+percent+'%</h2><div class="score-fraction">'+score+' correct out of '+total+'</div><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">You played '+escapeHTML(quiz.name)+'’s quiz.</p><div id="score-save-area" class="score-save-area"><label for="leader-nickname">Add a nickname to the scoreboard</label><div><input id="leader-nickname" maxlength="22" placeholder="Your nickname"><button id="save-leader-score" class="modal-button">Save score</button></div></div><div class="result-actions"><button id="share-score" class="modal-button">Challenge another friend ↗</button><button id="make-own" class="modal-button secondary-button">Create my own quiz ♡</button></div><p class="tiny-privacy">Your score can appear on the shared CutePlay scoreboard.</p></div>';
+  content.innerHTML='<div class="score-reveal"><div class="score-confetti">✦ ✧ ♡ ✧ ✦</div><div class="result-emoji">'+level[0]+'</div><span class="builder-kicker">YOUR BESTIE QUIZ RESULT</span><h2 id="modal-title">'+percent+'%</h2><div class="score-fraction">'+score+' correct out of '+total+'</div><div class="score-meter"><span style="width:'+percent+'%"></span></div><h3>'+level[1]+'</h3><p>'+level[2]+'</p><p class="score-for">'+escapeHTML(playerName)+' played '+escapeHTML(quiz.name)+'’s quiz.</p><p class="tiny-privacy">'+(saved?'Your score has been added to '+escapeHTML(quiz.name)+'’s private scoreboard.':'Your score could not sync. Please check your connection and try again.')+'</p><div class="result-actions"><button id="share-score" class="modal-button">Challenge another friend ↗</button><button id="make-own" class="modal-button secondary-button">Create my own quiz ♡</button></div></div>';
   document.getElementById('share-score').addEventListener('click',()=>shareText('I scored '+score+'/'+total+' ('+percent+'%) on '+quiz.name+'’s CutePlay Bestie Quiz! My title: '+level[1]+'. Can you beat me? '+resultUrl.href));document.getElementById('make-own').addEventListener('click',()=>{history.replaceState({},'',location.pathname+'?create=1');renderBuilder()});chime();launchConfetti();
  }
- render();
+ renderName();
+}
+
+async function renderOwnerScoreboard(quiz){
+ openModal();
+ content.innerHTML='<div class="score-reveal"><div class="result-emoji">🏆</div><span class="builder-kicker">PRIVATE QUIZ OWNER VIEW</span><h2 id="modal-title">'+escapeHTML(quiz.name)+'’s Scoreboard</h2><p>Friends who completed your quiz appear here.</p><div id="owner-score-list" class="owner-score-list"><p>Loading scores…</p></div><button class="modal-button secondary-button wide-button" id="owner-back">← Back to CutePlay</button></div>';
+ document.getElementById('owner-back').addEventListener('click',()=>location.href='index.html');
+ try{
+  const id=quiz.id||new URLSearchParams(location.search).get('q');
+  const snap=await cuteDb.collection('scores').where('quizId','==',id).get();
+  const rows=snap.docs.map(d=>d.data()).sort((a,b)=>(b.percent||0)-(a.percent||0)||(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  const host=document.getElementById('owner-score-list');
+  host.innerHTML=rows.length?'<div class="owner-score-count">'+rows.length+' friends played</div>'+rows.map((r,i)=>'<div class="leader-row"><span class="leader-rank">'+(i+1)+'</span><span class="leader-avatar">'+(['🐰','🦌','🐱','🐼','🦊'][i%5])+'</span><span class="leader-details"><b>'+escapeHTML(r.playerName||r.name||'Friend')+'</b><small>'+Number(r.score||0)+' / '+Number(r.total||10)+' correct</small></span><strong>'+Number(r.percent||0)+'%</strong></div>').join(''):'<div class="leader-empty"><b>No friends have played yet</b><small>Share your player link to invite them.</small></div>';
+ }catch(e){console.error(e);document.getElementById('owner-score-list').innerHTML='<p>Could not load the scoreboard. Check Firestore read permissions.</p>'}
 }
 
 // CutePlay scorebook (local preview until a shared database is connected).
@@ -371,3 +397,10 @@ const tracks={giggles:['The Snack Debate','Laugh Loop','Oops, One More Meme'],co
 content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">YOUR SHARED SOUNDTRACK 🎧</span><h2 id="modal-title">Our Friendship Playlist</h2><p>Pick a mood to get original, made-up track names.</p></div><div class="question-options">'+moods.map(x=>'<button class="option-button" data-mood="'+x[0]+'">'+x[1]+' '+x[2]+'</button>').join('')+'</div><div id="playlist-result"></div>';
 content.querySelectorAll('[data-mood]').forEach(b=>b.addEventListener('click',()=>{const list=tracks[b.dataset.mood];document.getElementById('playlist-result').innerHTML='<div class="result-box"><div class="result-emoji">🎶</div><h3>Your playlist mood</h3><p>'+list.map((t,i)=>(i+1)+'. '+t).join('<br>')+'</p><p class="tiny-privacy">Original track names — no music is played.</p></div><button class="modal-button wide-button" id="share-playlist">Share playlist theme ↗</button>';document.getElementById('share-playlist').addEventListener('click',()=>shareText('Our CutePlay playlist theme: '+list.join(', ')));tone(700)}));
 };
+
+/* Bestie quiz answer feedback + owner scoreboard */
+.option-button.answer-correct{background:#e5f8e9!important;border:2px solid #35b65b!important;color:#176b32!important;animation:cpGreenFlash .22s ease-in-out 2}
+.option-button.answer-wrong{background:#ffe7e7!important;border:2px solid #e34c59!important;color:#a51f2b!important;animation:cpRedFlash .22s ease-in-out 2}
+@keyframes cpGreenFlash{50%{box-shadow:0 0 0 5px #65cf7a55}}
+@keyframes cpRedFlash{50%{box-shadow:0 0 0 5px #f06b7655}}
+.owner-score-list{display:grid;gap:10px;margin:20px 0;text-align:left}.owner-score-count{padding:12px;text-align:center;border-radius:14px;background:#fff0f6;color:#c84c83;font-weight:900}
