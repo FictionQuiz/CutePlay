@@ -397,10 +397,3 @@ const tracks={giggles:['The Snack Debate','Laugh Loop','Oops, One More Meme'],co
 content.innerHTML='<div class="play-quiz-head"><span class="builder-kicker">YOUR SHARED SOUNDTRACK 🎧</span><h2 id="modal-title">Our Friendship Playlist</h2><p>Pick a mood to get original, made-up track names.</p></div><div class="question-options">'+moods.map(x=>'<button class="option-button" data-mood="'+x[0]+'">'+x[1]+' '+x[2]+'</button>').join('')+'</div><div id="playlist-result"></div>';
 content.querySelectorAll('[data-mood]').forEach(b=>b.addEventListener('click',()=>{const list=tracks[b.dataset.mood];document.getElementById('playlist-result').innerHTML='<div class="result-box"><div class="result-emoji">🎶</div><h3>Your playlist mood</h3><p>'+list.map((t,i)=>(i+1)+'. '+t).join('<br>')+'</p><p class="tiny-privacy">Original track names — no music is played.</p></div><button class="modal-button wide-button" id="share-playlist">Share playlist theme ↗</button>';document.getElementById('share-playlist').addEventListener('click',()=>shareText('Our CutePlay playlist theme: '+list.join(', ')));tone(700)}));
 };
-
-/* Bestie quiz answer feedback + owner scoreboard */
-.option-button.answer-correct{background:#e5f8e9!important;border:2px solid #35b65b!important;color:#176b32!important;animation:cpGreenFlash .22s ease-in-out 2}
-.option-button.answer-wrong{background:#ffe7e7!important;border:2px solid #e34c59!important;color:#a51f2b!important;animation:cpRedFlash .22s ease-in-out 2}
-@keyframes cpGreenFlash{50%{box-shadow:0 0 0 5px #65cf7a55}}
-@keyframes cpRedFlash{50%{box-shadow:0 0 0 5px #f06b7655}}
-.owner-score-list{display:grid;gap:10px;margin:20px 0;text-align:left}.owner-score-count{padding:12px;text-align:center;border-radius:14px;background:#fff0f6;color:#c84c83;font-weight:900}
