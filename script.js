@@ -293,15 +293,15 @@ function renderCreated(url,name,ownerUrl){
  document.getElementById('copy-quiz').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(url);document.getElementById('copy-quiz').textContent='Copied ✓';tone(780)}catch(e){document.getElementById('quiz-url').select();alert('Copy the selected link.')}});
  document.getElementById('owner-board').addEventListener('click',()=>{location.href=ownerUrl});
  document.getElementById('native-share').addEventListener('click',async()=>{
-  const message='I made a CutePlay bestie quiz for you! 🎀💗 Play and see how well you know me: '+url;
+  const message='I made a CutePlay bestie quiz for you! 🎀💗 Play and see how well you know me:';
   try{
    const blob=await makeQuizShareImage(name,url);
    if(blob&&navigator.canShare&&navigator.share){
     const file=new File([blob],'cuteplay-bestie-quiz.png',{type:'image/png'});
-    if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'CutePlay Bestie Quiz',text:message});return}
+    if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'CutePlay Bestie Quiz',text:message,url});return}
    }
    if(navigator.share){await navigator.share({title:'CutePlay Bestie Quiz',text:message,url});return}
-   await navigator.clipboard.writeText(message);alert('Quiz message copied! Paste it into your chat.');
+   await navigator.clipboard.writeText(message+' '+url);alert('Quiz message copied! Paste it into your chat.');
   }catch(e){if(e.name!=='AbortError'){try{await navigator.clipboard.writeText(message);alert('Quiz link copied! Paste it into your chat.')}catch(err){document.getElementById('quiz-url').select();alert('Copy the player link above.')}}}
  });
  document.getElementById('edit-quiz').addEventListener('click',renderBuilder);
