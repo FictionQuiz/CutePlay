@@ -158,10 +158,25 @@ function startQuiz(title,intro,questions,resultLabel){
  render();
 }
 async function shareText(text){
- const data={title:'My CutePlay result',text,url:location.href};
- if(navigator.share){try{await navigator.share(data)}catch(e){}}
- else if(navigator.clipboard){try{await navigator.clipboard.writeText(text+' '+location.href);alert('Result copied! Share it with a friend.')}catch(e){alert(text)}}
- else alert(text);
+ const currentUrl=location.href;
+ const cleanText=String(text||'').replace(/\\s*https?:\\/\\/[^\\s]+/g,'').trim();
+ const message=cleanText||'I made a CutePlay challenge for you! Can you beat my score?';
+ if(navigator.share){
+  try{
+   const blob=await makeQuizShareImage('Bestie Challenge',currentUrl);
+   if(blob&&navigator.canShare){
+    const file=new File([blob],'cuteplay-bestie-challenge.png',{type:'image/png'});
+    if(navigator.canShare({files:[file]})){
+     await navigator.share({files:[file],title:'CutePlay Bestie Quiz',text:message+' '+currentUrl});
+     return;
+    }
+   }
+   await navigator.share({title:'CutePlay Bestie Quiz',text:message,url:currentUrl});
+  }catch(e){if(e.name!=='AbortError')console.error('CutePlay share failed:',e)}
+ }else if(navigator.clipboard){
+  try{await navigator.clipboard.writeText(message+' '+currentUrl);alert('Quiz message copied! Paste it into your chat.')}
+  catch(e){alert(message+' '+currentUrl)}
+ }else alert(message+' '+currentUrl);
 }
 function escapeHTML(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 
