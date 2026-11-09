@@ -159,7 +159,7 @@ function startQuiz(title,intro,questions,resultLabel){
 }
 async function shareText(text){
  const currentUrl=location.href;
- const cleanText=String(text||'').replace(/\\s*https?:\\/\\/[^\\s]+/g,'').trim();
+ const cleanText=String(text||'').replace(/\s*https?:\/\/[^\s]+/g,'').trim();
  const message=cleanText||'I made a CutePlay challenge for you! Can you beat my score?';
  if(navigator.share){
   try{
